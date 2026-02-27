@@ -1,0 +1,118 @@
+<div class="modal-header">
+  <h5 class="modal-title">Detalles del Usuario</h5>
+  <button type="button" class="btn-close" (click)="handleClose()"></button>
+</div>
+
+<div class="modal-body">
+  <form [formGroup]="userDetailsForm" class="row g-3">
+    <div class="col-md-6">
+      <label for="username" class="form-label">{{
+        'USER.VIEW.USERNAME' | translate
+      }}</label>
+      <input
+        id="username"
+        type="text"
+        class="form-control"
+        formControlName="username"
+        readonly
+      />
+    </div>
+
+    <div class="col-md-6">
+      <label for="email" class="form-label">{{
+        'USER.VIEW.EMAIL' | translate
+      }}</label>
+      <input
+        id="email"
+        type="email"
+        class="form-control"
+        formControlName="email"
+        readonly
+      />
+    </div>
+
+    <div class="col-md-6">
+      <label for="address" class="form-label">{{
+        'USER.VIEW.ADDRESS' | translate
+      }}</label>
+      <input
+        id="address"
+        type="text"
+        class="form-control"
+        formControlName="address"
+        readonly
+      />
+    </div>
+
+    <div class="col-md-6">
+      <label for="phone" class="form-label">{{
+        'USER.VIEW.PHONE' | translate
+      }}</label>
+      <input
+        id="phone"
+        type="text"
+        class="form-control"
+        formControlName="phone"
+        readonly
+      />
+    </div>
+
+    <div class="col-md-6">
+      <label for="roleId" class="form-label">{{
+        'USER.VIEW.ROLES' | translate
+      }}</label>
+      <input
+        id="roleId"
+        type="text"
+        class="form-control"
+        formControlName="roleId"
+        readonly
+      />
+    </div>
+
+    <div class="col-md-6">
+      <label for="companyId" class="form-label">{{
+        'USER.VIEW.COMPANY' | translate
+      }}</label>
+      <input
+        id="companyId"
+        type="text"
+        class="form-control"
+        formControlName="companyId"
+        readonly
+      />
+    </div>
+
+    <div class="col-md-6">
+      <label for="isLocked" class="form-label">{{
+        'USER.VIEW.IS_LOCKED' | translate
+      }}</label>
+      <input
+        id="isLocked"
+        type="text"
+        class="form-control"
+        formControlName="isLocked"
+        readonly
+      />
+    </div>
+
+    <div class="col-md-6">
+      <label for="createdAt" class="form-label">{{
+        'USER.VIEW.CREATED_AT' | translate
+      }}</label>
+      <input
+        id="createdAt"
+        type="text"
+        class="form-control"
+        formControlName="createdAt"
+        readonly
+      />
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="handleClose()">
+    {{ 'USER.VIEW.CLOSE' | translate }}
+  </button>
+</div>

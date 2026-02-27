@@ -1,0 +1,261 @@
+{
+  "LOGIN": {
+    "TITLE": "Bienvenido a la Evaluación de la Habilidad",
+    "SUBTITLE": "Iniciar sesión",
+    "DESCRIPTION": "Introduzca su correo electrónico o teléfono y contraseña para acceder a su cuenta.",
+    "JOIN_NOW": "¡Únete ahora!",
+    "NO_ACCOUNT": "¿No tienes una cuenta?",
+    "SIGNUP": "¡Regístrate!",
+    "INPUT": {
+      "EMAIL": "Correo Electronico",
+      "PASSWORD": "Contraseña",
+      "REMEMBER_ME": "Recuérdame",
+      "RECOVER_PASSWORD": "¿Recover Password?"
+    },
+    "BUTTON": {
+      "SIGN_IN": "Iniciar sesión"
+    },
+    "PLACEHOLDER": {
+      "EMAIL": "Introduzca su correo electrónico o teléfono",
+      "PASSWORD": "Introduzca su contraseña"
+    },
+    "MESSAGES": {
+      "FORM_INCOMPLETE": "Por favor complete todos los campos requeridos.",
+      "UNKNOWN_ERROR": "Inscripción de errores desconocida."
+    },
+    "LOCK_SCREEN": {
+      "HI": "¡Hola",
+      "PLEASE_ENTER_PASSWORD": "Por favor introduzca su contraseña",
+      "PLEASE_WAIT": "Ingresando, por favor espere...",
+      "ENTER_PASSWORD": "Entrar"
+    }
+  },
+  "BLOCK_SCREEN": {
+    "TITLE": "Cuenta bloqueada",
+    "HI": "¡Hola!",
+    "ACCOUNT_DEACTIVATED": "Su cuenta ha sido desactivada temporalmente. Por favor contacte al administrador para desbloquear su cuenta.",
+    "TOOLTIPS": {
+      "BACK_LOGIN": "Volver aL Inicio de sesión"
+    }
+  },
+  "SIDEBAR": {
+    "RESUME": "Resumen",
+    "DASHBOARD": "Dashboard",
+    "USERS_MANAGEMENT": "Gestión de usuarios",
+    "USERS": "Usuarios",
+    "SYSTEM_MANAGEMENT": "Gestión de sistemas",
+    "ROLES_AND_PERMISSIONS": "Roles y permisos",
+    "SYSTEM_SETTINGS": "Ajustes del sistema"
+  },
+  "TOPBAR": {
+    "SEARCH": "Busca algo...",
+    "NOTIFICATIONS": "Notificaciones",
+    "SETTINGS": "Ajustes",
+    "SUPPORT": "Apoyo",
+    "MY_ACCOUNT": "Mi cuenta",
+    "SIGN_OUT": "Sign Out"
+  },
+  "PROFILE": {
+    "TITLE": "Perfil",
+    "MY_PROFILE": {
+      "TITLE": "Mi perfil",
+      "PERSONAL_INFORMATION": "Información personal",
+      "NAME": "Nombre",
+      "LAST_NAME": "Apellido",
+      "USERNAME": "Nombre de usuario",
+      "EMAIL": "Correo Electronico",
+      "ADDRESS": "Direccion",
+      "PHONE": "Telefono",
+      "CHANGE_PHOTO": "Cambiar foto de perfil",
+      "ONLY_ALWAY_IMAGE": "Solo se permiten imagenes",
+      "CANCEL_CHANGE": "Se canceló la actualización"
+    },
+    "FIELDS": {
+      "CODE_FIELD": "Codigo",
+      "ACTUAL_PASSWORD": "Contraseña actual",
+      "NEW_PASSWORD": "Nueva contraseña",
+      "CONFIRM_PASSWORD": "Confirmar contraseña"
+    },
+    "BUTTONS": {
+      "CHANGE": "Cambiar",
+      "UPDATE": "Actualizar",
+      "CANCEL": "Cancelar",
+      "ACTIVAR_TWO_FACTOR": "Activar autenticación de dos factores",
+      "GENERATE_QR": "Generar QR",
+      "SEND_CODE": "Enviar codigo",
+      "DEACTIVATE_TWO_FACTOR": "Desactivar autenticación de dos factores",
+      "CHANGE_PASSWORD": "Cambiar contraseña",
+      "UPDATE_PASSWORD": "Actualizar contraseña"
+    },
+    "TOOLTIPS": {
+      "SUPPORT": "Para cambiar este campo, contacte a soporte."
+    },
+    "SWEET_ALERT": {
+      "CHANGE_PHOTO": "¿Deseas cambiar tu foto de perfil?"
+    },
+    "SECURITY": {
+      "TITLE": "Seguridad"
+    }
+  },
+  "USER": {
+    "TITLE": "Usuarios",
+    "BUTTONS": {
+      "ADD_USER": "Agregar usuario"
+    },
+    "FILTER": {
+      "RESET": "Resetear",
+      "FILTER": "Filtrar"
+    },
+    "TABLE": {
+      "USERNAME": "Nombre de usuario",
+      "EMAIL": "Email",
+      "ADDRESS": "Dirección",
+      "PHONE": "Telefono",
+      "ROLES": "Rol",
+      "IS_LOCKED": "Bloqueado",
+      "CREATED_AT": "Creado en",
+      "INITIAL_DATE": "Fecha de inicio",
+      "END_DATE": "Fecha de finalización",
+      "ACTIONS": "Acciones"
+    },
+    "VIEW": {
+      "USERNAME": "Nombre de usuario",
+      "EMAIL": "Email",
+      "PASSWORD": "Contraseña",
+      "ADDRESS": "Direccion",
+      "PHONE": "Telefono",
+      "ROLES": "Rol",
+      "COMPANY": "Compañia",
+      "IS_LOCKED": "Bloqueado",
+      "CREATED_AT": "Creado en",
+      "INITIAL_DATE": "Fecha de inicio",
+      "END_DATE": "Fecha de finalización",
+      "ACTIONS": "Acciones",
+      "CLOSE": "Cerrar"
+    },
+    "EDIT": {
+      "EDIT_USER": "Editar usuario",
+      "USERNAME": "Nombre de usuario",
+      "EMAIL": "Email",
+      "ADDRESS": "Direccion",
+      "PHONE": "Telefono",
+      "ROLES": "Rol",
+      "COMPANY": "Compañia",
+      "IS_LOCKED": "Bloqueado",
+      "CREATED_AT": "Creado en",
+      "INITIAL_DATE": "Fecha de inicio",
+      "END_DATE": "Fecha de finalización",
+      "CLOSE": "Cerrar"
+    },
+    "BUTTON": {
+      "CREATE": "Crear",
+      "SAVE": "Guardar cambios",
+      "CANCEL": "Cancelar",
+      "CLOSE": "Cerrar",
+      "LOCKED_TRUE": "Bloqueado",
+      "LOCKED_FALSE": "Activo"
+    },
+    "VALIDATION_USER": {
+      "USERNAME_REQUIRED": "El nombre de usuario es obligatorio (mínimo 3 caracteres).",
+      "EMAIL_INVALID": "Debe ingresar un correo válido."
+    },
+    "ERRORS": {
+      "ERROR_REQUIRED_FIELDS": "Por favor, complete todos los campos."
+    }
+  },
+  "DASHBOARD": {
+    "TITLE": "Dashboard"
+  },
+  "ROLES_AND_PERMISSIONS": {
+    "ROLE": {
+      "TITLE": "Rol",
+      "LIST_ROLES": "Lista de roles",
+      "NEW_ROLE": "Nuevo rol",
+      "EDIT_ROLE": "Editar Rol",
+      "SEARCH_ROLES": "Buscar de roles",
+      "ACTIVATE_DEACTIVATE": {
+        "ACTIVATE_ROLE": "Activar Rol",
+        "DEACTIVATE_ROLE": "Desactivar Rol",
+        "ROLE_DEACTIVATE": "Este rol esta desactivado"
+      },
+      "NO_ROLES_FOUND": "No se encontraron roles",
+      "FORM": {
+        "ROL_NAME": "Nombre del rol",
+        "DESCRIPTION": "Descripción"
+      },
+      "BUTTONS": {
+        "CREATE_ROLE": "Crear rol",
+        "EDIT_ROLE": "Actualizar Rol"
+      }
+    },
+    "MODULE": {
+      "TITLE": "Módulos",
+      "LIST_MODULES": "Lista de módulos",
+      "NEW_MODULE": "Nuevo módulo",
+      "EDIT_MODULE": "Editar módulo",
+      "SEARCH_MODULES": "Módulos de búsqueda...",
+      "ACTIVATE_DEACTIVATE": {
+        "DEACTIVATE_ALL_PERMISSIONS": "Desactivar todos los permisos"
+      },
+      "NO_MODULES_FOUND": "No hay módulos encontrados",
+      "SELECT_ROLE": "Seleccione un rol para ver los módulos",
+      "FORM": {
+        "MODULE_NAME": "Nombre del módulo",
+        "DESCRIPTION": "Descripción",
+        "ASSIGNED_ROLE": "Función asignada",
+        "ENTER_ROL_NAME": "Introduzca un nombre para el rol"
+      },
+      "BUTTONS": {
+        "CREATE_MODULE": "Crear módulo",
+        "EDIT_MODULE": "Editar módulo"
+      }
+    },
+    "PERMISSION": {
+      "TITLE": "Permisos",
+      "LIST_PERMISSIONS": "Lista de permisos",
+      "NEW_PERMISSION": "Nuevo permiso para el modulo ",
+      "EDIT_PERMISSION": "Editar permiso para el modulo ",
+      "SEARCH_PERMISSIONS": "Buscar Permisos...",
+      "ACTIVATE_DEACTIVATE": {
+        "ACTIVATE_PERMISSION": "Activar permiso",
+        "DEACTIVATE_PERMISSION": "Desactivar permiso",
+        "PERMISSION_DEACTIVATE": "Este permiso esta desactivado"
+      },
+      "NO_PERMISSIONS_FOUND": "No hay permisos encontrados",
+      "SELECT_MODULE": "Seleccione un módulo para ver los permisos",
+      "FORM": {
+        "PERMISSION_NAME": "Nombre del permiso",
+        "DESCRIPTION": "Descripción"
+      },
+      "BUTTONS": {
+        "CREATE_PERMISSION": "Crear permiso",
+        "EDIT_PERMISSION": "Editar permiso"
+      }
+    }
+  },
+  "SESSION_TIMEOUT": {
+    "WARNING_MESSAGE": "Tu sesión se bloqueará en breve."
+  },
+  "WORDS": {
+    "FILTER": "Filtro",
+    "HOME": "Inicio",
+    "RELOAD_TABLE": "Cuadro de carga",
+    "RESULTS": "Resultados",
+    "NGX_DATATABLE_EMPTY_MESSAGE": "No se han encontrado datos. Si aplica filtros, intente ajustarlos o ampliar sus criterios de búsqueda.",
+    "YES": "Sí",
+    "NO": "No",
+    "NO_ITEMS_FOUND": "No se han encontrado objetos",
+    "UPDATING": "Actualizando...",
+    "CREATING": "Creando...",
+    "WELCOME": "Bienvenido",
+    "UNKNOWN": "Error desconocido"
+  },
+  "SWEET_ALERT": {
+    "ARE_YOU_SURE": "¿Estas seguro?",
+    "YES_I_AM_SURE": "Si, estoy seguro",
+    "CANCEL": "No, Cancelar"
+  },
+  "COMPRESSION_IMG_ERRORS": {
+    "ERROR_COMPRESSION_IMG": "Error al comprimir la imagen"
+  }
+}

@@ -1,0 +1,115 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{ 'USER.EDIT.EDIT_USER' | translate }}</h5>
+  <button type="button" class="btn-close" (click)="handleClose()"></button>
+</div>
+
+<div class="modal-body">
+  <form [formGroup]="userForm" class="row g-3">
+    <div class="col-md-6">
+      <label for="username" class="form-label">{{
+        'USER.EDIT.USERNAME' | translate
+      }}</label>
+      <input
+        id="username"
+        type="text"
+        class="form-control"
+        formControlName="username"
+      />
+      <div
+        *ngIf="
+          userForm.get('username')?.invalid && userForm.get('username')?.touched
+        "
+        class="text-danger"
+      >
+        {{ 'USER.VALIDATION_USER.USERNAME_REQUIRED' | translate }}
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <label for="email" class="form-label">{{
+        'USER.EDIT.EMAIL' | translate
+      }}</label>
+      <input
+        id="email"
+        type="email"
+        class="form-control"
+        formControlName="email"
+      />
+      <div
+        *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched"
+        class="text-danger"
+      >
+        {{ 'USER.VALIDATION_USER.EMAIL_INVALID' | translate }}
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <label for="address" class="form-label">{{
+        'USER.EDIT.ADDRESS' | translate
+      }}</label>
+      <input
+        id="address"
+        type="text"
+        class="form-control"
+        formControlName="address"
+      />
+    </div>
+
+    <div class="col-md-6">
+      <label for="phone" class="form-label">{{
+        'USER.EDIT.PHONE' | translate
+      }}</label>
+      <input
+        id="phone"
+        type="text"
+        class="form-control"
+        formControlName="phone"
+      />
+    </div>
+
+    <div class="col-md-6">
+      <label for="roleId" class="form-label">{{
+        'USER.EDIT.ROLES' | translate
+      }}</label>
+      <select id="roleId" class="form-select" formControlName="roleId">
+        <option *ngFor="let role of roles" [value]="role._id">
+          {{ role.roleName }}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <label for="companyId" class="form-label">{{
+        'USER.EDIT.COMPANY' | translate
+      }}</label>
+      <select id="companyId" class="form-select" formControlName="companyId">
+        <option *ngFor="let company of companies" [value]="company._id">
+          {{ company.companyName }}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <label for="isLocked" class="form-label">{{
+        'USER.EDIT.IS_LOCKED' | translate
+      }}</label>
+      <select id="isLocked" class="form-select" formControlName="isLocked">
+        <option [value]="true">
+          {{ 'USER.BUTTON.LOCKED_TRUE' | translate }}
+        </option>
+        <option [value]="false">
+          {{ 'USER.BUTTON.LOCKED_FALSE' | translate }}
+        </option>
+      </select>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="handleClose()">
+    {{ 'USER.BUTTON.CLOSE' | translate }}
+  </button>
+  <button type="button" class="btn btn-primary" (click)="saveChanges()">
+    {{ 'USER.BUTTON.SAVE' | translate }}
+  </button>
+</div>

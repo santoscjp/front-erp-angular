@@ -1,0 +1,66 @@
+<app-create-user (userCreated)="reloadUserList()"></app-create-user>
+<page-title title="{{ 'USER.TITLE' | translate }}" />
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm 12">
+      <toogle-panel [contentComponent]="filterComponent"></toogle-panel>
+    </div>
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-end gap-2 mb-2">
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              placement="top"
+              [ngbTooltip]="'WORDS.RELOAD_TABLE' | translate"
+              (click)="reloadDatatable()"
+            >
+              <i class="fa fa-repeat"></i>
+            </button>
+
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              placement="top"
+              [ngbTooltip]="'USER.BUTTONS.ADD_USER' | translate"
+              (click)="openModal(BUTTON_ACTIONS.ADD)"
+            >
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+          <shared-ngx-datatable
+            [config]="config$ | async"
+            [data]="data$ | async"
+            (onChangeLimit)="onChangeLimit($event)"
+            (onChangePage)="onChangePage($event)"
+          >
+          </shared-ngx-datatable>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #createdAt let-row="row" let-rowIndex="rowIndex">
+  <span> {{ row.createdAt | date: FORMAT_FOR_DATES }} </span>
+</ng-template>
+
+<ng-template #actionsTemplate let-row="row" let-rowIndex="rowIndex">
+  <button
+    class="btn btn-outline-secondary btn-xs m-1"
+    placement="left"
+    [ngbTooltip]="'Ver Detalles'"
+    (click)="openModal(BUTTON_ACTIONS.VIEW, row)"
+  >
+    <i class="fa fa-eye"></i>
+  </button>
+  <button
+    class="btn btn-outline-secondary btn-xs m-1"
+    placement="left"
+    [ngbTooltip]="'Editar usuario'"
+    (click)="openModal(BUTTON_ACTIONS.EDIT, row)"
+  >
+    <i class="fa fa-edit"></i>
+  </button>
+</ng-template>

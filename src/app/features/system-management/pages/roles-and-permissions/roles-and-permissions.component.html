@@ -1,0 +1,130 @@
+<page-title title="{{ 'ROLES_AND_PERMISSIONS.ROLE.TITLE' | translate }}" />
+
+<div class="card">
+  @if (isSmallScreen) {
+    <div class="tabs-container col-12">
+      <ul class="nav nav-underline justify-content-center">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [class.active]="activeTab === 'role'"
+            (click)="activeTab = 'role'"
+          >
+            {{ 'ROLES_AND_PERMISSIONS.ROLE.TITLE' | translate }}
+          </a>
+        </li>
+        @if (selectedRoleId) {
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [class.active]="activeTab === 'module'"
+              (click)="activeTab = 'module'"
+            >
+              {{ 'ROLES_AND_PERMISSIONS.MODULE.TITLE' | translate }}
+            </a>
+          </li>
+        }
+        @if (selectedRoleId && selectedModuleId) {
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [class.active]="activeTab === 'permission'"
+              (click)="activeTab = 'permission'"
+            >
+              {{ 'ROLES_AND_PERMISSIONS.PERMISSION.TITLE' | translate }}
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+  }
+  <div class="chat row">
+    @if (!isSmallScreen) {
+      <div class="chat d-flex">
+        <div
+          class="offcanvas-xxl"
+          tabindex="-1"
+          aria-labelledby="chatUserListLabel"
+        >
+          <role-left-side-bar />
+        </div>
+
+        @if (selectedRoleId) {
+          <div class="w-100">
+            <module-area />
+          </div>
+
+          @if (selectedModuleId && selectedRoleId) {
+            <div
+              class="offcanvas-xxl"
+              tabindex="-1"
+              aria-labelledby="chatUserListLabel"
+            >
+              <permission-rigth-side-bar />
+            </div>
+          } @else {
+            <div
+              class="w-25 d-flex align-items-center justify-content-center p-5"
+            >
+              <p class="text-muted fs-5">
+                {{
+                  'ROLES_AND_PERMISSIONS.PERMISSION.SELECT_MODULE' | translate
+                }}
+              </p>
+            </div>
+          }
+        } @else {
+          <div
+            class="w-100 d-flex align-items-center justify-content-center p-5"
+          >
+            <p class="text-muted fs-5">
+              {{ 'ROLES_AND_PERMISSIONS.MODULE.SELECT_ROLE' | translate }}
+            </p>
+          </div>
+        }
+      </div>
+    }
+    @if (isSmallScreen) {
+      <div class="tabs-container col-12">
+        <div [ngSwitch]="activeTab" class="tab-content centered-content">
+          @switch (activeTab) {
+            @case ('role') {
+              <role-left-side-bar class="border-end" />
+            }
+            @case ('module') {
+              <module-area>
+                @if (selectedRoleId && !selectedModuleId) {
+                  <div
+                    class="d-flex align-items-center justify-content-center p-5"
+                  >
+                    <p class="text-muted fs-5">
+                      {{
+                        'ROLES_AND_PERMISSIONS.PERMISSION.SELECT_MODULE'
+                          | translate
+                      }}
+                    </p>
+                  </div>
+                }
+              </module-area>
+            }
+            @case ('permission') {
+              <permission-rigth-side-bar class="border-end">
+                @if (selectedRoleId && selectedModuleId && !selectedModuleId) {
+                  <div
+                    class="d-flex align-items-center justify-content-center p-5"
+                  >
+                    <p class="text-muted fs-5">
+                      {{
+                        'ROLES_AND_PERMISSIONS.MODULE.SELECT_ROLE' | translate
+                      }}
+                    </p>
+                  </div>
+                }
+              </permission-rigth-side-bar>
+            }
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>

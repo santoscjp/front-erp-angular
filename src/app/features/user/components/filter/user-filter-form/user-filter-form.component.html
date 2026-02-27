@@ -1,0 +1,143 @@
+<form [formGroup]="userFilterForm" (ngSubmit)="onSubmit()">
+  <div class="card-body">
+    <div class="row">
+      <div class="mb-3 col-md-2">
+        <label class="form-label">{{
+          'USER.TABLE.INITIAL_DATE' | translate
+        }}</label>
+        <input
+          mwlFlatpickr
+          [flatpickrOptions]="{
+            enableTime: true,
+            dateFormat: 'Y-m-d H:i',
+          }"
+          type="text"
+          class="form-control"
+          data-provider="flatpickr"
+          data-date-format="d.m.y"
+          data-enable-time
+          placeholder="{{ currentDatePlaceholder }}"
+          formControlName="fromDate"
+        />
+      </div>
+      <div class="mb-3 col-md-2">
+        <label class="form-label">{{
+          'USER.TABLE.END_DATE' | translate
+        }}</label>
+        <input
+          mwlFlatpickr
+          [flatpickrOptions]="{
+            enableTime: true,
+            dateFormat: 'Y-m-d H:i',
+          }"
+          type="text"
+          class="form-control"
+          data-provider="flatpickr"
+          data-date-format="d.m.y"
+          data-enable-time
+          placeholder="{{ endOfMonthPlaceholder }}"
+          formControlName="toDate"
+        />
+      </div>
+      <div class="mb-3 col-md-2">
+        <label for="username" class="form-label">{{
+          'USER.TABLE.USERNAME' | translate
+        }}</label>
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          formControlName="username"
+        />
+      </div>
+      <div class="mb-3 col-md-2">
+        <label for="email" class="form-label">{{
+          'USER.TABLE.EMAIL' | translate
+        }}</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          formControlName="email"
+        />
+      </div>
+      <div class="mb-3 col-md-2">
+        <label for="address" class="form-label">{{
+          'USER.TABLE.ADDRESS' | translate
+        }}</label>
+        <input
+          type="text"
+          class="form-control"
+          id="address"
+          formControlName="address"
+        />
+      </div>
+      <div class="mb-3 col-md-2">
+        <label for="phone" class="form-label">{{
+          'USER.TABLE.PHONE' | translate
+        }}</label>
+        <input
+          type="text"
+          class="form-control"
+          id="phone"
+          formControlName="phone"
+        />
+      </div>
+
+      <div class="mb-3 col-md-2">
+        <label for="isLocked" class="form-label">{{
+          'USER.TABLE.IS_LOCKED' | translate
+        }}</label>
+        <ng-select
+          id="isLocked"
+          formControlName="isLocked"
+          [items]="blocked$ | async"
+          bindLabel="label"
+          bindValue="value"
+        >
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.label | translate }}
+          </ng-template>
+
+          <ng-template ng-label-tmp let-item="item">
+            {{ item.label | translate }}
+          </ng-template></ng-select
+        >
+      </div>
+      <!-- <div class="mb-3 col-md-2">
+        <label for="isLocked" class="form-label">{{
+          'USER.TABLE.ROLES' | translate
+        }}</label>
+        <ng-select
+          id="roleId"
+          formControlName="roleId"
+          [items]="blocked$ | async"
+          bindLabel="label"
+          bindValue="value"
+        >
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.label | translate }}
+          </ng-template>
+
+          <ng-template ng-label-tmp let-item="item">
+            {{ item.label | translate }}
+          </ng-template></ng-select
+        >
+      </div> -->
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="d-flex align-items-center justify-content-end gap-2">
+      <button
+        type="button"
+        class="btn btn-outline-secondary"
+        (click)="onReset()"
+      >
+        {{ 'USER.FILTER.RESET' | translate }}
+      </button>
+      <button type="submit" class="btn btn-outline-secondary">
+        {{ 'USER.FILTER.FILTER' | translate }}
+      </button>
+    </div>
+  </div>
+</form>
