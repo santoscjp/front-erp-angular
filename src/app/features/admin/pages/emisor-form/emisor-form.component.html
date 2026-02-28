@@ -1,234 +1,481 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-12">
-      <div class="page-title-box d-flex align-items-center justify-content-between">
+      <div
+        class="page-title-box d-flex align-items-center justify-content-between"
+      >
         <h4 class="page-title">{{ 'ADMIN.EMISOR.NEW' | translate }}</h4>
-        <a routerLink="/admin/emisores" class="btn btn-outline-secondary">
-          <i class="ti ti-arrow-left me-1"></i>
-          {{ 'ADMIN.EMISOR.TITLE' | translate }}
-        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stepper Header -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="wizard-steps">
+            <div class="wizard-steps__line"></div>
+            <div
+              class="wizard-steps__progress"
+              [style.width]="getProgressWidth()"
+            ></div>
+
+            <!-- Step 1 -->
+            <div
+              class="wizard-steps__item"
+              [class.wizard-steps__item--active]="currentStep === 1"
+              [class.wizard-steps__item--completed]="currentStep > 1"
+              (click)="goToStep(1)"
+            >
+              <div class="wizard-steps__circle">
+                @if (currentStep > 1) {
+                  <i class="ti ti-check"></i>
+                } @else {
+                  <span>1</span>
+                }
+              </div>
+              <div class="wizard-steps__step-label">
+                {{ 'ADMIN.EMISOR.FORM.STEP_LABEL' | translate }} 1
+              </div>
+              <div class="wizard-steps__title">
+                {{ 'ADMIN.EMISOR.FORM.STEP_USER' | translate }}
+              </div>
+              <div class="wizard-steps__badge">
+                {{ 'ADMIN.EMISOR.FORM.STATUS.' + getStepStatus(1) | translate }}
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div
+              class="wizard-steps__item"
+              [class.wizard-steps__item--active]="currentStep === 2"
+              [class.wizard-steps__item--completed]="currentStep > 2"
+              (click)="goToStep(2)"
+            >
+              <div class="wizard-steps__circle">
+                @if (currentStep > 2) {
+                  <i class="ti ti-check"></i>
+                } @else {
+                  <span>2</span>
+                }
+              </div>
+              <div class="wizard-steps__step-label">
+                {{ 'ADMIN.EMISOR.FORM.STEP_LABEL' | translate }} 2
+              </div>
+              <div class="wizard-steps__title">
+                {{ 'ADMIN.EMISOR.FORM.STEP_EMISOR' | translate }}
+              </div>
+              <div class="wizard-steps__badge">
+                {{ 'ADMIN.EMISOR.FORM.STATUS.' + getStepStatus(2) | translate }}
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div
+              class="wizard-steps__item"
+              [class.wizard-steps__item--active]="currentStep === 3"
+              [class.wizard-steps__item--completed]="currentStep > 3"
+              (click)="goToStep(3)"
+            >
+              <div class="wizard-steps__circle">
+                @if (currentStep > 3) {
+                  <i class="ti ti-check"></i>
+                } @else {
+                  <span>3</span>
+                }
+              </div>
+              <div class="wizard-steps__step-label">
+                {{ 'ADMIN.EMISOR.FORM.STEP_LABEL' | translate }} 3
+              </div>
+              <div class="wizard-steps__title">
+                {{ 'ADMIN.EMISOR.FORM.STEP_MODULES' | translate }}
+              </div>
+              <div class="wizard-steps__badge">
+                {{ 'ADMIN.EMISOR.FORM.STATUS.' + getStepStatus(3) | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
   <form [formGroup]="emisorForm" (ngSubmit)="onSubmit()">
-    <!-- Emisor Data -->
-    <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="card-title mb-0">
-              {{ 'ADMIN.EMISOR.FORM.EMISOR_DATA' | translate }}
-            </h5>
-          </div>
-          <div class="card-body">
-            <div class="row g-3">
-              <div class="col-md-4">
-                <label class="form-label">{{ 'ADMIN.EMISOR.FORM.RUC' | translate }} *</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="ruc"
-                  [class.is-invalid]="f['ruc'].touched && f['ruc'].invalid"
-                  maxlength="13"
-                />
-                @if (f['ruc'].touched && f['ruc'].errors) {
-                  <div class="invalid-feedback">
-                    @if (f['ruc'].errors['required']) {
-                      {{ 'ADMIN.EMISOR.VALIDATION.RUC_LENGTH' | translate }}
-                    }
-                    @if (f['ruc'].errors['rucInvalid'] || f['ruc'].errors['pattern']) {
-                      {{ 'ADMIN.EMISOR.VALIDATION.RUC_INVALID' | translate }}
-                    }
-                  </div>
-                }
-              </div>
-              <div class="col-md-4">
-                <label class="form-label">{{ 'ADMIN.EMISOR.FORM.RAZON_SOCIAL' | translate }} *</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="razonSocial"
-                  [class.is-invalid]="f['razonSocial'].touched && f['razonSocial'].invalid"
-                />
-              </div>
-              <div class="col-md-4">
-                <label class="form-label">{{ 'ADMIN.EMISOR.FORM.NOMBRE_COMERCIAL' | translate }}</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="nombreComercial"
-                />
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">{{ 'ADMIN.EMISOR.FORM.DIRECCION_MATRIZ' | translate }} *</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="direccionMatriz"
-                  [class.is-invalid]="f['direccionMatriz'].touched && f['direccionMatriz'].invalid"
-                />
-              </div>
-              <div class="col-md-3">
-                <label class="form-label">{{ 'ADMIN.EMISOR.FORM.OBLIGADO_CONTABILIDAD' | translate }}</label>
-                <select class="form-select" formControlName="obligadoContabilidad">
-                  <option value="SI">{{ 'WORDS.YES' | translate }}</option>
-                  <option value="NO">{{ 'WORDS.NO' | translate }}</option>
-                </select>
-              </div>
-              <div class="col-md-3">
-                <label class="form-label">{{ 'ADMIN.EMISOR.FORM.CONTRIBUYENTE_ESPECIAL' | translate }}</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="contribuyenteEspecial"
-                />
-              </div>
-              <div class="col-md-4">
-                <div class="form-check mt-4">
-                  <input class="form-check-input" type="checkbox" formControlName="agenteRetencion" id="agenteRetencion" />
-                  <label class="form-check-label" for="agenteRetencion">
-                    {{ 'ADMIN.EMISOR.FORM.AGENTE_RETENCION' | translate }}
+    <!-- Step 1: Admin User -->
+    @if (currentStep === 1) {
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title mb-0">
+                {{ 'ADMIN.EMISOR.FORM.ADMIN_USER_SECTION' | translate }}
+              </h5>
+            </div>
+            <div class="card-body">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">
+                    {{ 'USER.VIEW.USERNAME' | translate }} *
                   </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="adminUsername"
+                    [placeholder]="
+                      'ADMIN.EMISOR.FORM.PLACEHOLDER.USERNAME' | translate
+                    "
+                    [class.is-invalid]="
+                      f['adminUsername'].touched && f['adminUsername'].invalid
+                    "
+                  />
+                  @if (
+                    f['adminUsername'].touched && f['adminUsername'].invalid
+                  ) {
+                    <div class="invalid-feedback">
+                      {{ 'USER.VALIDATION_USER.USERNAME_REQUIRED' | translate }}
+                    </div>
+                  }
                 </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-check mt-4">
-                  <input class="form-check-input" type="checkbox" formControlName="regimenMicroempresa" id="regimenMicroempresa" />
-                  <label class="form-check-label" for="regimenMicroempresa">
-                    {{ 'ADMIN.EMISOR.FORM.REGIMEN_MICROEMPRESA' | translate }}
+                <div class="col-md-6">
+                  <label class="form-label">
+                    {{ 'USER.VIEW.PASSWORD' | translate }} *
                   </label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    formControlName="adminPassword"
+                    [placeholder]="
+                      'ADMIN.EMISOR.FORM.PLACEHOLDER.PASSWORD' | translate
+                    "
+                    [class.is-invalid]="
+                      f['adminPassword'].touched && f['adminPassword'].invalid
+                    "
+                  />
                 </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-check mt-4">
-                  <input class="form-check-input" type="checkbox" formControlName="regimenRimpe" id="regimenRimpe" />
-                  <label class="form-check-label" for="regimenRimpe">
-                    {{ 'ADMIN.EMISOR.FORM.REGIMEN_RIMPE' | translate }}
+                <div class="col-md-6">
+                  <label class="form-label">
+                    {{ 'WORDS.FIRST_NAME' | translate }} *
                   </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="adminFirstName"
+                    [placeholder]="
+                      'ADMIN.EMISOR.FORM.PLACEHOLDER.FIRST_NAME' | translate
+                    "
+                    [class.is-invalid]="
+                      f['adminFirstName'].touched && f['adminFirstName'].invalid
+                    "
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">
+                    {{ 'WORDS.LAST_NAME' | translate }} *
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="adminLastName"
+                    [placeholder]="
+                      'ADMIN.EMISOR.FORM.PLACEHOLDER.LAST_NAME' | translate
+                    "
+                    [class.is-invalid]="
+                      f['adminLastName'].touched && f['adminLastName'].invalid
+                    "
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">
+                    {{ 'USER.VIEW.EMAIL' | translate }} *
+                  </label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    formControlName="adminEmail"
+                    [placeholder]="
+                      'ADMIN.EMISOR.FORM.PLACEHOLDER.EMAIL' | translate
+                    "
+                    [class.is-invalid]="
+                      f['adminEmail'].touched && f['adminEmail'].invalid
+                    "
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">
+                    {{ 'USER.VIEW.ROLES' | translate }} *
+                  </label>
+                  <ng-select
+                    formControlName="adminRoleId"
+                    [items]="roles"
+                    bindLabel="displayName"
+                    bindValue="id"
+                    [placeholder]="'USER.VIEW.ROLES' | translate"
+                    [class.is-invalid]="
+                      f['adminRoleId'].touched && f['adminRoleId'].invalid
+                    "
+                  ></ng-select>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    }
 
-    <!-- Modules -->
-    <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="card-title mb-0">
-              {{ 'ADMIN.EMISOR.FORM.MODULES_SECTION' | translate }}
-            </h5>
-          </div>
-          <div class="card-body">
-            <div class="row g-3">
-              @for (moduleKey of moduleKeys; track moduleKey) {
-                <div class="col-md-4 col-lg-3">
-                  <div class="form-check">
+    <!-- Step 2: Emisor Data -->
+    @if (currentStep === 2) {
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title mb-0">
+                {{ 'ADMIN.EMISOR.FORM.EMISOR_DATA' | translate }}
+              </h5>
+            </div>
+            <div class="card-body">
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label class="form-label">
+                    {{ 'ADMIN.EMISOR.FORM.RUC' | translate }} *
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="ruc"
+                    [placeholder]="
+                      'ADMIN.EMISOR.FORM.PLACEHOLDER.RUC' | translate
+                    "
+                    [class.is-invalid]="f['ruc'].touched && f['ruc'].invalid"
+                    maxlength="13"
+                  />
+                  @if (f['ruc'].touched && f['ruc'].errors) {
+                    <div class="invalid-feedback">
+                      @if (f['ruc'].errors['required']) {
+                        {{ 'ADMIN.EMISOR.VALIDATION.RUC_LENGTH' | translate }}
+                      }
+                      @if (
+                        f['ruc'].errors['rucInvalid'] ||
+                        f['ruc'].errors['pattern']
+                      ) {
+                        {{ 'ADMIN.EMISOR.VALIDATION.RUC_INVALID' | translate }}
+                      }
+                    </div>
+                  }
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">
+                    {{ 'ADMIN.EMISOR.FORM.RAZON_SOCIAL' | translate }} *
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="razonSocial"
+                    [placeholder]="
+                      'ADMIN.EMISOR.FORM.PLACEHOLDER.RAZON_SOCIAL' | translate
+                    "
+                    [class.is-invalid]="
+                      f['razonSocial'].touched && f['razonSocial'].invalid
+                    "
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">
+                    {{ 'ADMIN.EMISOR.FORM.NOMBRE_COMERCIAL' | translate }}
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="nombreComercial"
+                    [placeholder]="
+                      'ADMIN.EMISOR.FORM.PLACEHOLDER.NOMBRE_COMERCIAL'
+                        | translate
+                    "
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">
+                    {{ 'ADMIN.EMISOR.FORM.DIRECCION_MATRIZ' | translate }}
+                    *
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="direccionMatriz"
+                    [placeholder]="
+                      'ADMIN.EMISOR.FORM.PLACEHOLDER.DIRECCION_MATRIZ'
+                        | translate
+                    "
+                    [class.is-invalid]="
+                      f['direccionMatriz'].touched &&
+                      f['direccionMatriz'].invalid
+                    "
+                  />
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">
+                    {{ 'ADMIN.EMISOR.FORM.OBLIGADO_CONTABILIDAD' | translate }}
+                  </label>
+                  <select
+                    class="form-select"
+                    formControlName="obligadoContabilidad"
+                  >
+                    <option value="SI">{{ 'WORDS.YES' | translate }}</option>
+                    <option value="NO">{{ 'WORDS.NO' | translate }}</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">
+                    {{ 'ADMIN.EMISOR.FORM.CONTRIBUYENTE_ESPECIAL' | translate }}
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="contribuyenteEspecial"
+                    [placeholder]="
+                      'ADMIN.EMISOR.FORM.PLACEHOLDER.CONTRIBUYENTE_ESPECIAL'
+                        | translate
+                    "
+                  />
+                </div>
+                <div class="col-md-4">
+                  <div class="form-check mt-4">
                     <input
                       class="form-check-input"
                       type="checkbox"
-                      [id]="'module_' + moduleKey"
-                      [checked]="isModuleSelected(moduleKey)"
-                      (change)="onModuleToggle(moduleKey, $event)"
+                      formControlName="agenteRetencion"
+                      id="agenteRetencion"
                     />
-                    <label class="form-check-label" [for]="'module_' + moduleKey">
-                      {{ moduleLabels[moduleKey] | translate }}
+                    <label class="form-check-label" for="agenteRetencion">
+                      {{ 'ADMIN.EMISOR.FORM.AGENTE_RETENCION' | translate }}
                     </label>
                   </div>
                 </div>
-              }
+                <div class="col-md-4">
+                  <div class="form-check mt-4">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      formControlName="regimenMicroempresa"
+                      id="regimenMicroempresa"
+                    />
+                    <label class="form-check-label" for="regimenMicroempresa">
+                      {{ 'ADMIN.EMISOR.FORM.REGIMEN_MICROEMPRESA' | translate }}
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-check mt-4">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      formControlName="regimenRimpe"
+                      id="regimenRimpe"
+                    />
+                    <label class="form-check-label" for="regimenRimpe">
+                      {{ 'ADMIN.EMISOR.FORM.REGIMEN_RIMPE' | translate }}
+                    </label>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    }
 
-    <!-- Admin User -->
-    <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="card-title mb-0">
-              {{ 'ADMIN.EMISOR.FORM.ADMIN_USER_SECTION' | translate }}
-            </h5>
-          </div>
-          <div class="card-body">
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label class="form-label">{{ 'USER.VIEW.USERNAME' | translate }} *</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="adminUsername"
-                  [class.is-invalid]="f['adminUsername'].touched && f['adminUsername'].invalid"
-                />
-                @if (f['adminUsername'].touched && f['adminUsername'].invalid) {
-                  <div class="invalid-feedback">
-                    {{ 'USER.VALIDATION_USER.USERNAME_REQUIRED' | translate }}
+    <!-- Step 3: Modules -->
+    @if (currentStep === 3) {
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title mb-0">
+                {{ 'ADMIN.EMISOR.FORM.MODULES_SECTION' | translate }}
+              </h5>
+            </div>
+            <div class="card-body">
+              <div class="row g-3">
+                @for (moduleKey of moduleKeys; track moduleKey) {
+                  <div class="col-md-4 col-lg-3">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        [id]="'module_' + moduleKey"
+                        [checked]="isModuleSelected(moduleKey)"
+                        (change)="onModuleToggle(moduleKey, $event)"
+                      />
+                      <label
+                        class="form-check-label"
+                        [for]="'module_' + moduleKey"
+                      >
+                        {{ moduleLabels[moduleKey] | translate }}
+                      </label>
+                    </div>
                   </div>
                 }
               </div>
-              <div class="col-md-6">
-                <label class="form-label">{{ 'USER.VIEW.EMAIL' | translate }} *</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  formControlName="adminEmail"
-                  [class.is-invalid]="f['adminEmail'].touched && f['adminEmail'].invalid"
-                />
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">{{ 'USER.VIEW.PASSWORD' | translate }} *</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  formControlName="adminPassword"
-                  [class.is-invalid]="f['adminPassword'].touched && f['adminPassword'].invalid"
-                />
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">{{ 'WORDS.FIRST_NAME' | translate }} *</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="adminFirstName"
-                  [class.is-invalid]="f['adminFirstName'].touched && f['adminFirstName'].invalid"
-                />
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">{{ 'WORDS.LAST_NAME' | translate }} *</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="adminLastName"
-                  [class.is-invalid]="f['adminLastName'].touched && f['adminLastName'].invalid"
-                />
-              </div>
+
+
             </div>
           </div>
         </div>
       </div>
-    </div>
+    }
 
     <!-- Actions -->
     <div class="row mb-4">
       <div class="col-12 d-flex justify-content-end gap-2">
-        <a routerLink="/admin/emisores" class="btn btn-outline-secondary">
-          {{ 'USER.BUTTON.CANCEL' | translate }}
-        </a>
-        <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
-          @if (isSubmitting) {
-            <span class="spinner-border spinner-border-sm me-1" role="status"></span>
-            {{ 'WORDS.CREATING' | translate }}
-          } @else {
-            <i class="ti ti-check me-1"></i>
-            {{ 'USER.BUTTON.CREATE' | translate }}
-          }
-        </button>
+        @if (currentStep === 1) {
+          <a routerLink="/admin/emisores" class="btn btn-outline-secondary">
+            {{ 'USER.BUTTON.CANCEL' | translate }}
+          </a>
+          <button type="button" class="btn btn-primary" (click)="nextStep()">
+            {{ 'ADMIN.EMISOR.FORM.NEXT' | translate }}
+            <i class="ti ti-arrow-right ms-1"></i>
+          </button>
+        }
+        @if (currentStep === 2) {
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            (click)="previousStep()"
+          >
+            <i class="ti ti-arrow-left me-1"></i>
+            {{ 'ADMIN.EMISOR.FORM.PREVIOUS' | translate }}
+          </button>
+          <button type="button" class="btn btn-primary" (click)="nextStep()">
+            {{ 'ADMIN.EMISOR.FORM.NEXT' | translate }}
+            <i class="ti ti-arrow-right ms-1"></i>
+          </button>
+        }
+        @if (currentStep === 3) {
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            (click)="previousStep()"
+          >
+            <i class="ti ti-arrow-left me-1"></i>
+            {{ 'ADMIN.EMISOR.FORM.PREVIOUS' | translate }}
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="isSubmitting"
+          >
+            @if (isSubmitting) {
+              <span
+                class="spinner-border spinner-border-sm me-1"
+                role="status"
+              ></span>
+              {{ 'WORDS.CREATING' | translate }}
+            } @else {
+              <i class="ti ti-check me-1"></i>
+              {{ 'USER.BUTTON.CREATE' | translate }}
+            }
+          </button>
+        }
       </div>
     </div>
   </form>

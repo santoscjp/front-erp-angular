@@ -13,7 +13,7 @@ import { Role } from '@core/interfaces/api/rol.interface'
   providedIn: 'root',
 })
 export class RoleService {
-  private API_URL = `${environment.apiBaseUrl}/role`
+  private API_URL = `${environment.apiBaseUrl}/auth/role`
   private _notificationService!: ToastrNotificationService
 
   private _httpClient = inject(HttpClient)
@@ -45,7 +45,7 @@ export class RoleService {
     page: number = 1,
     limit: number = 10,
   ): Observable<ApiResponse<ApiData<Role[]>>> {
-    const endpoint = `${this.API_URL}/get-all`
+    const endpoint = `${this.API_URL}`
 
     let params = new HttpParams()
       .set('page', page.toString())
@@ -58,6 +58,11 @@ export class RoleService {
     return this._httpClient.get<ApiResponse<ApiData<Role[]>>>(endpoint, {
       params,
     })
+  }
+
+  public getSelectableRoles(): Observable<ApiResponse<Role[]>> {
+    const endpoint = `${environment.apiBaseUrl}/auth/roles`
+    return this._httpClient.get<ApiResponse<Role[]>>(endpoint)
   }
 
   public getRoleById(id: number): Observable<ApiResponse<ApiData<Role>>> {

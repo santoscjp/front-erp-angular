@@ -1,0 +1,190 @@
+//
+// wizard-steps.scss
+//
+
+$wizard-circle-sm: 28px;
+$wizard-circle-lg: 34px;
+$wizard-line-height: 2px;
+$wizard-ring-gap: 2px;
+$wizard-ring-width: 2px;
+
+.wizard-steps {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+
+  // Background line (gray) — from center of first item to center of last
+  &__line {
+    position: absolute;
+    top: calc($wizard-circle-lg / 2);
+    left: calc(100% / 6);
+    right: calc(100% / 6);
+    height: $wizard-line-height;
+    background-color: var(--#{$prefix}gray-300);
+    z-index: 0;
+  }
+
+  // Progress line (dark)
+  &__progress {
+    position: absolute;
+    top: calc($wizard-circle-lg / 2);
+    left: calc(100% / 6);
+    height: $wizard-line-height;
+    background-color: var(--#{$prefix}gray-900);
+    z-index: 1;
+    transition: width 0.3s ease;
+    // width is set dynamically — represents fraction of the line between first and last circle
+    // 0% = step 1, 50% = step 2, 100% = step 3
+    // but since the container is 66% of parent (from 16.6% to 83.3%),
+    // we need to scale: max-width = right - left = 66.6%
+    max-width: calc(100% * 2 / 3);
+  }
+
+  // Individual step
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+  }
+
+  // Circle (default = pending)
+  &__circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $wizard-circle-sm;
+    height: $wizard-circle-sm;
+    border-radius: 50%;
+    background-color: var(--#{$prefix}gray-100);
+    border: 1.5px solid var(--#{$prefix}gray-300);
+    // vertically center with the active circle
+    margin-top: calc(($wizard-circle-lg - $wizard-circle-sm) / 2);
+    margin-bottom: 6px;
+    transition: all 0.3s ease;
+
+    // Inner hollow dot for pending
+    &::after {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      border: 1.5px solid var(--#{$prefix}gray-400);
+    }
+
+    span,
+    i {
+      display: none;
+    }
+  }
+
+  // "PASO 1"
+  &__step-label {
+    font-size: 0.5625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--#{$prefix}gray-400);
+    margin-bottom: 1px;
+  }
+
+  // "Usuario"
+  &__title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--#{$prefix}gray-500);
+    margin-bottom: 4px;
+  }
+
+  // Badge
+  &__badge {
+    font-size: 0.5625rem;
+    font-weight: 500;
+    padding: 1px 8px;
+    border-radius: 10px;
+    background-color: var(--#{$prefix}gray-100);
+    color: var(--#{$prefix}gray-500);
+  }
+
+  // ------- Active -------
+  &__item--active {
+    .wizard-steps__circle {
+      width: $wizard-circle-lg;
+      height: $wizard-circle-lg;
+      margin-top: 0;
+      background-color: var(--#{$prefix}gray-900);
+      border: 2px solid var(--#{$prefix}gray-900);
+      box-shadow:
+        0 0 0 $wizard-ring-gap var(--#{$prefix}body-bg),
+        0 0 0 calc($wizard-ring-gap + $wizard-ring-width) var(--#{$prefix}gray-900);
+
+      &::after {
+        display: none;
+      }
+
+      span {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: $white;
+      }
+    }
+
+    .wizard-steps__title {
+      color: var(--#{$prefix}gray-900);
+    }
+
+    .wizard-steps__badge {
+      background-color: rgba($success, 0.1);
+      color: $success;
+    }
+  }
+
+  // ------- Completed -------
+  &__item--completed {
+    .wizard-steps__circle {
+      background-color: var(--#{$prefix}gray-900);
+      border: 1.5px solid var(--#{$prefix}gray-900);
+      box-shadow:
+        0 0 0 $wizard-ring-gap var(--#{$prefix}body-bg),
+        0 0 0 calc($wizard-ring-gap + $wizard-ring-width) var(--#{$prefix}gray-900);
+
+      &::after {
+        display: none;
+      }
+
+      i {
+        display: block;
+        font-size: 0.9rem;
+        color: $white;
+      }
+    }
+
+    .wizard-steps__title {
+      color: var(--#{$prefix}gray-900);
+    }
+
+    .wizard-steps__badge {
+      background-color: rgba($success, 0.1);
+      color: $success;
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .wizard-steps {
+    &__step-label,
+    &__badge {
+      font-size: 0.5rem;
+    }
+
+    &__title {
+      font-size: 0.6875rem;
+    }
+  }
+}

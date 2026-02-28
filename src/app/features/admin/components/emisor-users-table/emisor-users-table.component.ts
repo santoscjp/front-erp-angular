@@ -9,13 +9,13 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   TemplateRef,
   ViewChild,
+  inject,
 } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { NgxDatatableModule, ColumnMode } from '@swimlane/ngx-datatable'
 import { AdminEmisorService } from '@core/services/api/admin-emisor.service'
 import { User } from '@core/interfaces/api/user.interface'
-import { inject } from '@angular/core'
 
 @Component({
   selector: 'app-emisor-users-table',
@@ -28,10 +28,12 @@ import { inject } from '@angular/core'
 export class EmisorUsersTableComponent implements OnInit, OnChanges {
   @Input() emisorId!: number
   @Output() createUserRequested = new EventEmitter<void>()
+  @Output() editUserRequested = new EventEmitter<User>()
 
   @ViewChild('roleTpl', { static: true }) roleTpl!: TemplateRef<unknown>
   @ViewChild('sourceTpl', { static: true }) sourceTpl!: TemplateRef<unknown>
   @ViewChild('statusTpl', { static: true }) statusTpl!: TemplateRef<unknown>
+  @ViewChild('actionsTpl', { static: true }) actionsTpl!: TemplateRef<unknown>
 
   private adminService = inject(AdminEmisorService)
   private translate = inject(TranslateService)
@@ -85,6 +87,12 @@ export class EmisorUsersTableComponent implements OnInit, OnChanges {
         cellTemplate: this.statusTpl,
         width: 100,
       },
+      {
+        name: this.translate.instant('USER.TABLE.ACTIONS'),
+        cellTemplate: this.actionsTpl,
+        width: 80,
+        sortable: false,
+      },
     ]
   }
 
@@ -103,6 +111,10 @@ export class EmisorUsersTableComponent implements OnInit, OnChanges {
 
   onCreateUser(): void {
     this.createUserRequested.emit()
+  }
+
+  onEditUser(user: User): void {
+    this.editUserRequested.emit(user)
   }
 
   trackByUserId(_index: number, user: User): number {

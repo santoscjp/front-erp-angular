@@ -1,23 +1,14 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-12">
-      <div
-        class="page-title-box d-flex align-items-center justify-content-between"
+  <div class="page-title-box">
+    <h4 class="page-title">{{ 'ADMIN.EMISOR.TITLE' | translate }}</h4>
+    <div class="d-flex align-items-center gap-2">
+      <a
+        routerLink="/admin/emisores/nuevo"
+        class="btn btn-outline-light border text-dark btn-sm"
       >
-        <h4 class="page-title mb-0">{{ 'ADMIN.EMISOR.TITLE' | translate }}</h4>
-        <div class="d-flex align-items-center gap-2">
-          <a
-            routerLink="/admin/emisores/nuevo"
-            class="btn emisor-list__btn-new"
-          >
-            <iconify-icon
-              icon="solar:add-circle-bold-duotone"
-              class="me-1"
-            ></iconify-icon>
-            {{ 'ADMIN.EMISOR.NEW' | translate }}
-          </a>
-        </div>
-      </div>
+        <i class="ti ti-plus me-1"></i>
+        {{ 'ADMIN.EMISOR.NEW' | translate }}
+      </a>
     </div>
   </div>
 

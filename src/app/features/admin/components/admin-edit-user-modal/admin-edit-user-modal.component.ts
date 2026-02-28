@@ -16,30 +16,24 @@ import {
 } from '@angular/forms'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { AdminEmisorService } from '@core/services/api/admin-emisor.service'
-import { ToastrNotificationService } from '@core/services/ui/notification.service'
-import { RoleService } from '@core/services/api/role.service'
-import { Role } from '@core/interfaces/api/rol.interface'
 import { NgSelectModule } from '@ng-select/ng-select'
-import { EmisorModule } from '@core/interfaces/api/company.interface'
+import { AdminEmisorService } from '@core/services/api/admin-emisor.service'
+import { RoleService } from '@core/services/api/role.service'
+import { ToastrNotificationService } from '@core/services/ui/notification.service'
+import { Role } from '@core/interfaces/api/rol.interface'
+import { User } from '@core/interfaces/api/user.interface'
 
 @Component({
-  selector: 'app-admin-create-user-modal',
+  selector: 'app-admin-edit-user-modal',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    TranslateModule,
-    NgSelectModule,
-  ],
-  templateUrl: './admin-create-user-modal.component.html',
-  styleUrls: ['./admin-create-user-modal.component.scss'],
+  imports: [CommonModule, ReactiveFormsModule, TranslateModule, NgSelectModule],
+  templateUrl: './admin-edit-user-modal.component.html',
+  styleUrls: ['./admin-edit-user-modal.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AdminCreateUserModalComponent implements OnInit {
-  @Input() emisorId!: number
-  @Input() emisorModules: EmisorModule[] = []
-  @Output() userCreated = new EventEmitter<void>()
+export class AdminEditUserModalComponent implements OnInit {
+  @Input() user!: User
+  @Output() userUpdated = new EventEmitter<void>()
 
   private fb = inject(FormBuilder)
   private modal = inject(NgbActiveModal)
@@ -55,28 +49,16 @@ export class AdminCreateUserModalComponent implements OnInit {
   ngOnInit(): void {
     this.initForm()
     this.loadRoles()
-    this.applyUsernameValidation()
   }
 
   private initForm(): void {
     this.userForm = this.fb.group({
-      username: [''],
-      email: ['', [Validators.required, Validators.email]],
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      roleId: [null, [Validators.required]],
+      username: [this.user.username, [Validators.required, Validators.minLength(3)]],
+      email: [this.user.email, [Validators.required, Validators.email]],
+      firstName: [this.user.firstName, [Validators.required]],
+      lastName: [this.user.lastName, [Validators.required]],
+      roleId: [this.user.role?.id ?? null, [Validators.required]],
     })
-  }
-
-  private applyUsernameValidation(): void {
-    const usernameControl = this.userForm.get('username')
-    if (this.emisorHasInvoicing) {
-      usernameControl?.setValidators([Validators.required, Validators.minLength(3)])
-    } else {
-      usernameControl?.clearValidators()
-    }
-    usernameControl?.updateValueAndValidity()
   }
 
   private loadRoles(): void {
@@ -89,12 +71,6 @@ export class AdminCreateUserModalComponent implements OnInit {
 
   get f() {
     return this.userForm.controls
-  }
-
-  get emisorHasInvoicing(): boolean {
-    return this.emisorModules.some(
-      (m) => m.moduleKey === 'INVOICING' && m.isActive,
-    )
   }
 
   onSubmit(): void {
@@ -110,11 +86,11 @@ export class AdminCreateUserModalComponent implements OnInit {
 
     this.isSubmitting = true
     this.adminService
-      .createEmisorUser(this.emisorId, this.userForm.value)
+      .updateEmisorUser(this.user.id, this.userForm.value)
       .subscribe({
         next: () => {
           this.isSubmitting = false
-          this.userCreated.emit()
+          this.userUpdated.emit()
           this.modal.close()
         },
         error: () => {

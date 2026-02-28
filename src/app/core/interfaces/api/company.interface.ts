@@ -49,6 +49,7 @@ export interface EmisorCreateRequest {
     firstName: string
     lastName: string
     password: string
+    roleId: number
   }
 }
 

@@ -14,7 +14,6 @@ import { ApiResponse } from '@core/interfaces/api/api-response.interface'
 import { USER_SESSION } from '@core/helpers/global/global.constants'
 import * as CryptoJS from 'crypto-js'
 
-const SESSION_LOCK_KEY = 'session_locked'
 const STORAGE_KEY_USER = 'rememberedUser'
 const STORAGE_KEY_PASS = 'rememberedPass'
 const SECRET_KEY = 'baseProjectKey2025!'
@@ -39,7 +38,6 @@ export class AuthenticationService {
             USER_SESSION,
             JSON.stringify(response.data),
           )
-          sessionStorage.removeItem(SESSION_LOCK_KEY)
         }),
       )
   }
@@ -50,7 +48,6 @@ export class AuthenticationService {
       USER_SESSION,
       JSON.stringify(ssoSession),
     )
-    sessionStorage.removeItem(SESSION_LOCK_KEY)
   }
 
   public getMeUser(): Observable<ApiResponse<User>> {
@@ -60,7 +57,6 @@ export class AuthenticationService {
   logout(): void {
     this._http.post(`${this.url}/logout`, {}).subscribe()
     this._storageService.secureStorage.removeItem(USER_SESSION)
-    sessionStorage.removeItem(SESSION_LOCK_KEY)
     this.router.navigate([`/auth/login`])
   }
 
@@ -88,18 +84,6 @@ export class AuthenticationService {
     } catch {
       return null
     }
-  }
-
-  lockSession() {
-    sessionStorage.setItem(SESSION_LOCK_KEY, 'true')
-  }
-
-  isLocked(): boolean {
-    return sessionStorage.getItem(SESSION_LOCK_KEY) === 'true'
-  }
-
-  unlockSession() {
-    sessionStorage.removeItem(SESSION_LOCK_KEY)
   }
 
   rememberUser(username: string, password: string) {

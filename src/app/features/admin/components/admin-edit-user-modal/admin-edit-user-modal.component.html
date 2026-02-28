@@ -1,29 +1,23 @@
 <div class="modal-header">
-  <h5 class="modal-title">{{ 'ADMIN.EMISOR.USERS.CREATE_USER' | translate }}</h5>
+  <h5 class="modal-title">{{ 'ADMIN.EMISOR.USERS.EDIT_USER' | translate }}</h5>
   <button type="button" class="btn-close" (click)="onCancel()"></button>
 </div>
 
 <div class="modal-body">
   <form [formGroup]="userForm">
     <div class="row g-3">
-      @if (emisorHasInvoicing) {
-        <div class="col-md-6">
-          <label class="form-label">{{ 'ADMIN.USER.USERNAME_INVOICING' | translate }} *</label>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="username"
-            [placeholder]="'ADMIN.USER.USERNAME_PLACEHOLDER' | translate"
-            [class.is-invalid]="f['username'].touched && f['username'].invalid"
-          />
-          @if (f['username'].touched && f['username'].invalid) {
-            <div class="invalid-feedback">
-              {{ 'USER.VALIDATION_USER.USERNAME_REQUIRED' | translate }}
-            </div>
-          }
-          <small class="text-muted">{{ 'ADMIN.USER.USERNAME_HELP' | translate }}</small>
+      <div class="col-md-6">
+        <label class="form-label">{{ 'USER.VIEW.USERNAME' | translate }} *</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="username"
+          [class.is-invalid]="f['username'].touched && f['username'].invalid"
+        />
+        <div *ngIf="f['username'].touched && f['username'].invalid" class="invalid-feedback">
+          {{ 'USER.VALIDATION_USER.USERNAME_REQUIRED' | translate }}
         </div>
-      }
+      </div>
       <div class="col-md-6">
         <label class="form-label">{{ 'USER.VIEW.EMAIL' | translate }} *</label>
         <input
@@ -31,15 +25,6 @@
           class="form-control"
           formControlName="email"
           [class.is-invalid]="f['email'].touched && f['email'].invalid"
-        />
-      </div>
-      <div class="col-md-6">
-        <label class="form-label">{{ 'USER.VIEW.PASSWORD' | translate }} *</label>
-        <input
-          type="password"
-          class="form-control"
-          formControlName="password"
-          [class.is-invalid]="f['password'].touched && f['password'].invalid"
         />
       </div>
       <div class="col-md-6">
@@ -68,8 +53,7 @@
           bindLabel="displayName"
           bindValue="id"
           [placeholder]="'USER.VIEW.ROLES' | translate"
-        >
-        </ng-select>
+        ></ng-select>
       </div>
     </div>
   </form>
@@ -79,12 +63,17 @@
   <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">
     {{ 'USER.BUTTON.CANCEL' | translate }}
   </button>
-  <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="isSubmitting">
+  <button
+    type="button"
+    class="btn btn-primary"
+    (click)="onSubmit()"
+    [disabled]="isSubmitting"
+  >
     @if (isSubmitting) {
       <span class="spinner-border spinner-border-sm me-1" role="status"></span>
-      {{ 'WORDS.CREATING' | translate }}
+      {{ 'WORDS.UPDATING' | translate }}
     } @else {
-      {{ 'USER.BUTTON.CREATE' | translate }}
+      {{ 'USER.BUTTON.SAVE' | translate }}
     }
   </button>
 </div>

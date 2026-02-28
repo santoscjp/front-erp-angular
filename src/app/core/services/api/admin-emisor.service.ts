@@ -141,11 +141,12 @@ export class AdminEmisorService {
 
   syncInvoicing(
     emisorId: number,
+    body: { adminPassword?: string } = {},
   ): Observable<ApiResponse<{ sourceEmisorId: number }>> {
     return this._httpClient
       .post<ApiResponse<{ sourceEmisorId: number }>>(
         `${this.API_URL}/emisores/${emisorId}/sync-invoicing`,
-        {},
+        body,
       )
       .pipe(
         tap((res) =>
@@ -190,13 +191,12 @@ export class AdminEmisorService {
   }
 
   updateEmisorUser(
-    emisorId: number,
     userId: number,
     data: Record<string, unknown>,
   ): Observable<ApiResponse<User>> {
     return this._httpClient
       .put<ApiResponse<User>>(
-        `${this.API_URL}/emisores/${emisorId}/users/${userId}`,
+        `${environment.apiBaseUrl}/auth/users/${userId}`,
         data,
       )
       .pipe(

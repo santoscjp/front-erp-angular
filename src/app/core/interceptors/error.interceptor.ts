@@ -49,13 +49,23 @@ export class ErrorInterceptor implements HttpInterceptor {
           case RESPONSE_CODES.CONFLICT:
           case RESPONSE_CODES.LOCKED:
             break
+          default:
+            break
         }
 
-        this._notificationService.showNotification({
-          type: 'error',
-          title: 'Error',
-          message: errorMessage,
-        })
+        const isSyncInvoicing = req.url.includes('sync-invoicing')
+        const isSilentError =
+          (error.status === RESPONSE_CODES.BAD_REQUEST &&
+            errorMessage.includes('contraseña del administrador')) ||
+          (error.status === RESPONSE_CODES.CONFLICT && isSyncInvoicing)
+
+        if (!isSilentError) {
+          this._notificationService.showNotification({
+            type: 'error',
+            title: 'Error',
+            message: errorMessage,
+          })
+        }
 
         return throwError(() => new Error(errorMessage))
       }),

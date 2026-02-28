@@ -1,15 +1,16 @@
 <div class="wrapper">
-  <app-sidebar />
+  <app-sidebar></app-sidebar>
 
-  <app-topbar (settingsButtonClicked)="onSettingsButtonClicked()" (mobileMenuButtonClicked)="onToggleMobileMenu()" />
+  <app-topbar
+    (settingsButtonClicked)="onSettingsButtonClicked()"
+    (mobileMenuButtonClicked)="onToggleMobileMenu()"
+  ></app-topbar>
 
   <div class="page-content">
     <div class="page-container">
       <router-outlet />
     </div>
 
-      <app-footer class="mt-auto"/>
-
+    <app-footer class="mt-auto"></app-footer>
   </div>
-
 </div>

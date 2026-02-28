@@ -21,7 +21,7 @@ export class LoginGuard implements CanActivate {
   ): boolean {
     const isLoggedIn = this._auth.isLoggedIn()
 
-    if (isLoggedIn && state.url !== '/auth/lock-screen') {
+    if (isLoggedIn) {
       this._router.navigateByUrl('/')
       return false
     }

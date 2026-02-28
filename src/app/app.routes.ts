@@ -3,7 +3,6 @@ import { AuthLayoutComponent } from './shared/components/layouts/auth-layout/aut
 import { LayoutComponent } from './shared/components/layouts/layout/layout.component'
 import { AuthGuard } from '@core/guards/auth.guard'
 import { LoginGuard } from '@core/guards/login.guard'
-import { LockScreenGuard } from '@core/guards/lock-screen.guard'
 import { superAdminGuard } from '@core/guards/super-admin.guard'
 import { SsoCallbackComponent } from './features/auth/pages/sso-callback/sso-callback.component'
 
@@ -29,7 +28,7 @@ export const routes: Routes = [
     component: LayoutComponent,
     loadChildren: () =>
       import('./features/views.route').then((mod) => mod.VIEWS_ROUTES),
-    canActivate: [AuthGuard, LockScreenGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'auth',

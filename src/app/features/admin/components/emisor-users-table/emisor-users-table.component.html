@@ -48,3 +48,13 @@
     <span class="badge bg-danger-subtle text-danger">{{ 'WORDS.NO' | translate }}</span>
   }
 </ng-template>
+
+<ng-template #actionsTpl let-row="row">
+  <button
+    class="btn btn-sm btn-outline-primary"
+    (click)="onEditUser(row)"
+    [title]="'ADMIN.EMISOR.USERS.EDIT_USER' | translate"
+  >
+    <i class="ti ti-edit"></i>
+  </button>
+</ng-template>

@@ -18,7 +18,7 @@ export class SessionTimeoutService {
   private destroy$ = new Subject<void>()
   private countdownValue = 10
   private countdown$ = new Subject<number>()
-  private excludedRoutes = ['/auth/login', '/auth/lock-screen']
+  private excludedRoutes = ['/auth/login']
 
   private _router = inject(Router)
   private _authService = inject(AuthenticationService)
@@ -71,7 +71,7 @@ export class SessionTimeoutService {
   }
 
   private startWarningCountdown() {
-    if (this._authService.isLocked() || this.isExcludedRoute()) return
+    if (this.isExcludedRoute()) return
     this.countdownValue = this.warningDuration / 1000
 
     interval(1000)
@@ -108,8 +108,7 @@ export class SessionTimeoutService {
 
   private lockSession() {
     if (this.isExcludedRoute()) return
-    this._authService.lockSession()
-    this._router.navigate(['/auth/lock-screen'])
+    this._authService.logout()
   }
 
   stopTracking() {

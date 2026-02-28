@@ -32,12 +32,6 @@
     "MESSAGES": {
       "FORM_INCOMPLETE": "Por favor complete todos los campos requeridos.",
       "UNKNOWN_ERROR": "Inscripción de errores desconocida."
-    },
-    "LOCK_SCREEN": {
-      "HI": "¡Hola",
-      "PLEASE_ENTER_PASSWORD": "Por favor introduzca su contraseña",
-      "PLEASE_WAIT": "Ingresando, por favor espere...",
-      "ENTER_PASSWORD": "Entrar"
     }
   },
   "BLOCK_SCREEN": {
@@ -219,7 +213,30 @@
         "REGIMEN_RIMPE": "Régimen RIMPE",
         "EMISOR_DATA": "Datos del Emisor",
         "MODULES_SECTION": "Módulos",
-        "ADMIN_USER_SECTION": "Usuario Administrador"
+        "ADMIN_USER_SECTION": "Usuario Administrador",
+        "STEP_USER": "Usuario",
+        "STEP_EMISOR": "Emisor",
+        "STEP_MODULES": "Módulos",
+        "STEP_LABEL": "PASO",
+        "NEXT": "Siguiente",
+        "PREVIOUS": "Anterior",
+        "STATUS": {
+          "completed": "Completado",
+          "in_progress": "En Progreso",
+          "pending": "Pendiente"
+        },
+        "PLACEHOLDER": {
+          "RUC": "Ingrese el RUC de 13 dígitos",
+          "RAZON_SOCIAL": "Ingrese la razón social",
+          "NOMBRE_COMERCIAL": "Ingrese el nombre comercial",
+          "DIRECCION_MATRIZ": "Ingrese la dirección matriz",
+          "CONTRIBUYENTE_ESPECIAL": "Número de resolución",
+          "USERNAME": "Ingrese el nombre de usuario",
+          "EMAIL": "Ingrese el correo electrónico",
+          "PASSWORD": "Ingrese la contraseña",
+          "FIRST_NAME": "Ingrese el nombre",
+          "LAST_NAME": "Ingrese el apellido"
+        }
       },
       "MODULES": {
         "TITLE": "Módulos Activos",
@@ -230,12 +247,29 @@
       },
       "USERS": {
         "TITLE": "Usuarios del Emisor",
-        "CREATE_USER": "Crear Usuario"
+        "CREATE_USER": "Crear Usuario",
+        "EDIT_USER": "Editar Usuario"
       },
       "VALIDATION": {
         "RUC_INVALID": "El RUC no es válido (verificación módulo 11)",
         "RUC_LENGTH": "El RUC debe tener 13 dígitos"
+      },
+      "USERNAME_INVOICING": "Usuario de facturación",
+      "USERNAME_PLACEHOLDER": "Ej: jperez",
+      "USERNAME_HELP": "Este será el usuario para iniciar sesión en el sistema de facturación",
+      "SYNC_WARNING_TITLE": "Advertencia de sincronización",
+      "RETRY_SYNC": "Reintentar sincronización",
+      "SYNC_PASSWORD_MODAL": {
+        "TITLE": "Autenticación requerida",
+        "TEXT": "El emisor no existe en facturación. Ingrese la contraseña del administrador para crearlo.",
+        "PLACEHOLDER": "Contraseña del administrador",
+        "CONFIRM": "Sincronizar"
       }
+    },
+    "USER": {
+      "USERNAME_INVOICING": "Usuario de facturación",
+      "USERNAME_PLACEHOLDER": "Ej: mlopez",
+      "USERNAME_HELP": "Usuario para acceder al sistema de facturación"
     }
   },
   "CHART_OF_ACCOUNTS": {

@@ -4,7 +4,7 @@
       <div class="d-flex align-items-center gap-3 position-relative">
         <div class="position-relative">
           <img
-            [src]="userImage || 'assets/images/default-avatar.png'"
+            src="assets/images/profile/default-avatar.png"
             alt="User Avatar"
             class="rounded-circle border"
             width="60"
@@ -32,7 +32,7 @@
             {{ 'PROFILE.MY_PROFILE.PERSONAL_INFORMATION' | translate }}
           </h5>
           @if (isEditing) {
-            <div>
+            <div class="d-flex align-items-center">
               <button
                 type="button"
                 class="btn btn-outline-danger rounded-pill btn-sm me-2"

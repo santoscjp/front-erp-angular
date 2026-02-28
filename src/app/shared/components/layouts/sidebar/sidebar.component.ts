@@ -1,6 +1,7 @@
 import {
   Component,
   inject,
+  Renderer2,
   type OnInit,
   type OnDestroy,
   CUSTOM_ELEMENTS_SCHEMA,
@@ -59,6 +60,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   )
 
   store = inject(Store)
+  private renderer = inject(Renderer2)
   private authService = inject(AuthenticationService)
   private notificationService = inject(ToastrNotificationService)
   private menuSub?: Subscription
@@ -280,6 +282,16 @@ export class SidebarComponent implements OnInit, OnDestroy {
           menu.collapsed = true
         }
       })
+    }
+  }
+
+  closeSidebar(): void {
+    document.documentElement.classList.remove('sidebar-enable')
+    const backdrop = document.querySelector('.offcanvas-backdrop')
+    if (backdrop) {
+      this.renderer.removeChild(document.body, backdrop)
+      this.renderer.setStyle(document.body, 'overflow', null)
+      this.renderer.setStyle(document.body, 'paddingRight', null)
     }
   }
 
