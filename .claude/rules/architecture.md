@@ -68,7 +68,26 @@ src/app/
 
 - Define routes in each feature's own routing module.
 - Use route guards for auth (`AuthGuard`) and permissions (`PermissionGuard`).
-- Pass required permissions as route data:
+- Pass required permissions as route data.
+- Route paths MUST be in English, lowercase, kebab-case. NEVER use Spanish words in route paths.
+
+```typescript
+// ✅ English route paths
+{ path: 'journal-entries', ... }
+{ path: 'chart-of-accounts', ... }
+{ path: 'fiscal-periods', ... }
+{ path: 'bank-reconciliation', ... }
+{ path: 'financial-statements', ... }
+{ path: 'users/:id/edit', ... }
+
+// ❌ Spanish route paths
+{ path: 'libro-diario', ... }
+{ path: 'plan-cuentas', ... }
+{ path: 'periodos-fiscales', ... }
+{ path: 'conciliacion-bancaria', ... }
+```
+
+Full route definition example:
 
 ```typescript
 {

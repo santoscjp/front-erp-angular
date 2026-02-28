@@ -2,7 +2,7 @@
 
 ## Language: English Only
 
-All code is written in English: variables, functions, classes, interfaces, enums, constants, file names, and technical comments.
+All code is written in English **without exception**: variables, functions, classes, interfaces, enums, constants, file names, route paths, and technical comments. This applies to ALL identifiers — including loop variables, temporary variables, parameters, and private fields.
 
 ```typescript
 // ✅
@@ -10,10 +10,17 @@ const invoiceTotal = 112.50;
 const isAccountingPeriodClosed = true;
 function calculateTrialBalance() {}
 
-// ❌
+// Loop and temporary variables also in English
+for (const account of accounts) { ... }
+const filteredEntries = entries.filter(entry => entry.isActive);
+let hasError = false;
+
+// ❌ Spanish identifiers anywhere in code
 const totalFactura = 112.50;
 const estaCerradoPeriodo = true;
 function calcularBalanceComprobacion() {}
+for (const cuenta of cuentas) { ... }        // ❌
+const entradasFiltradas = entries.filter();   // ❌
 ```
 
 Exception: User-facing text (labels, messages, placeholders) is in Spanish. These go in `src/assets/i18n/es.json` and are accessed via the `| translate` pipe. The app is Spanish only — no multi-language support, no additional language files.
