@@ -1,14 +1,18 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
+import { Component } from '@angular/core'
 import { statData } from '@core/helpers/global/second-dashboard.constants'
+import type { StatType } from '@core/helpers/global/second-dashboard.constants'
 
 @Component({
   selector: 'app-stats',
   standalone: true,
   imports: [],
   templateUrl: './stats.component.html',
-  styles: ``,
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  styleUrls: ['./stats.component.scss'],
 })
 export class StatsComponent {
   statData = statData
+
+  trackByTitle(_index: number, item: StatType): string {
+    return item.title
+  }
 }

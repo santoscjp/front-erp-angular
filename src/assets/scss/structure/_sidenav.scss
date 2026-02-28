@@ -9,8 +9,8 @@
     top: 0;
     width: $sidenav-width;
     background: $menu-bg;
-    box-shadow: var(--#{$prefix}box-shadow);
-    border-right: $card-border-width solid $card-border-color;
+    box-shadow: none;
+    border-right: 1px solid var(--#{$prefix}border-color);
     transition: $transition-base;
 
     [data-simplebar] {
@@ -24,7 +24,7 @@
     list-style-type: none;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
 
     .side-nav-item {
         .side-nav-link {
@@ -34,7 +34,7 @@
             position: relative;
             white-space: nowrap;
             color: $menu-item-color;
-            transition: $transition-base;
+            transition: all 0.2s ease;
             line-height: $menu-item-font-size;
             font-size: $menu-item-font-size;
             padding: $menu-item-padding-y $menu-item-padding-x;
@@ -49,6 +49,7 @@
             .menu-icon {
                 font-size: $menu-item-icon-size;
                 line-height: $menu-item-icon-size;
+                opacity: 0.85;
 
                 i {
                     font-size: $menu-item-icon-size;
@@ -76,14 +77,15 @@
         list-style-type: none;
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: 1px;
         padding-left: 0;
-        margin-top: 5px;
+        margin-top: 4px;
 
         .side-nav-item {
             .side-nav-link {
-                font-size: calc($menu-item-font-size * 0.95);
-                padding: calc($menu-item-padding-y * 0.95) calc($menu-item-padding-x * 1.5) calc($menu-item-padding-y * 0.95) calc($menu-item-icon-size + $menu-item-padding-x + $menu-link-item-gap);
+                font-size: calc($menu-item-font-size * 0.93);
+                padding: calc($menu-item-padding-y * 0.85) calc($menu-item-padding-x * 1.5) calc($menu-item-padding-y * 0.85) calc($menu-item-icon-size + $menu-item-padding-x + $menu-link-item-gap);
+                color: $menu-item-color;
             }
         }
 
@@ -93,15 +95,15 @@
     }
 
     .side-nav-title {
-        letter-spacing: 0.1em;
+        letter-spacing: 0.02em;
         pointer-events: none;
         cursor: default;
         white-space: nowrap;
-        text-transform: uppercase;
-        color: $menu-item-color;
-        font-weight: $font-weight-bold;
-        font-size: calc($menu-item-font-size * 0.7);
-        padding: $menu-item-padding-y calc($menu-item-padding-x * 1.75);
+        color: #9CA3AF;
+        font-weight: $font-weight-medium;
+        font-size: 0.6875rem;
+        padding: calc($menu-item-padding-y * 2) calc($menu-item-padding-x * 1.75) calc($menu-item-padding-y * 0.75);
+        margin-top: 8px;
     }
 
     // Active Menu
@@ -139,15 +141,23 @@
 .sub-menu {
     .side-nav-link::before {
         content: "";
-        content: "\f671";
-        font-family: "tabler-icons";
-        font-size: $menu-item-icon-size;
-        opacity: 0.5;
+        width: 4px;
+        height: 4px;
+        background-color: #D1D5DB;
+        border-radius: 50%;
         position: absolute;
         top: 50%;
-        left: $menu-item-padding-x;
-        transform: translateY(-50%) scale(0.25);
-        transition: $transition-base;
+        left: calc($menu-item-padding-x + 4px);
+        transform: translateY(-50%);
+        transition: all 0.2s ease;
+    }
+
+    .side-nav-item.active .side-nav-link::before,
+    .side-nav-link.active::before {
+        width: 6px;
+        height: 6px;
+        background-color: #F47920;
+        box-shadow: none;
     }
 }
 
@@ -155,12 +165,16 @@
 .side-nav {
     .side-nav-item {
         .side-nav-link {
-            border-radius: var(--#{$prefix}border-radius);
+            border-radius: 8px;
 
             &:hover,
             &:focus,
             &:active {
                 background-color: $menu-item-hover-bg;
+
+                .menu-icon {
+                    opacity: 1;
+                }
             }
         }
 
@@ -173,6 +187,12 @@
         .side-nav-link.active {
             color: $menu-item-active-color !important;
             background: $menu-item-active-bg !important;
+            font-weight: $font-weight-semibold;
+
+            .menu-icon {
+                opacity: 1;
+                color: #1B4B78;
+            }
         }
     }
 }
@@ -268,9 +288,10 @@ html[data-sidenav-size="condensed"]:not([data-layout="topnav"]) {
                         margin-top: 0;
                         position: absolute;
                         left: $sidenav-width-sm;
-                        box-shadow: var(--#{$prefix}box-shadow);
-                        border: $card-border-width solid $card-border-color;
+                        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+                        border: 1px solid var(--#{$prefix}border-color);
                         border-top: 0;
+                        border-radius: 0 8px 8px 0;
                         background-color: $menu-bg;
                         background-repeat: no-repeat, no-repeat;
                         background-position: right top, left bottom;
@@ -324,13 +345,13 @@ html[data-sidenav-size="condensed"]:not([data-layout="topnav"]) {
             >.side-nav-item:hover {
                 >.side-nav-link {
                     color: $white;
-                    background-color: $primary;
+                    background-color: #1B4B78;
                     backdrop-filter: blur(10px);
                     width: $sidenav-width;
 
-                    // .menu-text {
-                    //     padding-left: 28px;
-                    // }
+                    .menu-icon {
+                        opacity: 1;
+                    }
 
                     &[data-bs-toggle="collapse"] {
                         border-end-end-radius: 0;
@@ -614,8 +635,8 @@ html[data-layout-mode="detached"]:not([data-layout="topnav"]) {
             padding: 12px 0;
             bottom: $spacer * 0.5;
             top: calc(#{$topbar-height} + #{$spacer} * 0.5);
-            border-radius: $border-radius-lg;
-            border: $card-border-width solid $card-border-color;
+            border-radius: 12px;
+            border: 1px solid var(--#{$prefix}border-color);
             padding-bottom: 0;
 
             .logo {
@@ -652,5 +673,33 @@ html[data-layout-mode="detached"]:not([data-layout="topnav"]) {
                 padding: 0;
             }
         }
+    }
+
+    // Mobile sidebar overlay
+    .sidenav-menu {
+        z-index: 1055;
+    }
+
+    .page-content {
+        margin-left: 0 !important;
+        padding: 0 calc($grid-gutter-width * 0.5);
+    }
+
+    .app-topbar {
+        margin-left: 0 !important;
+    }
+
+    // Mobile footer spacing
+    .footer {
+        padding: calc($grid-gutter-width * .5);
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .page-content {
+        padding: 0 12px;
     }
 }

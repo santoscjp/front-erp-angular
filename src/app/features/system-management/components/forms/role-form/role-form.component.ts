@@ -28,7 +28,7 @@ import { Subscription } from 'rxjs'
 export class RoleFormComponent implements OnInit {
   roleForm!: UntypedFormGroup
   isEditMode: boolean = false;
-  roleId: string | null = null;
+  roleId: number | null = null;
   private modalData!: Subscription
   public isLoading: boolean = true;
   public isLoadingButton: boolean = false;
@@ -45,7 +45,7 @@ export class RoleFormComponent implements OnInit {
 
   getConfigForm() {
     this.roleForm = this.formBuilder.group({
-      roleName: ['', [Validators.required]],
+      displayName: ['', [Validators.required]],
       description: ['', [Validators.required]],
     })
   }
@@ -67,7 +67,7 @@ export class RoleFormComponent implements OnInit {
       const roleData = res.data.result;
       if (roleData) {
         this.roleForm.patchValue({
-          roleName: roleData.roleName,
+          displayName: roleData.displayName,
           description: roleData.description,
         });
       }

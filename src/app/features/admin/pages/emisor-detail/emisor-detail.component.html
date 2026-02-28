@@ -1,0 +1,91 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="page-title-box d-flex align-items-center justify-content-between">
+        <h4 class="page-title">{{ 'ADMIN.EMISOR.DETAIL' | translate }}</h4>
+        <a routerLink="/admin/emisores" class="btn btn-outline-secondary">
+          <i class="ti ti-arrow-left me-1"></i>
+          {{ 'ADMIN.EMISOR.TITLE' | translate }}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  @if (isLoading) {
+    <div class="d-flex justify-content-center py-5">
+      <div class="spinner-border text-primary" role="status"></div>
+    </div>
+  } @else if (emisor) {
+    <!-- Emisor Data -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title mb-0">
+              {{ 'ADMIN.EMISOR.FORM.EMISOR_DATA' | translate }}
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label text-muted">{{ 'ADMIN.EMISOR.TABLE.RUC' | translate }}</label>
+                <p class="fw-medium mb-0">{{ emisor.ruc }}</p>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label text-muted">{{ 'ADMIN.EMISOR.FORM.RAZON_SOCIAL' | translate }}</label>
+                <p class="fw-medium mb-0">{{ emisor.razonSocial }}</p>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label text-muted">{{ 'ADMIN.EMISOR.FORM.NOMBRE_COMERCIAL' | translate }}</label>
+                <p class="fw-medium mb-0">{{ emisor.nombreComercial ?? '-' }}</p>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label text-muted">{{ 'ADMIN.EMISOR.FORM.DIRECCION_MATRIZ' | translate }}</label>
+                <p class="fw-medium mb-0">{{ emisor.direccionMatriz }}</p>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label text-muted">{{ 'ADMIN.EMISOR.FORM.OBLIGADO_CONTABILIDAD' | translate }}</label>
+                <p class="fw-medium mb-0">{{ emisor.obligadoContabilidad }}</p>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label text-muted">{{ 'ADMIN.EMISOR.TABLE.STATUS' | translate }}</label>
+                @if (emisor.isActive) {
+                  <p>
+                    <span class="badge bg-success-subtle text-success">{{ 'WORDS.IS_ACTIVE' | translate }}</span>
+                  </p>
+                } @else {
+                  <p>
+                    <span class="badge bg-danger-subtle text-danger">{{ 'WORDS.NO' | translate }}</span>
+                  </p>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modules Toggle -->
+    <div class="row">
+      <div class="col-12">
+        <app-emisor-modules-toggle
+          [modules]="emisor.modules ?? []"
+          [sourceEmisorId]="emisor.sourceEmisorId"
+          [isSyncing]="isSyncing"
+          (moduleToggled)="onModuleToggled($event)"
+          (syncInvoicingRequested)="onSyncInvoicing()"
+        ></app-emisor-modules-toggle>
+      </div>
+    </div>
+
+    <!-- Users Table -->
+    <div class="row">
+      <div class="col-12">
+        <app-emisor-users-table
+          [emisorId]="emisorId"
+          (createUserRequested)="onCreateUserRequested()"
+        ></app-emisor-users-table>
+      </div>
+    </div>
+  }
+</div>

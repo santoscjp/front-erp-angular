@@ -5,11 +5,11 @@ import { BehaviorSubject } from 'rxjs'
   providedIn: 'root',
 })
 export class SelectionService {
-  public selectedRoleId$ = new BehaviorSubject<string | null>(null)
-  public selectedModuleId$ = new BehaviorSubject<string | null>(null)
+  public selectedRoleId$ = new BehaviorSubject<number | null>(null)
+  public selectedModuleId$ = new BehaviorSubject<number | null>(null)
   public hasModules$ = new BehaviorSubject<boolean>(false)
 
-  setRoleId(roleId: string | null): void {
+  setRoleId(roleId: number | null): void {
     this.selectedRoleId$.next(roleId)
     if (!roleId) {
       this.selectedModuleId$.next(null)
@@ -17,7 +17,7 @@ export class SelectionService {
     }
   }
 
-  setModuleId(moduleId: string | null): void {
+  setModuleId(moduleId: number | null): void {
     this.selectedModuleId$.next(moduleId)
   }
 

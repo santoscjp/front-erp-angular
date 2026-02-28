@@ -1,6 +1,7 @@
 export interface Module {
-  _id: string
-  moduleName: string
-  description?: string
-  isActive: boolean
+  id: number
+  name: string
+  description: string | null
+  moduleName?: string
+  isActive?: boolean
 }

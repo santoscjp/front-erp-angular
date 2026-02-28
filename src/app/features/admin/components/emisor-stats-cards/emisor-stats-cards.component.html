@@ -1,0 +1,66 @@
+<div class="row row-cols-xxl-4 row-cols-md-2 row-cols-1 g-3">
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-center gap-2">
+          <div class="avatar-sm bg-primary bg-opacity-10 rounded">
+            <span class="avatar-title">
+              <iconify-icon icon="ti:building" class="fs-3 text-primary"></iconify-icon>
+            </span>
+          </div>
+          <div>
+            <p class="text-muted mb-0 fw-medium">
+              {{ 'ADMIN.DASHBOARD.TOTAL_EMISORES' | translate }}
+            </p>
+            <h3 class="mb-0">
+              {{ stats?.totalEmisores ?? 0 }}
+              <small class="fs-6 text-muted">
+                ({{ stats?.activeEmisores ?? 0 }} {{ 'WORDS.IS_ACTIVE' | translate | lowercase }})
+              </small>
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-center gap-2">
+          <div class="avatar-sm bg-success bg-opacity-10 rounded">
+            <span class="avatar-title">
+              <iconify-icon icon="ti:users" class="fs-3 text-success"></iconify-icon>
+            </span>
+          </div>
+          <div>
+            <p class="text-muted mb-0 fw-medium">
+              {{ 'ADMIN.DASHBOARD.TOTAL_USERS' | translate }}
+            </p>
+            <h3 class="mb-0">{{ stats?.totalUsers ?? 0 }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-center gap-2">
+          <div class="avatar-sm bg-info bg-opacity-10 rounded">
+            <span class="avatar-title">
+              <iconify-icon icon="ti:chart-bar" class="fs-3 text-info"></iconify-icon>
+            </span>
+          </div>
+          <div>
+            <p class="text-muted mb-0 fw-medium">
+              {{ 'ADMIN.DASHBOARD.MOST_USED_MODULE' | translate }}
+            </p>
+            <h3 class="mb-0">{{ topModule }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

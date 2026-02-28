@@ -151,7 +151,7 @@
 }
 
 
-$background-color_1: hsla(0, 0%, 50%, .1);
+$background-color_1: rgba(27, 75, 120, 0.08);
 
 .h-e-circle {
     position: relative;
@@ -218,7 +218,7 @@ $background-color_1: hsla(0, 0%, 50%, .1);
 
     &:before {
         background-color: $background-color_1;
-        border-radius: 4px;
+        border-radius: 8px;
         content: "";
         inset: -2px;
         opacity: 0;
@@ -248,7 +248,7 @@ $background-color_1: hsla(0, 0%, 50%, .1);
 
     &:before {
         background-color: $background-color_1;
-        border-radius: 4px;
+        border-radius: 8px;
         content: "";
         inset: -8px;
         opacity: 0;
@@ -269,5 +269,25 @@ $background-color_1: hsla(0, 0%, 50%, .1);
     &:before {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+// Explore account button (dark pill style)
+.btn-explore {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--#{$prefix}dark);
+    color: $white;
+    border: none;
+    border-radius: 50rem;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    transition: all 0.15s ease;
+
+    &:hover {
+        background-color: lighten(#111827, 10%);
+        color: $white;
     }
 }

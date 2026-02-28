@@ -3,13 +3,11 @@ export const USER_SESSION = 'USER_SESSION'
 export const USER_SESSION_PRE = 'USER_SESSION_PRE'
 
 export const LOCAL_STORAGE_NAMES = {
-  LANGUAGE: 'Language',
   THEME: 'Theme',
 }
 
 export const AVAILABLE_LANGUAGES = {
   ES: 'es',
-  EN: 'en',
 } as const
 
 export const USER_SESSION_LOGIN = {
@@ -27,8 +25,6 @@ export const MODAL_TYPE = {
   PERMISSION_FORM: 'permission-form',
 }
 
-export const PERMISSIONS_ROLES_AND_PERMISSIONS = {
-  view_all: 'ver_todo',
-  view_all_roles: 'ver_modulo_de_roles',
-  create_roles: 'crear_roles',
-}
+export const ADMIN_PERMISSION = 'all'
+
+export const SUPER_ADMIN_FLAG = 'isSuperAdmin'

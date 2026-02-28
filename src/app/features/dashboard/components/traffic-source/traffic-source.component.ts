@@ -1,58 +1,19 @@
-import { Component } from '@angular/core';
-import type { ChartOptions } from '@core/interfaces/ui/apexchart.model';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgApexchartsModule } from 'ng-apexcharts';
+import { Component } from '@angular/core'
+import { reportGroupsData } from '@core/helpers/global/second-dashboard.constants'
+import type { ReportGroupType } from '@core/helpers/global/second-dashboard.constants'
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap'
 
 @Component({
   selector: 'traffic-source',
   standalone: true,
-  imports: [NgbDropdownModule,NgApexchartsModule],
+  imports: [NgbDropdownModule],
   templateUrl: './traffic-source.component.html',
-  styles: ``
+  styleUrls: ['./traffic-source.component.scss'],
 })
 export class TrafficSourceComponent {
-  trafficChartOpts: Partial<ChartOptions> = {
-    chart: {
-      height: 300,
-      type: 'radialBar',
-    },
-    plotOptions: {
-      // circle: {
-      //     dataLabels: {
-      //         showOn: 'hover'
-      //     }
-      // },
-      radialBar: {
-        track: {
-          margin:17,
-          background: "rgba(170,184,197, 0.2)"
-        },
-        hollow: {
-          size: '1%',
-        },
-        dataLabels: {
-          name: {
-            show: false,
-          },
-          value: {
-            show: false,
-          }
-        }
-      }
-    },
-    stroke: {
-      lineCap: 'round'
-    },
-    colors: ['#465dff', '#6ac75a', '#783bff', '#f7577e'],
-    series: [44, 55, 67, 22],
-    labels: ['Completed', 'In Progress', 'Yet to Start', 'Cancelled'],
-    responsive: [{
-      breakpoint: 380,
-      options: {
-        chart: {
-          height: 260,
-        }
-      }
-    }]
+  reportGroups = reportGroupsData
+
+  trackByTitle(_index: number, item: ReportGroupType): string {
+    return item.title
   }
 }

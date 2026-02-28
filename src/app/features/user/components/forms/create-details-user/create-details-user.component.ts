@@ -37,26 +37,22 @@ export class CreateDetailsUserComponent implements OnInit {
   }
   private initForm(): void {
     this.userDetailsForm = this.fb.group({
-      username: [{ value: '', disabled: true }],
+      firstName: [{ value: '', disabled: true }],
+      lastName: [{ value: '', disabled: true }],
       email: [{ value: '', disabled: true }],
-      address: [{ value: '', disabled: true }],
-      phone: [{ value: '', disabled: true }],
-      roleId: [{ value: '', disabled: true }],
-      companyId: [{ value: '', disabled: true }],
-      isLocked: [{ value: '', disabled: true }],
+      role: [{ value: '', disabled: true }],
+      isActive: [{ value: '', disabled: true }],
       createdAt: [{ value: '', disabled: true }],
     })
   }
 
   private updateForm(user: User): void {
     this.userDetailsForm.patchValue({
-      username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
-      address: user.address,
-      phone: user.phone,
-      roleId: user.roleId?.roleName,
-      companyId: user.companyId?.companyName,
-      isLocked: user.isLocked,
+      role: user.role?.displayName,
+      isActive: user.isActive,
       createdAt: user.createdAt,
     })
   }

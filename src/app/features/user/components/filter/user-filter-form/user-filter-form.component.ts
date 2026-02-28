@@ -42,11 +42,10 @@ export class UserFilterFormComponent implements OnInit {
 
   private getConfigFilterForm(): FormGroup {
     return this._formBuilder.group({
-      username: [''],
       email: [''],
-      phone: [''],
-      address: [''],
-      isLocked: [null],
+      firstName: [''],
+      lastName: [''],
+      isActive: [null],
       fromDate: [this.defaultFromDate],
       toDate: [this.defaultToDate],
     })

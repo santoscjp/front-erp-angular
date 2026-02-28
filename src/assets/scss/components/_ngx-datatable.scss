@@ -1,13 +1,27 @@
 .ngx-datatable.material {
   box-shadow: none !important;
-  border-radius: 4px !important;
+  border-radius: 0.75rem !important;
   background-color: transparent !important;
+  border: 1px solid var(--#{$prefix}border-color);
+  overflow: hidden;
 
   .datatable-header,
   .datatable-body,
   .datatable-footer {
     width: auto !important;
     height: auto !important;
+  }
+
+  .datatable-header {
+    background-color: var(--#{$prefix}tertiary-bg);
+    border-bottom: 1px solid var(--#{$prefix}border-color);
+
+    .datatable-header-cell {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: #6B7280;
+      padding: 0.75rem 1rem;
+    }
   }
 
   .datatable-header .datatable-row-left,
@@ -19,7 +33,7 @@
     left: 0;
     .datatable-header-cell,
     .datatable-body-cell {
-      border-right: 1px solid #efefef;
+      border-right: 1px solid var(--#{$prefix}border-color);
       width: 100% !important;
       display: flex;
       align-items: center;
@@ -36,7 +50,7 @@
     right: 0;
     .datatable-header-cell,
     .datatable-body-cell {
-      border-left: 1px solid #efefef;
+      border-left: 1px solid var(--#{$prefix}border-color);
       width: 100% !important;
       display: flex;
       align-items: center;
@@ -46,32 +60,41 @@
 
   .datatable-body .progress-linear .container {
     max-width: none;
-    background-color: rgba(#84a7cd, 0.03);
+    background-color: rgba(#1B4B78, 0.05);
     .bar {
-      background-color: #214178;
+      background-color: #1B4B78;
     }
   }
 
   .datatable-body .datatable-body-row {
+    border-bottom: 1px solid var(--#{$prefix}border-color);
+
+    .datatable-body-cell {
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      color: var(--#{$prefix}body-color);
+      vertical-align: middle;
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
     &:hover .datatable-row-group {
-      background-color: #d7e2e9 !important;
+      background-color: rgba(27, 75, 120, 0.06) !important;
     }
 
     &:focus .datatable-row-group {
-      background-color: #d7e2e9 !important;
+      background-color: rgba(27, 75, 120, 0.06) !important;
     }
 
     &.active .datatable-row-group {
-      background-color: #d7e2e9 !important;
+      background-color: rgba(27, 75, 120, 0.15) !important;
     }
 
     &.active:hover .datatable-row-group {
-      background-color: #d7e2e9 !important;
+      background-color: rgba(27, 75, 120, 0.15) !important;
     }
-  }
-
-  .datatable-row-wrapper .datatable-row-detail {
-    height: auto !important;
   }
 
   .datatable-row-wrapper .datatable-row-detail {
@@ -90,29 +113,53 @@
     height: auto !important;
   }
 
-  .datatable-footer .datatable-footer-inner {
-    flex-wrap: wrap;
-    height: auto !important;
-    overflow: hidden;
+  .datatable-footer {
+    border-top: 1px solid var(--#{$prefix}border-color);
+    background-color: var(--#{$prefix}secondary-bg);
 
-    .footer-left,
-    .datatable-pager {
-      display: flex;
-      align-items: center;
-      flex: 1;
-    }
+    .datatable-footer-inner {
+      flex-wrap: wrap;
+      height: auto !important;
+      overflow: hidden;
+      padding: 0.5rem;
 
-    .footer-left {
-      .page-size-container,
-      .total-rows-container {
-        color: inherit;
-        padding: 8px;
+      .footer-left,
+      .datatable-pager {
+        display: flex;
+        align-items: center;
+        flex: 1;
       }
-    }
 
-    .datatable-pager {
-      flex: 1 30% !important;
-      justify-content: flex-end;
+      .footer-left {
+        .page-size-container,
+        .total-rows-container {
+          color: #6B7280;
+          padding: 8px;
+          font-size: 0.8125rem;
+        }
+      }
+
+      .datatable-pager {
+        flex: 1 30% !important;
+        justify-content: flex-end;
+
+        .pager {
+          li {
+            a {
+              border-radius: 0.375rem;
+              min-width: 32px;
+              height: 32px;
+              line-height: 32px;
+              font-size: 0.8125rem;
+            }
+
+            &.active a {
+              background-color: #1B4B78;
+              color: $white;
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -136,6 +183,18 @@
         justify-content: center;
         margin-left: 0;
         margin-right: 0;
+      }
+    }
+  }
+}
+
+// Dark mode — colors now mostly come from CSS variables automatically
+// Only override what's not covered by var(--#{$prefix}...)
+[data-bs-theme="dark"] {
+  .ngx-datatable.material {
+    .datatable-header {
+      .datatable-header-cell {
+        color: #9CA3AF;
       }
     }
   }

@@ -9,8 +9,3 @@ export const loadPreviewLanguageSuccess = createAction(
   '[Language] Load Preview Language Success',
   props<{ language: LanguageCode }>()
 )
-
-export const change = createAction(
-  '[Language] Change Language',
-  props<{ language: LanguageCode }>()
-)

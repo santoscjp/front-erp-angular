@@ -6,15 +6,14 @@ import {
   ApiData,
   ApiResponse,
 } from '@core/interfaces/api/api-response.interface'
-import { map, Observable, tap } from 'rxjs'
-import { ApiMessage } from '@core/interfaces/api/message.interface'
+import { Observable, tap } from 'rxjs'
 import { User } from '@core/interfaces/api/user.interface'
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  public API_URL = `${environment.apiBaseUrl}/user`
+  public API_URL = `${environment.apiBaseUrl}/users`
 
   private _httpClient = inject(HttpClient)
   private _injector = inject(Injector)
@@ -28,8 +27,7 @@ export class UserService {
   }
 
   public createUser(user: object): Observable<ApiResponse<User>> {
-    const endpoint = `${this.API_URL}/create`
-    return this._httpClient.post<ApiResponse<User>>(endpoint, user)
+    return this._httpClient.post<ApiResponse<User>>(this.API_URL, user)
   }
 
   public findUsers(filter: object): Observable<ApiResponse<ApiData<User[]>>> {
@@ -41,7 +39,7 @@ export class UserService {
     })
   }
 
-  public updateProfile(user: FormData): Observable<ApiResponse<User>> {
+  public updateProfile(user: object): Observable<ApiResponse<User>> {
     const endpoint = `${this.API_URL}/update-profile`
     return this._httpClient
       .patch<ApiResponse<User>>(endpoint, user)
@@ -49,8 +47,8 @@ export class UserService {
   }
 
   public setUserPassword(
-    id: string,
-    newPassword: string
+    id: number,
+    newPassword: string,
   ): Observable<ApiResponse<User>> {
     const endpoint = `${this.API_URL}/change-password`
     return this._httpClient
@@ -58,7 +56,7 @@ export class UserService {
       .pipe(tap((res) => this.showNotification(res.message)))
   }
 
-  public updateUser(id: string, user: object): Observable<ApiResponse<User>> {
+  public updateUser(id: number, user: object): Observable<ApiResponse<User>> {
     const endpoint = `${this.API_URL}/update-user/${id}`
     return this._httpClient
       .patch<ApiResponse<User>>(endpoint, user)
@@ -66,10 +64,10 @@ export class UserService {
   }
 
   private showNotification(
-    message: ApiMessage,
-    title: string = 'profile.title'
+    message: string,
+    title: string = 'profile.title',
   ): void {
-    this._notificationService.showNotification({
+    this.notificationService.showNotification({
       title,
       message,
       type: 'success',

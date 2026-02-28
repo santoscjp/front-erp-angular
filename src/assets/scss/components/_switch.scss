@@ -10,7 +10,7 @@ input[data-switch] {
     +label {
         width: 56px;
         height: 24px;
-        background-color: var(--#{$prefix}tertiary-bg);
+        background-color: #E5E7EB;
         background-image: none;
         border-radius: 2rem;
         cursor: pointer;
@@ -41,7 +41,7 @@ input[data-switch] {
             content: "";
             position: absolute;
             left: 4px;
-            background-color: var(--#{$prefix}gray-500);
+            background-color: $white;
             box-shadow: none;
             border-radius: 2rem;
             height: 18px;
@@ -53,7 +53,7 @@ input[data-switch] {
 
     &:checked {
         +label {
-            background-color: var(--#{$prefix}primary);
+            background-color: #1B4B78;
 
             &:before {
                 color: $white;
@@ -64,7 +64,7 @@ input[data-switch] {
 
             &:after {
                 left: 34px;
-                background-color: var(--#{$prefix}tertiary-bg);
+                background-color: $white;
             }
         }
     }
@@ -72,7 +72,7 @@ input[data-switch] {
 
 input[data-switch="bool"] {
     +label {
-        background-color: $danger;
+        background-color: #E5E7EB;
     }
 }
 
@@ -89,7 +89,7 @@ input[data-switch="bool"]:checked+label:before {
 }
 
 input[data-switch="bool"]+label:after {
-    background-color: var(--#{$prefix}tertiary-bg);
+    background-color: $white;
 }
 
 @each $color,

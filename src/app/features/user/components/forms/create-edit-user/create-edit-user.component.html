@@ -6,22 +6,42 @@
 <div class="modal-body">
   <form [formGroup]="userForm" class="row g-3">
     <div class="col-md-6">
-      <label for="username" class="form-label">{{
-        'USER.EDIT.USERNAME' | translate
+      <label for="firstName" class="form-label">{{
+        'USER.EDIT.FIRST_NAME' | translate
       }}</label>
       <input
-        id="username"
+        id="firstName"
         type="text"
         class="form-control"
-        formControlName="username"
+        formControlName="firstName"
       />
       <div
         *ngIf="
-          userForm.get('username')?.invalid && userForm.get('username')?.touched
+          userForm.get('firstName')?.invalid && userForm.get('firstName')?.touched
         "
         class="text-danger"
       >
-        {{ 'USER.VALIDATION_USER.USERNAME_REQUIRED' | translate }}
+        {{ 'USER.VALIDATION_USER.FIRST_NAME_REQUIRED' | translate }}
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <label for="lastName" class="form-label">{{
+        'USER.EDIT.LAST_NAME' | translate
+      }}</label>
+      <input
+        id="lastName"
+        type="text"
+        class="form-control"
+        formControlName="lastName"
+      />
+      <div
+        *ngIf="
+          userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched
+        "
+        class="text-danger"
+      >
+        {{ 'USER.VALIDATION_USER.LAST_NAME_REQUIRED' | translate }}
       </div>
     </div>
 
@@ -44,61 +64,26 @@
     </div>
 
     <div class="col-md-6">
-      <label for="address" class="form-label">{{
-        'USER.EDIT.ADDRESS' | translate
-      }}</label>
-      <input
-        id="address"
-        type="text"
-        class="form-control"
-        formControlName="address"
-      />
-    </div>
-
-    <div class="col-md-6">
-      <label for="phone" class="form-label">{{
-        'USER.EDIT.PHONE' | translate
-      }}</label>
-      <input
-        id="phone"
-        type="text"
-        class="form-control"
-        formControlName="phone"
-      />
-    </div>
-
-    <div class="col-md-6">
       <label for="roleId" class="form-label">{{
         'USER.EDIT.ROLES' | translate
       }}</label>
       <select id="roleId" class="form-select" formControlName="roleId">
-        <option *ngFor="let role of roles" [value]="role._id">
-          {{ role.roleName }}
+        <option *ngFor="let role of roles" [value]="role.id">
+          {{ role.displayName }}
         </option>
       </select>
     </div>
 
     <div class="col-md-6">
-      <label for="companyId" class="form-label">{{
-        'USER.EDIT.COMPANY' | translate
+      <label for="isActive" class="form-label">{{
+        'USER.EDIT.IS_ACTIVE' | translate
       }}</label>
-      <select id="companyId" class="form-select" formControlName="companyId">
-        <option *ngFor="let company of companies" [value]="company._id">
-          {{ company.companyName }}
-        </option>
-      </select>
-    </div>
-
-    <div class="col-md-6">
-      <label for="isLocked" class="form-label">{{
-        'USER.EDIT.IS_LOCKED' | translate
-      }}</label>
-      <select id="isLocked" class="form-select" formControlName="isLocked">
+      <select id="isActive" class="form-select" formControlName="isActive">
         <option [value]="true">
-          {{ 'USER.BUTTON.LOCKED_TRUE' | translate }}
+          {{ 'USER.BUTTON.ACTIVE_TRUE' | translate }}
         </option>
         <option [value]="false">
-          {{ 'USER.BUTTON.LOCKED_FALSE' | translate }}
+          {{ 'USER.BUTTON.ACTIVE_FALSE' | translate }}
         </option>
       </select>
     </div>

@@ -6,11 +6,7 @@ import {
   loadPreviewLanguage,
   loadPreviewLanguageSuccess,
 } from './language.actions'
-import {
-  AVAILABLE_LANGUAGES,
-  LOCAL_STORAGE_NAMES,
-} from '@core/helpers/global/global.constants'
-import { LanguageCode } from '@core/interfaces/ui/language.interface'
+import { AVAILABLE_LANGUAGES } from '@core/helpers/global/global.constants'
 
 @Injectable()
 export class LanguageEffects {
@@ -21,29 +17,11 @@ export class LanguageEffects {
     this._actions$.pipe(
       ofType(loadPreviewLanguage),
       exhaustMap(() => {
-        let selectedLanguage: LanguageCode = AVAILABLE_LANGUAGES.ES
-        const localStorageData = localStorage.getItem(
-          LOCAL_STORAGE_NAMES.LANGUAGE
-        )
+        const language = AVAILABLE_LANGUAGES.ES
+        this._translate.setDefaultLang(language)
+        this._translate.use(language)
 
-        if (
-          localStorageData &&
-          Object.values(AVAILABLE_LANGUAGES).includes(
-            localStorageData as LanguageCode
-          )
-        ) {
-          selectedLanguage = localStorageData as LanguageCode
-        }
-
-        localStorage.setItem(LOCAL_STORAGE_NAMES.LANGUAGE, selectedLanguage)
-        this._translate.setDefaultLang(selectedLanguage)
-        this._translate.use(selectedLanguage)
-
-        return of(
-          loadPreviewLanguageSuccess({
-            language: selectedLanguage,
-          })
-        )
+        return of(loadPreviewLanguageSuccess({ language }))
       })
     )
   )

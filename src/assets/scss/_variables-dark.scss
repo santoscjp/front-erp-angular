@@ -1,6 +1,6 @@
 // Dark color mode variables
 //
-// Custom variables for the `[data-bs-theme="dark"]` theme. Use this as a starting point for your own custom color modes by creating a new theme-specific file like `_variables-dark.scss` and adding the variables you need.
+// Custom variables for the `[data-bs-theme="dark"]` theme.
 
 //
 // Global colors
@@ -25,7 +25,7 @@ $success-bg-subtle-dark:            rgba($success, 20%);
 $info-bg-subtle-dark:               rgba($info, 20%);
 $warning-bg-subtle-dark:            rgba($warning, 20%);
 $danger-bg-subtle-dark:             rgba($danger, 20%);
-$light-bg-subtle-dark:              #252630;
+$light-bg-subtle-dark:              #1E1F27;
 $dark-bg-subtle-dark:               mix($gray-800, $black);
 // scss-docs-end theme-bg-subtle-dark-variables
 
@@ -40,15 +40,15 @@ $light-border-subtle-dark:          $gray-700;
 $dark-border-subtle-dark:           $gray-800;
 // scss-docs-end theme-border-subtle-dark-variables
 
-$body-color-dark:                   #aab8c5;
-$body-bg-dark:                      #17181e;
-$body-secondary-color-dark:         #8391a2;
-$body-secondary-bg-dark:            #1e1f27;
-$body-tertiary-color-dark:          #f1f1f1;
-$body-tertiary-bg-dark:             #404954;
-$body-emphasis-color-dark:          #dee2e6;
-$border-color-dark:                 #37394d; // #464f5b;
-$border-color-translucent-dark:     #323d4b;
+$body-color-dark:                   #D1D5DB;
+$body-bg-dark:                      #0F1015;
+$body-secondary-color-dark:         #9CA3AF;
+$body-secondary-bg-dark:            #17181E;
+$body-tertiary-color-dark:          #E5E7EB;
+$body-tertiary-bg-dark:             #252630;
+$body-emphasis-color-dark:          #F3F4F6;
+$border-color-dark:                 #2D2E3A;
+$border-color-translucent-dark:     #252630;
 $headings-color-dark:               $body-color-dark;
 $link-color-dark:                   tint-color($primary, 40%);
 $link-hover-color-dark:             shift-color($link-color-dark, -$link-shade-percentage);

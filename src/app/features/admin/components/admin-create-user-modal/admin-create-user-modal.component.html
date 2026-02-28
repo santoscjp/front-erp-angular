@@ -1,0 +1,72 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{ 'ADMIN.EMISOR.USERS.CREATE_USER' | translate }}</h5>
+  <button type="button" class="btn-close" (click)="onCancel()"></button>
+</div>
+
+<div class="modal-body">
+  <form [formGroup]="userForm">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label">{{ 'USER.VIEW.EMAIL' | translate }} *</label>
+        <input
+          type="email"
+          class="form-control"
+          formControlName="email"
+          [class.is-invalid]="f['email'].touched && f['email'].invalid"
+        />
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">{{ 'USER.VIEW.PASSWORD' | translate }} *</label>
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+          [class.is-invalid]="f['password'].touched && f['password'].invalid"
+        />
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">{{ 'WORDS.FIRST_NAME' | translate }} *</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="firstName"
+          [class.is-invalid]="f['firstName'].touched && f['firstName'].invalid"
+        />
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">{{ 'WORDS.LAST_NAME' | translate }} *</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="lastName"
+          [class.is-invalid]="f['lastName'].touched && f['lastName'].invalid"
+        />
+      </div>
+      <div class="col-12">
+        <label class="form-label">{{ 'USER.VIEW.ROLES' | translate }} *</label>
+        <ng-select
+          formControlName="roleId"
+          [items]="roles"
+          bindLabel="displayName"
+          bindValue="id"
+          [placeholder]="'USER.VIEW.ROLES' | translate"
+        >
+        </ng-select>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">
+    {{ 'USER.BUTTON.CANCEL' | translate }}
+  </button>
+  <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="isSubmitting">
+    @if (isSubmitting) {
+      <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+      {{ 'WORDS.CREATING' | translate }}
+    } @else {
+      {{ 'USER.BUTTON.CREATE' | translate }}
+    }
+  </button>
+</div>

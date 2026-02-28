@@ -155,29 +155,56 @@
 
 <!-- Template para un item link final -->
 <ng-template #MenuItemLink let-menu="menu" let-className="className">
-  <a
-    [routerLink]="menu.url"
-    [class]="className"
-    [ngClass]="{
-      active: activeMenuItems.includes(menu.key),
-      disabled: menu.isDisabled,
-    }"
-    [attr.aria-controls]="menu.key"
-  >
-    @if (menu.icon) {
-      <span class="menu-icon">
-        <i class="ti {{ menu.icon }}"></i>
-      </span>
-      <span class="menu-text">
+  @if (menu.isExternal) {
+    <a
+      [class]="className"
+      [ngClass]="{
+        active: activeMenuItems.includes(menu.key),
+        disabled: menu.isDisabled,
+      }"
+      [attr.aria-controls]="menu.key"
+      (click)="onExternalMenuClick(menu)"
+      role="button"
+    >
+      @if (menu.icon) {
+        <span class="menu-icon">
+          <i class="ti {{ menu.icon }}"></i>
+        </span>
+        <span class="menu-text">
+          {{ 'SIDEBAR.' + menu.label | translate }}
+        </span>
+      } @else {
         {{ 'SIDEBAR.' + menu.label | translate }}
+      }
+      <span class="menu-icon ms-auto">
+        <i class="ti ti-external-link"></i>
       </span>
-    } @else {
-      {{ 'SIDEBAR.' + menu.label | translate }}
-    }
-    @if (menu.badge) {
-      <span class="badge rounded-pill text-end bg-{{ menu.badge.variant }}">
-        {{ menu.badge.text }}
-      </span>
-    }
-  </a>
+    </a>
+  } @else {
+    <a
+      [routerLink]="menu.url"
+      [class]="className"
+      [ngClass]="{
+        active: activeMenuItems.includes(menu.key),
+        disabled: menu.isDisabled,
+      }"
+      [attr.aria-controls]="menu.key"
+    >
+      @if (menu.icon) {
+        <span class="menu-icon">
+          <i class="ti {{ menu.icon }}"></i>
+        </span>
+        <span class="menu-text">
+          {{ 'SIDEBAR.' + menu.label | translate }}
+        </span>
+      } @else {
+        {{ 'SIDEBAR.' + menu.label | translate }}
+      }
+      @if (menu.badge) {
+        <span class="badge rounded-pill text-end bg-{{ menu.badge.variant }}">
+          {{ menu.badge.text }}
+        </span>
+      }
+    </a>
+  }
 </ng-template>

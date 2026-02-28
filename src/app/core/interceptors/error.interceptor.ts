@@ -9,7 +9,9 @@ import {
 import { Injectable, inject } from '@angular/core'
 import { Router } from '@angular/router'
 import { RESPONSE_CODES } from '@core/helpers/global/auth.constants'
+import { USER_SESSION } from '@core/helpers/global/global.constants'
 import { ToastrNotificationService } from '@core/services/ui/notification.service'
+import { StorageService } from '@core/services/ui/storage.service'
 import { TranslateService } from '@ngx-translate/core'
 import { Observable, throwError } from 'rxjs'
 import { catchError } from 'rxjs/operators'
@@ -18,20 +20,35 @@ import { catchError } from 'rxjs/operators'
 export class ErrorInterceptor implements HttpInterceptor {
   private _notificationService = inject(ToastrNotificationService)
   private _translateService = inject(TranslateService)
+  private _storageService = inject(StorageService)
   private router = inject(Router)
 
   intercept(
     req: HttpRequest<any>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
-        let errorMessage = this._translateService.instant('WORDS.UNKNOWN_ERROR')
+        let errorMessage = this._translateService.instant(
+          'WORDS.UNKNOWN_ERROR',
+        )
         if (error.error && error.error.message) {
           errorMessage = error.error.message
         }
-        if (error.status === RESPONSE_CODES.FORBIDDEN) {
-          this.router.navigate(['/auth/account-deactivation'])
+
+        switch (error.status) {
+          case RESPONSE_CODES.UNAUTHORIZED:
+            this._storageService.secureStorage.removeItem(USER_SESSION)
+            this.router.navigate(['/auth/login'])
+            break
+          case RESPONSE_CODES.FORBIDDEN:
+            if (req.url.includes('/auth/login')) {
+              this.router.navigate(['/auth/account-deactivation'])
+            }
+            break
+          case RESPONSE_CODES.CONFLICT:
+          case RESPONSE_CODES.LOCKED:
+            break
         }
 
         this._notificationService.showNotification({
@@ -40,11 +57,8 @@ export class ErrorInterceptor implements HttpInterceptor {
           message: errorMessage,
         })
 
-        const errorMessageTranslated =
-          this._notificationService.getMessageTest(errorMessage)
-
-        return throwError(() => new Error(errorMessageTranslated))
-      })
+        return throwError(() => new Error(errorMessage))
+      }),
     )
   }
 }

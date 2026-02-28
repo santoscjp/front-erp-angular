@@ -7,6 +7,7 @@
     "NO_ACCOUNT": "¿No tienes una cuenta?",
     "SIGNUP": "¡Regístrate!",
     "INPUT": {
+      "EMISOR_RUC": "RUC de la Empresa",
       "EMAIL": "Correo Electronico",
       "PASSWORD": "Contraseña",
       "REMEMBER_ME": "Recuérdame",
@@ -16,7 +17,8 @@
       "SIGN_IN": "Iniciar sesión"
     },
     "PLACEHOLDER": {
-      "EMAIL": "Introduzca su correo electrónico o teléfono",
+      "EMISOR_RUC": "Ingrese el RUC de 13 dígitos",
+      "EMAIL": "Introduzca su correo electrónico",
       "PASSWORD": "Introduzca su contraseña"
     },
     "MESSAGES": {
@@ -39,13 +41,23 @@
     }
   },
   "SIDEBAR": {
-    "RESUME": "Resumen",
-    "DASHBOARD": "Dashboard",
-    "USERS_MANAGEMENT": "Gestión de usuarios",
-    "USERS": "Usuarios",
-    "SYSTEM_MANAGEMENT": "Gestión de sistemas",
-    "ROLES_AND_PERMISSIONS": "Roles y permisos",
-    "SYSTEM_SETTINGS": "Ajustes del sistema"
+    "ADMINISTRATION": "Administración",
+    "ADMIN_DASHBOARD": "Panel Admin",
+    "EMISORES": "Emisores",
+    "BUSINESS": "Negocio",
+    "HOME": "Inicio",
+    "ACCOUNTING": "Contabilidad",
+    "CHART_OF_ACCOUNTS": "Plan de Cuentas",
+    "JOURNAL_ENTRIES": "Libro Diario",
+    "GENERAL_LEDGER": "Libro Mayor",
+    "FINANCIAL_STATEMENTS": "Estados Financieros",
+    "FISCAL_PERIODS": "Periodos Fiscales",
+    "INVOICING": "Facturación",
+    "BANK_RECONCILIATION": "Conciliación Bancaria",
+    "SRI_REPORTS": "Reportes SRI",
+    "MANAGEMENT": "Gestión",
+    "USERS_MANAGEMENT": "Usuarios",
+    "SETTINGS": "Configuración"
   },
   "TOPBAR": {
     "SEARCH": "Busca algo...",
@@ -166,6 +178,82 @@
   "DASHBOARD": {
     "TITLE": "Dashboard"
   },
+  "ADMIN": {
+    "DASHBOARD": {
+      "TITLE": "Panel de Administración",
+      "TOTAL_EMISORES": "Total Emisores",
+      "TOTAL_USERS": "Total Usuarios",
+      "MOST_USED_MODULE": "Módulo Más Usado",
+      "QUICK_ACTIONS": "Acciones Rápidas"
+    },
+    "EMISOR": {
+      "TITLE": "Emisores",
+      "NEW": "Nuevo Emisor",
+      "DETAIL": "Detalle del Emisor",
+      "VIEW": "Ver Detalle",
+      "TABLE": {
+        "RUC": "RUC",
+        "RAZON_SOCIAL": "Razón Social",
+        "MODULES": "Módulos",
+        "USERS": "Usuarios",
+        "STATUS": "Estado",
+        "ACTIONS": "Acciones"
+      },
+      "FORM": {
+        "RUC": "RUC",
+        "RAZON_SOCIAL": "Razón Social",
+        "NOMBRE_COMERCIAL": "Nombre Comercial",
+        "DIRECCION_MATRIZ": "Dirección Matriz",
+        "OBLIGADO_CONTABILIDAD": "Obligado a Llevar Contabilidad",
+        "CONTRIBUYENTE_ESPECIAL": "Contribuyente Especial",
+        "AGENTE_RETENCION": "Agente de Retención",
+        "REGIMEN_MICROEMPRESA": "Régimen Microempresa",
+        "REGIMEN_RIMPE": "Régimen RIMPE",
+        "EMISOR_DATA": "Datos del Emisor",
+        "MODULES_SECTION": "Módulos",
+        "ADMIN_USER_SECTION": "Usuario Administrador"
+      },
+      "MODULES": {
+        "TITLE": "Módulos Activos",
+        "SYNC_INVOICING": "Sincronizar con Facturación",
+        "LINKED": "Vinculado",
+        "NOT_LINKED": "No vinculado",
+        "SYNCING": "Sincronizando..."
+      },
+      "USERS": {
+        "TITLE": "Usuarios del Emisor",
+        "CREATE_USER": "Crear Usuario"
+      },
+      "VALIDATION": {
+        "RUC_INVALID": "El RUC no es válido (verificación módulo 11)",
+        "RUC_LENGTH": "El RUC debe tener 13 dígitos"
+      }
+    }
+  },
+  "CHART_OF_ACCOUNTS": {
+    "TITLE": "Plan de Cuentas"
+  },
+  "JOURNAL_ENTRIES": {
+    "TITLE": "Libro Diario"
+  },
+  "FISCAL_PERIODS": {
+    "TITLE": "Periodos Fiscales"
+  },
+  "GENERAL_LEDGER": {
+    "TITLE": "Libro Mayor"
+  },
+  "FINANCIAL_STATEMENTS": {
+    "TITLE": "Estados Financieros"
+  },
+  "BANK_RECONCILIATION": {
+    "TITLE": "Conciliación Bancaria"
+  },
+  "SRI_REPORTS": {
+    "TITLE": "Reportes SRI (ATS)"
+  },
+  "SETTINGS": {
+    "TITLE": "Configuración"
+  },
   "ROLES_AND_PERMISSIONS": {
     "ROLE": {
       "TITLE": "Rol",
@@ -248,7 +336,12 @@
     "UPDATING": "Actualizando...",
     "CREATING": "Creando...",
     "WELCOME": "Bienvenido",
-    "UNKNOWN": "Error desconocido"
+    "UNKNOWN": "Error desconocido",
+    "UNKNOWN_ERROR": "Ocurrió un error desconocido",
+    "MODULE_UNDER_CONSTRUCTION": "Este módulo está en construcción.",
+    "FIRST_NAME": "Nombre",
+    "LAST_NAME": "Apellido",
+    "IS_ACTIVE": "Activo"
   },
   "SWEET_ALERT": {
     "ARE_YOU_SURE": "¿Estas seguro?",

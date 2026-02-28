@@ -1,0 +1,115 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="page-title-box d-flex align-items-center justify-content-between">
+        <h4 class="page-title">{{ 'ADMIN.EMISOR.TITLE' | translate }}</h4>
+        <a routerLink="/admin/emisores/nuevo" class="btn btn-primary">
+          <i class="ti ti-plus me-1"></i>
+          {{ 'ADMIN.EMISOR.NEW' | translate }}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="row mb-3">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row g-2 align-items-end">
+            <div class="col-md-3">
+              <label class="form-label">{{ 'ADMIN.EMISOR.TABLE.RUC' | translate }}</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="filterRuc"
+                [placeholder]="'ADMIN.EMISOR.TABLE.RUC' | translate"
+              />
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">{{ 'ADMIN.EMISOR.TABLE.RAZON_SOCIAL' | translate }}</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="filterRazonSocial"
+                [placeholder]="'ADMIN.EMISOR.TABLE.RAZON_SOCIAL' | translate"
+              />
+            </div>
+            <div class="col-md-2">
+              <label class="form-label">{{ 'ADMIN.EMISOR.TABLE.STATUS' | translate }}</label>
+              <select class="form-select" [(ngModel)]="filterStatus">
+                <option value="">{{ 'WORDS.FILTER' | translate }}</option>
+                <option value="true">{{ 'WORDS.IS_ACTIVE' | translate }}</option>
+                <option value="false">{{ 'WORDS.NO' | translate }}</option>
+              </select>
+            </div>
+            <div class="col-md-4 d-flex gap-2">
+              <button class="btn btn-primary" (click)="applyFilter()">
+                <i class="ti ti-search me-1"></i>
+                {{ 'USER.FILTER.FILTER' | translate }}
+              </button>
+              <button class="btn btn-outline-secondary" (click)="resetFilter()">
+                <i class="ti ti-refresh me-1"></i>
+                {{ 'USER.FILTER.RESET' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <ngx-datatable
+            class="bootstrap"
+            [rows]="emisores"
+            [columns]="columns"
+            [columnMode]="columnMode"
+            [headerHeight]="50"
+            [footerHeight]="50"
+            [rowHeight]="'auto'"
+            [limit]="(config$ | async)?.limit ?? 10"
+            [count]="(config$ | async)?.totalCount ?? 0"
+            [offset]="((config$ | async)?.page ?? 1) - 1"
+            [externalPaging]="true"
+            [loadingIndicator]="(config$ | async)?.loading ?? false"
+            (page)="onPageChange($event)"
+          >
+          </ngx-datatable>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Module badges template -->
+<ng-template #modulesTpl let-row="row">
+  <div class="d-flex flex-wrap gap-1">
+    @for (mod of row.modules; track mod.moduleKey) {
+      @if (mod.isActive) {
+        <span class="badge bg-info-subtle text-info">{{ mod.moduleKey }}</span>
+      }
+    }
+  </div>
+</ng-template>
+
+<!-- Status template -->
+<ng-template #statusTpl let-row="row">
+  @if (row.isActive) {
+    <span class="badge bg-success-subtle text-success">{{ 'WORDS.IS_ACTIVE' | translate }}</span>
+  } @else {
+    <span class="badge bg-danger-subtle text-danger">{{ 'WORDS.NO' | translate }}</span>
+  }
+</ng-template>
+
+<!-- Actions template -->
+<ng-template #actionsTpl let-row="row">
+  <button class="btn btn-sm btn-outline-primary" (click)="viewDetail(row)">
+    <i class="ti ti-eye me-1"></i>
+    {{ 'ADMIN.EMISOR.VIEW' | translate }}
+  </button>
+</ng-template>

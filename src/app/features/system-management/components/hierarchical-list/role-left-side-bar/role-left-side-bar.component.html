@@ -65,10 +65,10 @@
             <div
               class="d-flex gap-2 py-1"
               [ngClass]="{
-                'selected-role': item._id === selectedRoleId,
+                'selected-role': item.id === selectedRoleId,
                 'disabled-role': !item.isActive,
               }"
-              (click)="item.isActive && selectRole(item._id)"
+              (click)="item.isActive && selectRole(item.id)"
             >
               <a
                 href="javascript:void(0);"
@@ -86,7 +86,7 @@
                         : ''
                     }}"
                   >
-                    <h5 class="mt-0 mb-0 fs-13">{{ item.roleName }}</h5>
+                    <h5 class="mt-0 mb-0 fs-13">{{ item.displayName }}</h5>
                   </div>
 
                   <div class="d-flex gap-1 text-muted">
@@ -97,7 +97,7 @@
                       ngbTooltip="{{
                         'ROLES_AND_PERMISSIONS.ROLE.EDIT_ROLE' | translate
                       }}"
-                      (click)="openEditModal(item._id, $event)"
+                      (click)="openEditModal(item.id, $event)"
                     >
                     </i>
 
@@ -107,7 +107,7 @@
                       "
                       class="fs-16 text-danger"
                       placement="left"
-                      (click)="toggleRoleStatus(item._id)"
+                      (click)="toggleRoleStatus(item.id)"
                       ngbTooltip="{{
                         item.isActive
                           ? ('ROLES_AND_PERMISSIONS.ROLE.ACTIVATE_DEACTIVATE.DEACTIVATE_ROLE'

@@ -1,7 +1,2 @@
-import { Permission } from './permission.interface'
-
-export interface RolePermission {
-  _id?: string
-  roleId: string
-  permissionId: string | Permission
-}
+// Permissions are now embedded in Role.permissions[] as strings.
+// This junction table interface is no longer needed.

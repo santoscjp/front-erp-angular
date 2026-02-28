@@ -134,3 +134,122 @@ select.form-control-sm {
         }
     }
 }
+
+// Soft Minimal form enhancements
+.form-control {
+    border-color: #E5E7EB;
+    border-radius: 0.5rem;
+    transition: all 0.15s ease;
+
+    &::placeholder {
+        color: #D1D5DB;
+    }
+
+    &:hover {
+        border-color: #D1D5DB;
+    }
+
+    &:focus {
+        border-color: #1B4B78;
+        box-shadow: 0 0 0 3px rgba(27, 75, 120, 0.12);
+    }
+}
+
+.form-select {
+    border-color: #E5E7EB;
+    border-radius: 0.5rem;
+
+    &:focus {
+        border-color: #1B4B78;
+        box-shadow: 0 0 0 3px rgba(27, 75, 120, 0.12);
+    }
+}
+
+.form-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: #111827;
+    margin-bottom: 0.25rem;
+}
+
+.form-check-input {
+    border-color: #E5E7EB;
+    border-radius: 4px;
+    width: 1.125rem;
+    height: 1.125rem;
+
+    &:checked {
+        background-color: #1B4B78;
+        border-color: #1B4B78;
+    }
+
+    &:focus {
+        box-shadow: 0 0 0 3px rgba(27, 75, 120, 0.12);
+    }
+}
+
+.form-switch .form-check-input {
+    border-radius: 50rem;
+    width: 2.75rem;
+    height: 1.5rem;
+    background-color: #E5E7EB;
+    border: none;
+    transition: background-color 0.15s ease;
+
+    &:checked {
+        background-color: #1B4B78;
+    }
+
+    &:focus {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+        box-shadow: 0 0 0 3px rgba(27, 75, 120, 0.12);
+    }
+}
+
+.input-group-text {
+    border-color: #E5E7EB;
+    background-color: #F8F9FA;
+    color: #6B7280;
+}
+
+// Dark mode form adjustments
+[data-bs-theme="dark"] {
+    .form-control {
+        border-color: var(--#{$prefix}border-color);
+        background-color: var(--#{$prefix}secondary-bg);
+        color: var(--#{$prefix}body-color);
+
+        &::placeholder {
+            color: #6B7280;
+        }
+
+        &:hover {
+            border-color: #4B5563;
+        }
+    }
+
+    .form-select {
+        border-color: var(--#{$prefix}border-color);
+        background-color: var(--#{$prefix}secondary-bg);
+        color: var(--#{$prefix}body-color);
+    }
+
+    .form-label {
+        color: #D1D5DB;
+    }
+
+    .form-check-input {
+        border-color: #4B5563;
+        background-color: var(--#{$prefix}secondary-bg);
+    }
+
+    .form-switch .form-check-input {
+        background-color: #4B5563;
+    }
+
+    .input-group-text {
+        border-color: var(--#{$prefix}border-color);
+        background-color: var(--#{$prefix}tertiary-bg);
+        color: #9CA3AF;
+    }
+}

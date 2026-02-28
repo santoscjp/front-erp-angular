@@ -7,6 +7,16 @@
     >li {
         >a {
             font-weight: $font-weight-medium;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+    }
+}
+
+.nav-tabs {
+    .nav-link {
+        &.active {
+            border-bottom-color: #1B4B78;
+            color: #1B4B78;
         }
     }
 }

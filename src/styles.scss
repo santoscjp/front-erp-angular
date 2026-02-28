@@ -7,6 +7,7 @@
 @import 'quill/dist/quill.bubble.css';
 @import 'ngx-toastr/toastr';
 
+// Override ngx-toastr defaults
 .toast-container .ngx-toastr:before {
   display: none !important;
 }
@@ -19,58 +20,60 @@
   .ngx-toastr {
     background-color: var(--bs-body-bg);
     color: var(--bs-body-color);
-    box-shadow: var(--bs-box-shadow);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.06), 0 4px 6px rgba(0, 0, 0, 0.03);
     border: 1px solid var(--bs-border-color);
-    padding: 15px;
-    border-radius: 4px;
+    padding: 16px;
+    border-radius: 0.75rem;
 
     &:hover {
-      box-shadow: var(--bs-box-shadow-lg);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     }
   }
 
   .toast-success {
-    background-color: var(--bs-success-bg-subtle);
-    border-color: var(--bs-success);
-    color: var(--bs-success);
+    background-color: #ECFDF5;
+    border-color: rgba(16, 185, 129, 0.2);
+    color: #065F46;
   }
 
   .toast-error {
-    background-color: var(--bs-danger-bg-subtle);
-    border-color: var(--bs-danger);
-    color: var(--bs-danger);
+    background-color: #FEF2F2;
+    border-color: rgba(239, 68, 68, 0.2);
+    color: #991B1B;
   }
 
   .toast-info {
-    background-color: var(--bs-info-bg-subtle);
-    border-color: var(--bs-info);
-    color: var(--bs-info);
+    background-color: #EFF6FF;
+    border-color: rgba(59, 130, 246, 0.2);
+    color: #1E40AF;
   }
 
   .toast-warning {
-    background-color: var(--bs-warning-bg-subtle);
-    border-color: var(--bs-warning);
-    color: var(--bs-warning);
+    background-color: #FFFBEB;
+    border-color: rgba(245, 158, 11, 0.2);
+    color: #92400E;
   }
 
   .toast-title {
-    font-weight: bold;
-    margin-bottom: 5px;
+    font-weight: 600;
+    margin-bottom: 4px;
   }
 
   .toast-message {
     word-wrap: break-word;
+    font-size: 0.8125rem;
   }
 
   .toast-close-button {
     position: absolute;
-    right: 8px;
-    top: 8px;
+    right: 10px;
+    top: 10px;
     color: inherit;
-    opacity: 0.5;
+    opacity: 0.4;
+    border-radius: 50%;
 
     &:hover {
-      opacity: 1;
+      opacity: 0.8;
     }
   }
 }

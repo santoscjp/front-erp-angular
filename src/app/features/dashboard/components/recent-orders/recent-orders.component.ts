@@ -1,17 +1,10 @@
 import { Component } from '@angular/core'
-import { productData } from '@core/helpers/global/second-dashboard.constants'
-import { RouterLink } from '@angular/router'
-import { currency } from '@core/helpers/ui/constants'
-import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'recent-orders',
   standalone: true,
-  imports: [RouterLink, CommonModule],
-  templateUrl: './recent-orders.component.html',
+  imports: [],
+  template: '',
   styles: ``,
 })
-export class RecentOrdersComponent {
-  orders = productData
-  currency = currency
-}
+export class RecentOrdersComponent {}

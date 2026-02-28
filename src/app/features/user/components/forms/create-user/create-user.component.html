@@ -1,22 +1,10 @@
 <div class="modal-header">
-  <h5 class="modal-title">Crear Usuario</h5>
+  <h5 class="modal-title">{{ 'USER.VIEW.CREATE_USER' | translate }}</h5>
   <button type="button" class="btn-close" (click)="closeModal()"></button>
 </div>
 
 <div class="modal-body">
   <form [formGroup]="userForm" (ngSubmit)="createUser()">
-    <div class="mb-3">
-      <label for="username" class="form-label">{{
-        'USER.VIEW.USERNAME' | translate
-      }}</label>
-      <input
-        type="text"
-        class="form-control"
-        id="username"
-        formControlName="username"
-        required
-      />
-    </div>
     <div class="mb-3">
       <label for="email" class="form-label">{{
         'USER.VIEW.EMAIL' | translate
@@ -42,25 +30,27 @@
       />
     </div>
     <div class="mb-3">
-      <label for="address" class="form-label">{{
-        'USER.VIEW.ADDRESS' | translate
+      <label for="firstName" class="form-label">{{
+        'USER.VIEW.FIRST_NAME' | translate
       }}</label>
       <input
         type="text"
         class="form-control"
-        id="address"
-        formControlName="address"
+        id="firstName"
+        formControlName="firstName"
+        required
       />
     </div>
     <div class="mb-3">
-      <label for="phone" class="form-label">{{
-        'USER.VIEW.PHONE' | translate
+      <label for="lastName" class="form-label">{{
+        'USER.VIEW.LAST_NAME' | translate
       }}</label>
       <input
         type="text"
         class="form-control"
-        id="phone"
-        formControlName="phone"
+        id="lastName"
+        formControlName="lastName"
+        required
       />
     </div>
     <div class="mb-3">
@@ -73,23 +63,8 @@
         formControlName="roleId"
         required
       >
-        <option *ngFor="let role of roles" [value]="role._id">
-          {{ role.roleName }}
-        </option>
-      </select>
-    </div>
-    <div class="mb-3">
-      <label for="companyId" class="form-label">{{
-        'USER.VIEW.COMPANY' | translate
-      }}</label>
-      <select
-        class="form-control"
-        id="companyId"
-        formControlName="companyId"
-        required
-      >
-        <option *ngFor="let company of companies" [value]="company._id">
-          {{ company.companyName }}
+        <option *ngFor="let role of roles" [value]="role.id">
+          {{ role.displayName }}
         </option>
       </select>
     </div>

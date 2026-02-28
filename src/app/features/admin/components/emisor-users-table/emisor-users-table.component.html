@@ -1,0 +1,50 @@
+<div class="card">
+  <div class="card-header d-flex align-items-center justify-content-between">
+    <h5 class="card-title mb-0">{{ 'ADMIN.EMISOR.USERS.TITLE' | translate }}</h5>
+    <button class="btn btn-sm btn-primary" (click)="onCreateUser()">
+      <i class="ti ti-plus me-1"></i>
+      {{ 'ADMIN.EMISOR.USERS.CREATE_USER' | translate }}
+    </button>
+  </div>
+  <div class="card-body">
+    @if (isLoading) {
+      <div class="d-flex justify-content-center py-3">
+        <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+      </div>
+    } @else {
+      <ngx-datatable
+        class="bootstrap"
+        [rows]="users"
+        [columns]="columns"
+        [columnMode]="columnMode"
+        [headerHeight]="50"
+        [rowHeight]="'auto'"
+        [limit]="10"
+        [loadingIndicator]="isLoading"
+      >
+      </ngx-datatable>
+    }
+  </div>
+</div>
+
+<ng-template #roleTpl let-row="row">
+  <span class="badge bg-primary-subtle text-primary">
+    {{ row.role?.displayName ?? row.role?.name ?? '-' }}
+  </span>
+</ng-template>
+
+<ng-template #sourceTpl let-row="row">
+  @if (row.sourceSystem === 'LOCAL') {
+    <span class="badge bg-secondary-subtle text-secondary">LOCAL</span>
+  } @else {
+    <span class="badge bg-warning-subtle text-warning">SSO</span>
+  }
+</ng-template>
+
+<ng-template #statusTpl let-row="row">
+  @if (row.isActive) {
+    <span class="badge bg-success-subtle text-success">{{ 'WORDS.IS_ACTIVE' | translate }}</span>
+  } @else {
+    <span class="badge bg-danger-subtle text-danger">{{ 'WORDS.NO' | translate }}</span>
+  }
+</ng-template>

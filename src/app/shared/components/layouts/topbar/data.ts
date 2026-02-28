@@ -8,23 +8,9 @@ const gitlab = '/assets/images/brands/gitlab.svg'
 const googleCloud = '/assets/images/brands/google-cloud.svg'
 const slack = '/assets/images/brands/slack.svg'
 
-const flagUs = '/assets/images/flags/us.svg'
-const flagsEs = '/assets/images/flags/es.svg'
-
-const languageToFlagMap: { [key: string]: string } = {
-  en: 'us',
-  es: 'es',
-}
-
 export type AppsType = {
   name: string
   image: string
-}
-
-export type LanguageType = {
-  name: string
-  flag: string
-  code: string
 }
 
 export const appData: AppsType[] = [
@@ -66,17 +52,3 @@ export const appData: AppsType[] = [
   },
 ]
 
-export const languages: LanguageType[] = [
-  {
-    name: 'English',
-    flag: flagUs,
-    code: 'en',
-  },
-  {
-    name: 'Spanish',
-    flag: flagsEs,
-    code: 'es',
-  },
-]
-
-export { languageToFlagMap }

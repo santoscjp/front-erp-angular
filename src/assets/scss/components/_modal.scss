@@ -1,10 +1,63 @@
 //
 // modal.scss
+// Soft Minimal Design — Primary: #1B4B78 (navy)
 //
+
+// Slide-up animation
+@keyframes modalSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-content {
+    border-radius: 16px;
+    border: 1px solid var(--#{$prefix}border-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    animation: modalSlideUp 0.25s ease-out;
+}
+
+.modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--#{$prefix}border-color);
+    background-color: transparent;
+
+    .btn-close {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.15s ease;
+        opacity: 0.6;
+
+        &:hover {
+            background-color: var(--#{$prefix}tertiary-bg);
+            opacity: 1;
+        }
+    }
+}
+
+.modal-body {
+    padding: 24px;
+}
+
+.modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--#{$prefix}border-color);
+}
 
 // Title text within header
 .modal-title {
     color: inherit;
+    font-size: 18px;
+    font-weight: $font-weight-semibold;
 }
 
 // Modal full width
@@ -41,11 +94,17 @@
 // Full filled modals
 .modal-filled {
     color: $white;
-    
+
+    .modal-content {
+        background-color: #1B4B78;
+        border: none;
+    }
+
     .modal-header {
         background-color: rgba($white, 0.1);
+        border-bottom-color: rgba($white, 0.15);
     }
-    
+
     .modal-title {
         color: $white;
     }
@@ -57,5 +116,47 @@
 }
 
 .modal-backdrop {
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(4px);
+
+    &.show {
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+}
+
+// Dark mode modal adjustments
+[data-bs-theme="dark"] {
+    .modal-content {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-filled .modal-content {
+        box-shadow: 0 8px 24px rgba(27, 75, 120, 0.25);
+    }
+
+    .modal-backdrop.show {
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+}
+
+// Mobile modal adjustments
+@media (max-width: 575.98px) {
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+
+    .modal-content {
+        border-radius: 12px;
+    }
+
+    .modal-header {
+        padding: 16px 20px;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .modal-footer {
+        padding: 12px 20px;
+    }
 }

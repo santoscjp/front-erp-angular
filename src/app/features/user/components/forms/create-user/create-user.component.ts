@@ -8,10 +8,8 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms'
 import { RoleService } from '@core/services/api/role.service'
-import { CompanyService } from '@core/services/api/company.service'
 import { UserService } from '@core/services/api/user.service'
 import { Role } from '@core/interfaces/api/rol.interface'
-import { Company } from '@core/interfaces/api/company.interface'
 import { CommonModule } from '@angular/common'
 import { TranslatePipe, TranslateService } from '@ngx-translate/core'
 import { ToastrNotificationService } from '@core/services/ui/notification.service'
@@ -26,31 +24,26 @@ import { ToastrNotificationService } from '@core/services/ui/notification.servic
 export class CreateUserComponent implements OnInit {
   userForm: FormGroup
   roles: Role[] = []
-  companies: Company[] = []
 
   @Output() userCreated = new EventEmitter<void>()
   private _modal = inject(NgbActiveModal)
   private _fb = inject(FormBuilder)
   private _roleService = inject(RoleService)
-  private _companyService = inject(CompanyService)
   private _userService = inject(UserService)
   private _notificationService = inject(ToastrNotificationService)
   private _translate = inject(TranslateService)
   constructor() {
     this.userForm = this._fb.group({
-      username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      address: [''],
-      phone: [''],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       roleId: ['', Validators.required],
-      companyId: ['', Validators.required],
     })
   }
 
   ngOnInit(): void {
     this.loadRoles()
-    this.loadCompanies()
   }
 
   loadRoles(): void {
@@ -60,17 +53,6 @@ export class CreateUserComponent implements OnInit {
       },
       (error) => {
         console.error('Error al obtener roles', error)
-      }
-    )
-  }
-
-  loadCompanies(): void {
-    this._companyService.getCompanies().subscribe(
-      (response) => {
-        this.companies = response.data.result
-      },
-      (error) => {
-        console.error('Error al obtener empresas', error)
       }
     )
   }

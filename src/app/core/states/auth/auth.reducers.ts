@@ -3,7 +3,11 @@ import { UserActions } from './auth.actions'
 import { UserState } from '../../interfaces/api/user.interface'
 
 export const initialUserState: UserState = {
-  user: null, // TODO: change to profile
+  user: null,
+  isSuperAdmin: false,
+  permissions: [],
+  modules: [],
+  token: null,
   message: null,
   loading: false,
 }
@@ -11,7 +15,7 @@ export const initialUserState: UserState = {
 export const authReducer = createReducer(
   initialUserState,
 
-  // Sesión y Autenticación
+  // Sesion y Autenticacion
   on(UserActions.loadUserSession, (state) => ({
     ...state,
     loading: true,
@@ -22,16 +26,46 @@ export const authReducer = createReducer(
     loading: true,
     message: 'Authenticating user...',
   })),
-  on(UserActions.userAuthenticationSuccess, (state, { user }) => ({
-    ...state,
-    user,
-    loading: false,
-    message: 'Authentication successful.',
-  })),
+  on(
+    UserActions.userAuthenticationSuccess,
+    (state, { user, permissions, isSuperAdmin, modules }) => ({
+      ...state,
+      user,
+      permissions,
+      isSuperAdmin,
+      modules,
+      loading: false,
+      message: 'Authentication successful.',
+    }),
+  ),
   on(UserActions.userAuthenticationFailure, (state, { message }) => ({
     ...state,
     loading: false,
     message: `Authentication failed: ${message}`,
+  })),
+
+  // SSO
+  on(UserActions.ssoTokenReceived, (state) => ({
+    ...state,
+    loading: true,
+    message: 'Validating SSO token...',
+  })),
+  on(
+    UserActions.ssoAuthenticationSuccess,
+    (state, { user, permissions, isSuperAdmin, modules }) => ({
+      ...state,
+      user,
+      permissions,
+      isSuperAdmin,
+      modules,
+      loading: false,
+      message: 'SSO authentication successful.',
+    }),
+  ),
+  on(UserActions.ssoAuthenticationFailure, (state, { message }) => ({
+    ...state,
+    loading: false,
+    message: `SSO authentication failed: ${message}`,
   })),
 
   // Logout
@@ -62,26 +96,5 @@ export const authReducer = createReducer(
     ...state,
     loading: false,
     message: `Failed to update profile: ${message}`,
-  }))
-)
-
-export const preAuthReducer = createReducer(
-  initialUserState,
-  // Pre-autenticación
-  on(UserActions.preAuthenticateUser, (state) => ({
-    ...state,
-    loading: true,
-    message: 'Pre-authenticating user...',
   })),
-  on(UserActions.preAuthenticationSuccess, (state, { user }) => ({
-    ...state,
-    user,
-    loading: false,
-    message: 'Pre-authentication successful.',
-  })),
-  on(UserActions.preAuthenticationFailure, (state, { message }) => ({
-    ...state,
-    loading: false,
-    message: `Pre-authentication failed: ${message}`,
-  }))
 )

@@ -80,26 +80,10 @@ If two components need the same style, the class goes in global styles or a shar
 ## Global SCSS Structure
 
 ```
-src/styles/
-├── _variables.scss              // Colors, fonts, breakpoints, spacing, border-radius
-├── _mixins.scss                 // Reusable mixins (responsive, flex-center, etc.)
-├── _typography.scss             // Global typographic styles
-├── _reset.scss                  // Reset/normalize
-├── base/
-│   ├── _buttons.scss            // .btn, .btn--primary, .btn--danger, .btn--sm
-│   ├── _forms.scss              // .form-group, .form-control, .form-label, .form-error
-│   ├── _tables.scss             // .data-table, .data-table__header, .data-table__row
-│   └── _cards.scss              // .card, .card__header, .card__body, .card__footer
-├── components/
-│   ├── _modal.scss              // .modal, .modal__header, .modal__body, .modal__footer
-│   ├── _sidebar.scss            // .sidebar, .sidebar__nav, .sidebar__item
-│   ├── _breadcrumb.scss         // .breadcrumb, .breadcrumb__item
-│   └── _badge.scss              // .badge, .badge--success, .badge--warning, .badge--danger
-├── layout/
-│   ├── _header.scss
-│   ├── _footer.scss
-│   └── _grid.scss
-└── styles.scss                  // Main file that imports everything
+assets/scss/
+/─--pages/           # Page-specific styles (e.g. dashboard.scss)
+/─--components/      # Styles for reusable components (e.g. _modal./
+/---structure/       # Layout and grid system (e.g. _grid.scss)
 ```
 
 ## Naming Convention: BEM

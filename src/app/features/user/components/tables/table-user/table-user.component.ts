@@ -101,8 +101,12 @@ export class TableUserComponent implements OnInit, OnDestroy {
       page: this.PAGINATION.PAGE,
       columns: [
         {
-          name: 'USER.TABLE.USERNAME',
-          prop: 'username',
+          name: 'USER.TABLE.FIRST_NAME',
+          prop: 'firstName',
+        },
+        {
+          name: 'USER.TABLE.LAST_NAME',
+          prop: 'lastName',
         },
         {
           name: 'USER.TABLE.EMAIL',
@@ -110,16 +114,8 @@ export class TableUserComponent implements OnInit, OnDestroy {
           prop: 'email',
         },
         {
-          name: 'USER.TABLE.ADDRESS',
-          prop: 'address',
-        },
-        {
-          name: 'USER.TABLE.PHONE',
-          prop: 'phone',
-        },
-        {
-          name: 'USER.TABLE.IS_LOCKED',
-          prop: 'isLocked',
+          name: 'USER.TABLE.IS_ACTIVE',
+          prop: 'isActive',
         },
         {
           name: 'USER.TABLE.CREATED_AT',

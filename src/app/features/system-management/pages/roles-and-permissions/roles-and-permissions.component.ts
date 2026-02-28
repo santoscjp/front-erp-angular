@@ -25,8 +25,8 @@ import { Subscription } from 'rxjs'
 })
 export class RolesAndPermissionsComponent implements OnInit {
   public activeTab: 'role' | 'module' | 'permission' = 'role'
-  public selectedRoleId: string | null = null
-  public selectedModuleId: string | null = null
+  public selectedRoleId: number | null = null
+  public selectedModuleId: number | null = null
 
   isSmallScreen: boolean = false
 

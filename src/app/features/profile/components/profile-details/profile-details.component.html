@@ -3,7 +3,6 @@
     <div class="card-body d-flex align-items-center justify-content-between">
       <div class="d-flex align-items-center gap-3 position-relative">
         <div class="position-relative">
-          <!-- Imagen del usuario -->
           <img
             [src]="userImage || 'assets/images/default-avatar.png'"
             alt="User Avatar"
@@ -11,32 +10,12 @@
             width="60"
             height="60"
           />
-          <!-- Ícono de cámara -->
-          <button
-            type="button"
-            ngbTooltip="{{ 'PROFILE.MY_PROFILE.CHANGE_PHOTO' | translate }}"
-            class="btn btn-light rounded-circle position-absolute bottom-0 end-0 p-1 border"
-            style="width: 20px; height: 20px"
-            (click)="triggerFileInput()"
-          >
-            <i class="ti ti-camera fs-14">
-              <input
-          type="file"
-          #fileInput
-          class="d-none"
-          (change)="onFileSelected($event)"
-        />
-            </i>
-          </button>
         </div>
         <div>
           <h5 class="mb-1 fw-semibold">
             {{ userProfile?.firstName }} {{ userProfile?.lastName }}
           </h5>
-          <p class="text-muted mb-0">{{ userProfile?.roleId?.roleName }}</p>
-          <p class="text-muted mb-0">
-            {{ userProfile?.companyId?.companyName }}
-          </p>
+          <p class="text-muted mb-0">{{ userProfile?.role?.displayName }}</p>
         </div>
       </div>
     </div>
@@ -115,20 +94,6 @@
           <div class="col-md-6">
             <div class="d-flex align-items-baseline gap-2">
               <p class="mb-1 text-muted">
-                {{ 'PROFILE.MY_PROFILE.USERNAME' | translate }}
-              </p>
-              @if (isEditing) {
-                <i
-                  class="ti ti-info-circle fs-16"
-                  ngbTooltip="{{ 'PROFILE.TOOLTIPS.SUPPORT' | translate }}"
-                ></i>
-              }
-            </div>
-            <p class="fw-semibold">{{ userProfile?.username }}</p>
-          </div>
-          <div class="col-md-6">
-            <div class="d-flex align-items-baseline gap-2">
-              <p class="mb-1 text-muted">
                 {{ 'PROFILE.MY_PROFILE.EMAIL' | translate }}
               </p>
               @if (isEditing) {
@@ -139,36 +104,6 @@
               }
             </div>
             <p class="fw-semibold">{{ userProfile?.email }}</p>
-          </div>
-          <div class="col-md-6">
-            <label for="phone" class="mb-1 text-muted">
-              {{ 'PROFILE.MY_PROFILE.PHONE' | translate }}
-            </label>
-            @if (isEditing) {
-              <input
-                class="form-control border-0 border-bottom mb-2 pt-0"
-                type="text"
-                id="phone"
-                formControlName="phone"
-              />
-            } @else {
-              <p class="fw-semibold">{{ userProfile?.phone }}</p>
-            }
-          </div>
-          <div class="col-md-6">
-            <label for="address" class="mb-1 text-muted">
-              {{ 'PROFILE.MY_PROFILE.ADDRESS' | translate }}
-            </label>
-            @if (isEditing) {
-              <input
-                class="form-control border-0 border-bottom mb-2 pt-0"
-                type="text"
-                id="address"
-                formControlName="address"
-              />
-            } @else {
-              <p class="fw-semibold">{{ userProfile?.address }}</p>
-            }
           </div>
         </div>
       </form>

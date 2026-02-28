@@ -3,7 +3,9 @@
 //
 
 .dropdown-menu {
-    box-shadow: var(--#{$prefix}dropdown-box-shadow);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--#{$prefix}border-color);
+    border-radius: 12px;
     animation-name: DropDownSlideUp;
     animation-duration: 0.3s;
     animation-fill-mode: both;
@@ -18,7 +20,14 @@
     }
 
     .dropdown-item {
-        border-radius: var(--#{$prefix}border-radius);
+        border-radius: 6px;
+        padding: 8px 12px;
+        transition: background-color 0.15s ease;
+
+        &:hover,
+        &:focus {
+            background-color: #EDF2F8;
+        }
     }
 
     .dropdown-item:not(:last-child) {

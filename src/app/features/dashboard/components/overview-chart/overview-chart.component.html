@@ -1,45 +1,78 @@
-<div class="card">
-  <div class="card-header d-flex justify-content-between align-items-center">
-    <h4 class="header-title">Overview</h4>
-    <div ngbDropdown placement="bottom-start">
-      <a ngbDropdownToggle class="drop-arrow-none cursor-pointer card-drop" data-bs-toggle="dropdown"
-        aria-expanded="false">
-        <i class="ti ti-dots-vertical"></i>
-      </a>
-      <div ngbDropdownMenu class="dropdown-menu-end">
-
-        <a href="javascript:void(0);" ngbDropdownItem>Sales Report</a>
-
-        <a href="javascript:void(0);" ngbDropdownItem>Export Report</a>
-
-        <a href="javascript:void(0);" ngbDropdownItem>Profit</a>
-
-        <a href="javascript:void(0);" ngbDropdownItem>Action</a>
+<div class="card overview-card">
+  <div class="card-header overview-card__header">
+    <div>
+      <p class="overview-card__subtitle">One Year Statement</p>
+      <h4 class="overview-card__title">Shortcuts Analytics</h4>
+      <div class="legend-inline mt-2">
+        <span class="legend-inline__item">
+          <span class="legend-inline__dot legend-inline__dot--income"></span> Income
+        </span>
+        <span class="legend-inline__item">
+          <span class="legend-inline__dot legend-inline__dot--expense"></span> Expense
+        </span>
+        <span class="legend-inline__item">
+          <span class="legend-inline__dot legend-inline__dot--profit"></span> Net Profit
+        </span>
       </div>
     </div>
-  </div>
 
-  <div class="bg-light bg-opacity-50">
-    <div class="row text-center">
-      @for (item of overViewData; track $index) {
-      <div class="col-md-3 col-6">
-        <p class="text-muted mt-3 mb-1">{{item.title}}</p>
-        <h4 class="mb-3">
-          <span class="ti {{item.icon}} text-{{item.variant}} me-1"></span>
-          <span>{{currency}}{{item.count}}k</span>
-        </h4>
+    <div class="d-flex align-items-center gap-3">
+      <div class="shortcut-stats">
+        @for (item of overViewData; track trackByTitle($index, item)) {
+          <div class="shortcut-stats__item">
+            <div class="shortcut-stats__chart">
+              <apx-chart
+                [chart]="miniBarChartOpts.chart!"
+                [series]="miniBarChartOpts.series!"
+                [plotOptions]="miniBarChartOpts.plotOptions!"
+                [colors]="miniBarChartOpts.colors!"
+                [tooltip]="miniBarChartOpts.tooltip!" />
+            </div>
+            <div class="shortcut-stats__info">
+              <div class="shortcut-stats__value">
+                {{ item.count }}
+                <i class="ti {{ item.icon }} fs-14 text-{{ item.variant }}"></i>
+              </div>
+              <div class="shortcut-stats__label">{{ item.title }}</div>
+            </div>
+          </div>
+        }
       </div>
-      }
+
+      <div class="chart-filters">
+        <div ngbDropdown>
+          <button ngbDropdownToggle class="btn btn-sm btn-outline-light border text-dark">
+            Yearly <i class="ti ti-chevron-down ms-1"></i>
+          </button>
+          <div ngbDropdownMenu class="dropdown-menu-end">
+            <a href="javascript:void(0);" ngbDropdownItem>Monthly</a>
+            <a href="javascript:void(0);" ngbDropdownItem>Quarterly</a>
+            <a href="javascript:void(0);" ngbDropdownItem>Yearly</a>
+          </div>
+        </div>
+        <button class="btn btn-sm btn-outline-light border text-dark">
+          <i class="ti ti-adjustments-horizontal me-1"></i> Filters
+        </button>
+      </div>
     </div>
   </div>
 
   <div class="card-body pt-0">
     <div dir="ltr">
-      <apx-chart [xaxis]="overViewChartOpts.xaxis!" [yaxis]="overViewChartOpts.yaxis!" [grid]="overViewChartOpts.grid!"
-        [legend]="overViewChartOpts.legend!" [plotOptions]="overViewChartOpts.plotOptions!"
-        [chart]="overViewChartOpts.chart!" [series]="overViewChartOpts.series!" [stroke]="overViewChartOpts.stroke!"
-        [fill]="overViewChartOpts.fill!" [markers]="overViewChartOpts.markers!" [colors]="overViewChartOpts.colors!"
-        [tooltip]="overViewChartOpts.tooltip!" />
+      <apx-chart
+        [xaxis]="mainChartOpts.xaxis!"
+        [yaxis]="mainChartOpts.yaxis!"
+        [grid]="mainChartOpts.grid!"
+        [legend]="mainChartOpts.legend!"
+        [plotOptions]="mainChartOpts.plotOptions!"
+        [chart]="mainChartOpts.chart!"
+        [series]="mainChartOpts.series!"
+        [stroke]="mainChartOpts.stroke!"
+        [fill]="mainChartOpts.fill!"
+        [markers]="mainChartOpts.markers!"
+        [colors]="mainChartOpts.colors!"
+        [tooltip]="mainChartOpts.tooltip!"
+        [dataLabels]="mainChartOpts.dataLabels!" />
     </div>
   </div>
 </div>

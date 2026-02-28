@@ -11,22 +11,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { TranslateModule } from '@ngx-translate/core'
 import {
   BehaviorSubject,
-  catchError,
   debounceTime,
   distinctUntilChanged,
-  of,
   Subject,
-  switchMap,
   takeUntil,
-  tap,
 } from 'rxjs'
 import { Module } from '@core/interfaces/api/module.interface'
 import { ModuleService } from '@core/services/api/module.service'
 import { SelectionService } from '@core/services/ui/selection.service'
-import { BootstrapModalService } from '@core/services/ui/bootstrap-modal.service'
-import { ModuleFormComponent } from '../../forms/module-form/module-form.component'
-import { MODAL_TYPE } from '@core/helpers/global/global.constants'
-import { PermissionFormComponent } from '../../forms/permission-form/permission-form.component'
 
 @Component({
   selector: 'module-area',
@@ -39,15 +31,14 @@ export class ModuleAreaComponent implements OnInit, OnDestroy {
   public modules$: BehaviorSubject<Module[]> = new BehaviorSubject<Module[]>([])
   public searchTerm: string = ''
   public isLoading: boolean = false
-  public selectedRoleId: string | null = null
-  public selectedModuleId: string | null = null
+  public selectedRoleId: number | null = null
+  public selectedModuleId: number | null = null
 
   private searchSubject = new Subject<string>()
   private destroy$ = new Subject<void>()
 
   private _moduleService = inject(ModuleService)
   private _selectionService = inject(SelectionService)
-  private _bootstrapModalService = inject(BootstrapModalService)
 
   ngOnInit(): void {
     this.initializeSubscriptions()
@@ -55,19 +46,8 @@ export class ModuleAreaComponent implements OnInit, OnDestroy {
   }
 
   private initializeSubscriptions(): void {
-    this.subscribeToModalClose()
     this.subscribeToRoleSelection()
     this.subscribeToModuleSearch()
-  }
-
-  private subscribeToModalClose(): void {
-    this._bootstrapModalService.getModalClosed().subscribe(() => {
-      this._bootstrapModalService.getDataIssued().subscribe((data) => {
-        if (data?.modalType === MODAL_TYPE.MODULE_FORM) {
-          this.getModulesByRole()
-        }
-      })
-    })
   }
 
   private subscribeToRoleSelection(): void {
@@ -86,10 +66,13 @@ export class ModuleAreaComponent implements OnInit, OnDestroy {
       .pipe(
         debounceTime(500),
         distinctUntilChanged(),
-        switchMap((term) => this._moduleService.findModules({ name: term })),
-        takeUntil(this.destroy$)
+        takeUntil(this.destroy$),
       )
-      .subscribe((response) => this.modules$.next(response.data.result))
+      .subscribe((term) => {
+        this._moduleService
+          .findModules({ name: term })
+          .subscribe((response) => this.modules$.next(response.data.result))
+      })
   }
 
   private getModulesByRole(): void {
@@ -101,22 +84,13 @@ export class ModuleAreaComponent implements OnInit, OnDestroy {
     this.isLoading = true
     this._moduleService
       .getModulesByRole(this.selectedRoleId)
-      .pipe(
-        tap((response) => {
-          this.isLoading = false
-          this.modules$.next(response.data.result)
-        }),
-        catchError((err) => {
-          this.isLoading = false
-          this.modules$.next([])
-          console.error('⚠️ Error al obtener módulos:', err)
-          return of([])
-        })
-      )
-      .subscribe()
+      .subscribe((response) => {
+        this.isLoading = false
+        this.modules$.next(response.data.result)
+      })
   }
 
-  public selectModule(moduleId: string): void {
+  public selectModule(moduleId: number): void {
     this.selectedModuleId = moduleId
     this._selectionService.setModuleId(moduleId)
   }
@@ -126,49 +100,11 @@ export class ModuleAreaComponent implements OnInit, OnDestroy {
   }
 
   public searchModules(): void {
-    this.isLoading = true
     this._moduleService
       .findModules({ name: this.searchTerm })
       .subscribe((response) => {
-        this.isLoading = false
         this.modules$.next(response.data.result)
       })
-  }
-
-  public toggleModuleForRole(moduleId: string): void {
-    if (!this.selectedRoleId) return
-
-    this._moduleService
-      .toggleModuleStatus(this.selectedRoleId, moduleId)
-      .subscribe(() => {
-        this.getModulesByRole()
-        if (this.selectedModuleId === moduleId) {
-          this._selectionService.setModuleId(moduleId)
-        }
-      })
-  }
-
-  openModal(): void {
-    this._bootstrapModalService.openModal({
-      component: ModuleFormComponent,
-      data: { roleId: this.selectedRoleId, modalType: MODAL_TYPE.MODULE_FORM },
-    })
-  }
-
-  openModalPermission(moduleId: string, event: Event): void {
-    event.stopPropagation()
-    this._bootstrapModalService.openModal({
-      component: PermissionFormComponent,
-      data: { moduleId, modalType: MODAL_TYPE.PERMISSION_FORM },
-    })
-  }
-
-  public openEditModal(moduleId: string, event: Event): void {
-    event.stopPropagation()
-    this._bootstrapModalService.openModal({
-      component: ModuleFormComponent,
-      data: { moduleId, modalType: MODAL_TYPE.MODULE_FORM },
-    })
   }
 
   ngOnDestroy(): void {

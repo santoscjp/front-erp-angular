@@ -1,9 +1,7 @@
-import { MsgTranslate } from './message.interface'
-
 export interface ApiResponse<T> {
   statusCode: number
   status: string
-  message: MsgTranslate
+  message: string
   data: T
 }
 

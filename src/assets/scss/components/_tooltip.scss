@@ -2,6 +2,33 @@
 // _tooltip.scss
 //
 
+.tooltip {
+    .tooltip-inner {
+        background-color: #111827;
+        border-radius: 6px;
+    }
+
+    &.bs-tooltip-top .tooltip-arrow::before,
+    &.bs-tooltip-auto[data-popper-placement^="top"] .tooltip-arrow::before {
+        border-top-color: #111827;
+    }
+
+    &.bs-tooltip-bottom .tooltip-arrow::before,
+    &.bs-tooltip-auto[data-popper-placement^="bottom"] .tooltip-arrow::before {
+        border-bottom-color: #111827;
+    }
+
+    &.bs-tooltip-start .tooltip-arrow::before,
+    &.bs-tooltip-auto[data-popper-placement^="left"] .tooltip-arrow::before {
+        border-left-color: #111827;
+    }
+
+    &.bs-tooltip-end .tooltip-arrow::before,
+    &.bs-tooltip-auto[data-popper-placement^="right"] .tooltip-arrow::before {
+        border-right-color: #111827;
+    }
+}
+
 @each $color,
 $value in $theme-colors {
     .tooltip-#{$color} {

@@ -4,8 +4,20 @@
 
 .pagination {
     .page-link {
+        border-radius: 6px;
+
         svg {
             height: 14px;
+        }
+    }
+
+    .page-item {
+        &.active {
+            .page-link {
+                background-color: #1B4B78;
+                border-color: #1B4B78;
+                color: #fff;
+            }
         }
     }
 }

@@ -1,7 +1,16 @@
+export type RoleName =
+  | 'ADMIN'
+  | 'ACCOUNTANT'
+  | 'ASSISTANT_ACCOUNTANT'
+  | 'VIEWER'
+
 export interface Role {
-  _id: string
-  roleName: string
-  description?: string
+  id: number
+  name: RoleName
+  displayName: string
+  description: string | null
+  permissions: string[]
+  isSystem: boolean
   isActive?: boolean
   createdAt?: string
   updatedAt?: string

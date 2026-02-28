@@ -1,19 +1,32 @@
 <div class="modal-header">
-  <h5 class="modal-title">Detalles del Usuario</h5>
+  <h5 class="modal-title">{{ 'USER.VIEW.USER_DETAILS' | translate }}</h5>
   <button type="button" class="btn-close" (click)="handleClose()"></button>
 </div>
 
 <div class="modal-body">
   <form [formGroup]="userDetailsForm" class="row g-3">
     <div class="col-md-6">
-      <label for="username" class="form-label">{{
-        'USER.VIEW.USERNAME' | translate
+      <label for="firstName" class="form-label">{{
+        'USER.VIEW.FIRST_NAME' | translate
       }}</label>
       <input
-        id="username"
+        id="firstName"
         type="text"
         class="form-control"
-        formControlName="username"
+        formControlName="firstName"
+        readonly
+      />
+    </div>
+
+    <div class="col-md-6">
+      <label for="lastName" class="form-label">{{
+        'USER.VIEW.LAST_NAME' | translate
+      }}</label>
+      <input
+        id="lastName"
+        type="text"
+        class="form-control"
+        formControlName="lastName"
         readonly
       />
     </div>
@@ -32,66 +45,27 @@
     </div>
 
     <div class="col-md-6">
-      <label for="address" class="form-label">{{
-        'USER.VIEW.ADDRESS' | translate
-      }}</label>
-      <input
-        id="address"
-        type="text"
-        class="form-control"
-        formControlName="address"
-        readonly
-      />
-    </div>
-
-    <div class="col-md-6">
-      <label for="phone" class="form-label">{{
-        'USER.VIEW.PHONE' | translate
-      }}</label>
-      <input
-        id="phone"
-        type="text"
-        class="form-control"
-        formControlName="phone"
-        readonly
-      />
-    </div>
-
-    <div class="col-md-6">
-      <label for="roleId" class="form-label">{{
+      <label for="role" class="form-label">{{
         'USER.VIEW.ROLES' | translate
       }}</label>
       <input
-        id="roleId"
+        id="role"
         type="text"
         class="form-control"
-        formControlName="roleId"
+        formControlName="role"
         readonly
       />
     </div>
 
     <div class="col-md-6">
-      <label for="companyId" class="form-label">{{
-        'USER.VIEW.COMPANY' | translate
+      <label for="isActive" class="form-label">{{
+        'USER.VIEW.IS_ACTIVE' | translate
       }}</label>
       <input
-        id="companyId"
+        id="isActive"
         type="text"
         class="form-control"
-        formControlName="companyId"
-        readonly
-      />
-    </div>
-
-    <div class="col-md-6">
-      <label for="isLocked" class="form-label">{{
-        'USER.VIEW.IS_LOCKED' | translate
-      }}</label>
-      <input
-        id="isLocked"
-        type="text"
-        class="form-control"
-        formControlName="isLocked"
+        formControlName="isActive"
         readonly
       />
     </div>

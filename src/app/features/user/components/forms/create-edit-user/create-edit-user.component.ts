@@ -7,10 +7,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms'
-import { Company } from '@core/interfaces/api/company.interface'
 import { Role } from '@core/interfaces/api/rol.interface'
 import { User } from '@core/interfaces/api/user.interface'
-import { CompanyService } from '@core/services/api/company.service'
 import { RoleService } from '@core/services/api/role.service'
 import { UserService } from '@core/services/api/user.service'
 import { BootstrapModalService } from '@core/services/ui/bootstrap-modal.service'
@@ -29,44 +27,37 @@ export class CreateEditUserComponent {
   public userForm!: FormGroup
   public fb = inject(FormBuilder)
   roles: Role[] = []
-  companies: Company[] = []
 
   private _bsModalService = inject(BootstrapModalService)
   public modal = inject(NgbActiveModal)
   private roleService = inject(RoleService)
-  private companyService = inject(CompanyService)
   private userService = inject(UserService)
 
   ngOnInit(): void {
     this.initForm()
-    this.loadCompanies()
     this.loadRoles()
     this.loadSelectedUser()
   }
 
   private initForm(): void {
     this.userForm = this.fb.group({
-      _id: [''],
-      username: ['', [Validators.required, Validators.minLength(3)]],
+      id: [''],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      address: [''],
-      phone: [''],
       roleId: ['', Validators.required],
-      companyId: ['', Validators.required],
-      isLocked: [false],
+      isActive: [true],
     })
   }
 
   private updateForm(user: User): void {
     this.userForm.patchValue({
-      _id: user._id,
-      username: user.username,
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
-      address: user.address,
-      phone: user.phone,
-      roleId: user.roleId._id,
-      companyId: user.companyId._id,
-      isLocked: user.isLocked,
+      roleId: user.role?.id,
+      isActive: user.isActive,
     })
   }
 
@@ -74,15 +65,6 @@ export class CreateEditUserComponent {
     this.roleService.getAllRoles().subscribe({
       next: (res) => {
         this.roles = res.data.result || []
-      },
-      error: () => {},
-    })
-  }
-
-  private loadCompanies(): void {
-    this.companyService.getCompanies().subscribe({
-      next: (response) => {
-        this.companies = response.data.result
       },
       error: () => {},
     })
@@ -108,8 +90,8 @@ export class CreateEditUserComponent {
       return
     }
     const updatedUser = { ...this.userForm.getRawValue() }
-    const userId = updatedUser._id
-    delete updatedUser._id
+    const userId = updatedUser.id
+    delete updatedUser.id
 
     if (!this.userForm.get('email')?.dirty) {
       delete updatedUser.email

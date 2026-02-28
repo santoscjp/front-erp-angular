@@ -6,20 +6,3 @@ export type LanguageCode =
 export interface LanguageState {
   code: LanguageCode
 }
-
-export interface LanguageComponent {
-  language: string
-  code: LanguageCode
-  type: string
-  icon: string
-}
-
-export interface Language {
-  _id: string
-  name: string
-  code: LanguageCode
-}
-
-export type TranslationsPerLanguage = {
-  [key in LanguageCode]: string
-}

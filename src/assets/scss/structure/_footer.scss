@@ -1,4 +1,4 @@
-// 
+//
 // footer.scss
 //
 
@@ -7,19 +7,20 @@
     display: flex;
     align-items: center;
     padding: calc($grid-gutter-width * .75);
-    color: var(--#{$prefix}emphasis-color);
+    color: var(--#{$prefix}secondary-color);
+    font-size: 0.8125rem;
     transition: $transition-base;
-    border-top: 1px solid $card-border-color;
+    border-top: 1px solid var(--#{$prefix}border-color);
     margin: auto calc($grid-gutter-width * -0.5) 0;
 
     .footer-links {
         a {
-            color: var(--#{$prefix}emphasis-color);
+            color: var(--#{$prefix}secondary-color);
             margin-left: $spacer;
-            transition: all .4s;
+            transition: all 0.15s ease;
 
             &:hover {
-                color: var(--#{$prefix}emphasis-color);
+                color: var(--#{$prefix}primary);
             }
 
             &:first-of-type {

@@ -30,62 +30,16 @@
         </button>
       </div>
 
-      <div class="topbar-item">
-        <div ngbDropdown>
-          <button
-            ngbDropdownToggle
-            class="topbar-link arrow-none"
-            data-bs-toggle="dropdown"
-            data-bs-offset="0,25"
-            type="button"
-            aria-haspopup="false"
-            aria-expanded="false"
-          >
-            <img
-              [src]="
-                'assets/images/flags/' +
-                (languageToFlagMap[translate.currentLang] || 'us') +
-                '.svg'
-              "
-              alt="language-flag"
-              class="w-100 rounded"
-              height="18"
-            />
-          </button>
-
-          <div ngbDropdownMenu class="dropdown-menu-end">
-            @for (item of languageList; track $index) {
-              <a
-                ngbDropdownItem
-                href="javascript:void(0);"
-                (click)="changeLanguage(item.code)"
-              >
-                <img
-                  [src]="item.flag"
-                  alt="flag"
-                  class="me-1 rounded"
-                  height="18"
-                />
-                <span class="align-middle">{{ item.name }}</span>
-              </a>
-            }
-          </div>
-        </div>
-      </div>
-
       <div class="topbar-item d-none d-sm-flex">
-        <button
-          class="topbar-link"
-          (click)="changeTheme()"
-          id="light-dark-mode"
-          type="button"
-        >
-          @if (color === 'light') {
-            <i class="ti ti-moon fs-22"></i>
-          } @else {
-            <i class="ti ti-sun fs-22"></i>
-          }
-        </button>
+        <div class="theme-toggle" (click)="changeTheme()" id="light-dark-mode">
+          <div class="theme-toggle__indicator" [class.theme-toggle__indicator--dark]="color === 'dark'"></div>
+          <button type="button" class="theme-toggle__btn" [class.active]="color === 'light'">
+            <i class="ti ti-sun fs-18"></i>
+          </button>
+          <button type="button" class="theme-toggle__btn" [class.active]="color === 'dark'">
+            <i class="ti ti-moon fs-18"></i>
+          </button>
+        </div>
       </div>
 
       <div class="topbar-item nav-user">
@@ -106,9 +60,9 @@
               alt="user-image"
             />
             <span class="d-lg-flex flex-column gap-1 d-none">
-              <h5 class="my-0">{{ userProfile?.username }}</h5>
+              <h5 class="my-0">{{ userProfile?.firstName }} {{ userProfile?.lastName }}</h5>
               <h6 class="my-0 fw-normal">
-                {{ userProfile?.roleId?.roleName }}
+                {{ userProfile?.role?.displayName }}
               </h6>
             </span>
             <i
@@ -118,7 +72,7 @@
           <div ngbDropdownMenu class="dropdown-menu-end">
             <div class="dropdown-header noti-title">
               <h6 class="text-overflow m-0">
-                {{ 'WORDS.WELCOME' | translate }} {{ userProfile?.username }}!
+                {{ 'WORDS.WELCOME' | translate }} {{ userProfile?.firstName }}!
               </h6>
             </div>
 

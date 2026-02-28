@@ -39,7 +39,7 @@ export class RoleLeftSideBarComponent implements OnInit, OnDestroy {
   public roles$: BehaviorSubject<Role[]> = new BehaviorSubject<Role[]>([])
   public searchTerm: string = ''
   public isLoading: boolean = false
-  public selectedRoleId: string | null = null
+  public selectedRoleId: number | null = null
 
   private searchSubject = new Subject<string>()
   private destroy$ = new Subject<void>()
@@ -108,7 +108,7 @@ export class RoleLeftSideBarComponent implements OnInit, OnDestroy {
       .add(() => (this.isLoading = false))
   }
 
-  public selectRole(roleId: string): void {
+  public selectRole(roleId: number): void {
     this._selectionService.setRoleId(roleId)
   }
 
@@ -124,7 +124,7 @@ export class RoleLeftSideBarComponent implements OnInit, OnDestroy {
     })
   }
 
-  public toggleRoleStatus(id: string): void {
+  public toggleRoleStatus(id: number): void {
     this.isLoading = true
     this._roleService.toggleRoleStatus(id).subscribe(() => {
       this.loadRoles()
@@ -144,7 +144,7 @@ export class RoleLeftSideBarComponent implements OnInit, OnDestroy {
     })
   }
 
-  public openEditModal(roleId: string, event: Event): void {
+  public openEditModal(roleId: number, event: Event): void {
     event.stopPropagation()
     this._bootstrapModalService.openModal({
       component: RoleFormComponent,

@@ -15,7 +15,7 @@ import { AuthenticationService } from '@core/services/api/auth.service'
 import { ToastrService } from 'ngx-toastr'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import {
-  UserLoginRequest,
+  LoginRequest,
   UserState,
 } from '@core/interfaces/api/user.interface'
 import { Store } from '@ngrx/store'
@@ -34,8 +34,6 @@ export class LoginComponent implements OnInit {
   public signInForm!: FormGroup
   public isLoading: boolean = false
   public rememberMeChecked: boolean = false
-  public storedUsername: string | null = ''
-  public storedPassword: string | null = ''
   public errorMessage: string = ''
   public isSubmitted: boolean = false
   public isShowPassword: boolean = false
@@ -55,6 +53,7 @@ export class LoginComponent implements OnInit {
 
   private initSignInForm(): void {
     this.signInForm = this.fb.group({
+      emisorRuc: ['', [Validators.pattern(/^\d{13}$/)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       rememberMe: [false],
@@ -65,6 +64,7 @@ export class LoginComponent implements OnInit {
     const rememberedUser = this.authService.getRememberedUser()
     if (rememberedUser) {
       this.signInForm.patchValue({
+        emisorRuc: rememberedUser.emisorRuc,
         email: rememberedUser.email,
         password: rememberedUser.password,
         rememberMe: true,
@@ -88,16 +88,17 @@ export class LoginComponent implements OnInit {
   }
 
   private handleRememberMe(): void {
-    const { email, password, rememberMe } = this.signInForm.value
+    const { emisorRuc, email, password, rememberMe } = this.signInForm.value
     if (rememberMe) {
-      this.authService.rememberUser(email, password)
+      this.authService.rememberUser(email, password, emisorRuc)
     } else {
       this.authService.clearRememberedUser()
     }
   }
 
   private authenticateUser(): void {
-    const data: UserLoginRequest = {
+    const data: LoginRequest = {
+      emisorRuc: this.signInForm.get('emisorRuc')?.value,
       email: this.signInForm.get('email')?.value,
       password: this.signInForm.get('password')?.value,
     }
@@ -126,16 +127,6 @@ export class LoginComponent implements OnInit {
 
   togglePasswordVisibility(): void {
     this.isShowPassword = !this.isShowPassword
-  }
-
-  rememberMe() {
-    this.storedUsername = localStorage.getItem('remeberedUsername')
-    this.storedPassword = localStorage.getItem('remeberedPass')
-    if (this.storedUsername && this.storedPassword) {
-      this.signInForm.patchValue({ email: this.storedUsername })
-      this.signInForm.patchValue({ password: this.storedPassword })
-      this.rememberMeChecked = !this.rememberMeChecked
-    }
   }
 
   onRememberMeChange() {

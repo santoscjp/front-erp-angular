@@ -10,12 +10,12 @@ Topbar CSS
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: var(--#{$prefix}box-shadow);
+    box-shadow: none;
     background: $topbar-bg;
     min-height: $topbar-height;
     margin-left: $sidenav-width;
     transition: $transition-base;
-    border-bottom: $card-border-width solid $card-border-color;
+    border-bottom: 1px solid var(--#{$prefix}border-color);
     padding: 0 calc($grid-gutter-width * 0.5);
 
     .topbar-menu {
@@ -37,13 +37,17 @@ Topbar CSS
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                cursor: pointer;
+                width: 36px;
+                height: 36px;
+                border-radius: 8px;
                 color: $topbar-item-color;
+                transition: all 0.2s ease;
 
                 &:hover,
                 &:active,
                 &:focus {
                     color: $topbar-item-hover-color;
+                    background-color: rgba(27, 75, 120, 0.06);
                 }
             }
         }
@@ -61,21 +65,77 @@ Topbar CSS
 
 .sidenav-toggle-button {
     display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
     cursor: pointer;
     background-color: transparent;
     border: none;
     color: $topbar-item-color;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background-color: rgba(27, 75, 120, 0.06);
+        color: $topbar-item-hover-color;
+    }
 }
 
-// Topbar light/Dark Mode icon 
-html[data-bs-theme="dark"] {
-    #light-dark-mode {
-        .ti-moon {
-            &::before {
-                content: "\eb30";
-            }
+// Theme Toggle (Light/Dark Mode)
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    position: relative;
+    background-color: var(--#{$prefix}tertiary-bg);
+    border: 1px solid var(--#{$prefix}border-color);
+    border-radius: 50rem;
+    padding: 3px;
+    cursor: pointer;
+    gap: 0;
+
+    &__indicator {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-color: $white;
+        border-radius: 50%;
+        left: 3px;
+        top: 3px;
+        transition: transform 0.25s ease;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+        &--dark {
+            transform: translateX(30px);
         }
+    }
+
+    &__btn {
+        z-index: 1;
+        border: none;
+        background: transparent;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #9CA3AF;
+        transition: color 0.2s ease;
+        cursor: pointer;
+        padding: 0;
+
+        &.active {
+            color: #F47920;
+        }
+    }
+}
+
+[data-bs-theme="dark"] {
+    .theme-toggle__indicator {
+        background-color: #252630;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     }
 }
 
@@ -83,12 +143,14 @@ html[data-bs-theme="dark"] {
     display: flex;
     align-items: center;
     gap: 10px;
-    border-width: 0 1px;
+    border-width: 0 0 0 1px;
     border-style: solid;
-    border-color: $topbar-user-border;
-    background-color: $topbar-user-bg;
+    border-color: var(--#{$prefix}border-color);
+    background-color: transparent;
     min-height: $topbar-height;
     transition: none;
+    padding-left: 12px;
+    margin-left: 4px;
 }
 
 
@@ -98,7 +160,21 @@ html[data-bs-theme="dark"] {
     padding: calc($input-padding-y * 1.25) $input-padding-x;
     line-height: $input-line-height;
     background-color: $topbar-search-bg;
-    @include border-radius($input-border-radius, 0);
+    border: 1px solid var(--#{$prefix}border-color);
+    color: $gray-600;
+    font-size: 0.8125rem;
+    @include border-radius(8px, 0);
+    transition: all 0.2s ease;
+
+    &:focus {
+        background-color: var(--#{$prefix}secondary-bg);
+        border-color: rgba(27, 75, 120, 0.35);
+        box-shadow: 0 0 0 3px rgba(27, 75, 120, 0.12);
+    }
+
+    &::placeholder {
+        color: #9CA3AF;
+    }
 }
 
 // Notification
@@ -106,6 +182,8 @@ html[data-bs-theme="dark"] {
     background-color: var(--#{$prefix}secondary-bg);
     position: relative;
     cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
 
     .notification-item-close {
         position: absolute;
@@ -115,21 +193,26 @@ html[data-bs-theme="dark"] {
         bottom: 0;
         padding: 15px;
         background-color: #{$dropdown-link-hover-bg};
+        border-radius: 0 8px 8px 0;
     }
 
     .notification-badge {
-        height: 22px;
-        width: 22px;
+        height: 16px;
+        width: 16px;
         text-align: center;
         color: $white;
-        top: -12px;
-        right: -8px;
-        border: 2px solid $card-bg;
-        line-height: 18px;
-        font-size: 11px;
+        top: -6px;
+        right: -4px;
+        border: 2px solid var(--#{$prefix}secondary-bg);
+        line-height: 12px;
+        font-size: 9px;
+        font-weight: 600;
+        border-radius: 50%;
     }
 
     &:hover {
+        background-color: rgba(27, 75, 120, 0.06);
+
         .notification-item-close {
             display: block;
         }
@@ -185,6 +268,28 @@ html[data-bs-theme="dark"] {
             }
         }
     }
+
+    .theme-toggle {
+        padding: 2px;
+
+        &__indicator {
+            width: 26px;
+            height: 26px;
+
+            &--dark {
+                transform: translateX(26px);
+            }
+        }
+
+        &__btn {
+            width: 26px;
+            height: 26px;
+
+            i {
+                font-size: 16px !important;
+            }
+        }
+    }
 }
 
 @include media-breakpoint-down(md) {
@@ -202,5 +307,11 @@ html[data-bs-theme="dark"] {
         span.logo-sm {
             display: block;
         }
+    }
+
+    .nav-user {
+        border-left: none;
+        padding-left: 4px;
+        margin-left: 0;
     }
 }

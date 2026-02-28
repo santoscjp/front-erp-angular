@@ -40,17 +40,6 @@
         />
       </div>
       <div class="mb-3 col-md-2">
-        <label for="username" class="form-label">{{
-          'USER.TABLE.USERNAME' | translate
-        }}</label>
-        <input
-          type="text"
-          class="form-control"
-          id="username"
-          formControlName="username"
-        />
-      </div>
-      <div class="mb-3 col-md-2">
         <label for="email" class="form-label">{{
           'USER.TABLE.EMAIL' | translate
         }}</label>
@@ -62,35 +51,35 @@
         />
       </div>
       <div class="mb-3 col-md-2">
-        <label for="address" class="form-label">{{
-          'USER.TABLE.ADDRESS' | translate
+        <label for="firstName" class="form-label">{{
+          'USER.TABLE.FIRST_NAME' | translate
         }}</label>
         <input
           type="text"
           class="form-control"
-          id="address"
-          formControlName="address"
+          id="firstName"
+          formControlName="firstName"
         />
       </div>
       <div class="mb-3 col-md-2">
-        <label for="phone" class="form-label">{{
-          'USER.TABLE.PHONE' | translate
+        <label for="lastName" class="form-label">{{
+          'USER.TABLE.LAST_NAME' | translate
         }}</label>
         <input
           type="text"
           class="form-control"
-          id="phone"
-          formControlName="phone"
+          id="lastName"
+          formControlName="lastName"
         />
       </div>
 
       <div class="mb-3 col-md-2">
-        <label for="isLocked" class="form-label">{{
-          'USER.TABLE.IS_LOCKED' | translate
+        <label for="isActive" class="form-label">{{
+          'USER.TABLE.IS_ACTIVE' | translate
         }}</label>
         <ng-select
-          id="isLocked"
-          formControlName="isLocked"
+          id="isActive"
+          formControlName="isActive"
           [items]="blocked$ | async"
           bindLabel="label"
           bindValue="value"
@@ -104,26 +93,6 @@
           </ng-template></ng-select
         >
       </div>
-      <!-- <div class="mb-3 col-md-2">
-        <label for="isLocked" class="form-label">{{
-          'USER.TABLE.ROLES' | translate
-        }}</label>
-        <ng-select
-          id="roleId"
-          formControlName="roleId"
-          [items]="blocked$ | async"
-          bindLabel="label"
-          bindValue="value"
-        >
-          <ng-template ng-option-tmp let-item="item">
-            {{ item.label | translate }}
-          </ng-template>
-
-          <ng-template ng-label-tmp let-item="item">
-            {{ item.label | translate }}
-          </ng-template></ng-select
-        >
-      </div> -->
     </div>
   </div>
   <div class="card-footer">

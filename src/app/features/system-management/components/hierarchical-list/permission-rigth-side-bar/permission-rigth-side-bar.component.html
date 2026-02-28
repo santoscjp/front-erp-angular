@@ -44,7 +44,6 @@
               <a
                 href="javascript:void(0);"
                 class="text-body w-100 d-block"
-                [class.pointer-events-none]="!item.isActiveForRole"
               >
                 <div class="chat-users">
                   <div
@@ -60,23 +59,11 @@
                     }}"
                   >
                     <h5 class="mt-0 mb-0 fs-13">
-                      {{ item.permissionName }}
+                      {{ item.permissionName || item.name }}
                     </h5>
                   </div>
 
                   <div class="d-flex gap-1 text-muted">
-                    @if (item.isActiveForRole) {
-                      <i
-                        class="ti ti-pencil fs-16"
-                        placement="left"
-                        ngbTooltip="{{
-                          'ROLES_AND_PERMISSIONS.PERMISSION.EDIT_PERMISSION'
-                            | translate
-                        }}"
-                        (click)="openEditModal(item._id, $event)"
-                      >
-                      </i>
-                    }
                     <i
                       [ngClass]="
                         !item.isActiveForRole
@@ -84,7 +71,7 @@
                           : 'ti ti-shield-off'
                       "
                       class="fs-16 text-danger"
-                      (click)="togglePermissionStatus(item._id)"
+                      (click)="togglePermissionStatus(item.name)"
                       ngbTooltip="{{
                         item.isActiveForRole
                           ? ('ROLES_AND_PERMISSIONS.PERMISSION.ACTIVATE_DEACTIVATE.DEACTIVATE_PERMISSION'
@@ -105,8 +92,11 @@
                   <div class="flex-grow-1 overflow-hidden">
                     <h5 class="mt-0 mb-0 fs-13">
                       {{
-                        'ROLES_AND_PERMISSIONS.PERMISSION.NO_PERMISSIONS_FOUND'
-                          | translate
+                        selectedModuleId
+                          ? ('ROLES_AND_PERMISSIONS.PERMISSION.NO_PERMISSIONS_FOUND'
+                            | translate)
+                          : ('ROLES_AND_PERMISSIONS.PERMISSION.SELECT_MODULE'
+                            | translate)
                       }}
                     </h5>
                   </div>

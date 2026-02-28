@@ -9,14 +9,13 @@ import {
 import { Router } from '@angular/router'
 import {
   User,
-  UserLoginRequest,
+  LoginRequest,
   UserState,
 } from '@core/interfaces/api/user.interface'
 import { AuthenticationService } from '@core/services/api/auth.service'
 import { ToastrNotificationService } from '@core/services/ui/notification.service'
 import { UserActions } from '@core/states/auth/auth.actions'
 import { selectAuth } from '@core/states/auth/auth.selectors'
-import { environment } from '@environment/environment'
 import { Store } from '@ngrx/store'
 import { TranslatePipe, TranslateService } from '@ngx-translate/core'
 import { ToastrService } from 'ngx-toastr'
@@ -33,8 +32,7 @@ export class LockScreenComponent implements OnInit {
   public unlockForm!: FormGroup
   private onDestroy$: Subject<boolean> = new Subject()
   public isLoading: boolean = false
-  private baseUrl: string = environment.apiBaseUrl
-  public userImage: string = ''
+  public userImage: string = 'assets/images/default-avatar.png'
 
   private translate = inject(TranslateService)
   private _store = inject(Store)
@@ -56,18 +54,8 @@ export class LockScreenComponent implements OnInit {
       .subscribe((state: UserState) => {
         if (state.user) {
           this.userProfile = state.user
-          this.userImage = state.user.profilePhoto
-            ? this.formatUrl(state.user.profilePhoto)
-            : 'assets/images/default-avatar.png'
         }
       })
-  }
-
-  private formatUrl(url?: string): string {
-    if (!url) {
-      return 'assets/images/default-avatar.png'
-    }
-    return this.baseUrl + '/' + url.replace(/ /g, '%20').replace(/\\/g, '/')
   }
 
   private initForm(): void {
@@ -78,7 +66,8 @@ export class LockScreenComponent implements OnInit {
 
   unlockSession(): void {
     if (this.unlockForm.valid) {
-      const data: UserLoginRequest = {
+      const data: LoginRequest = {
+        emisorRuc: '',
         email: this.userProfile.email,
         password: this.unlockForm.get('password')?.value,
       }

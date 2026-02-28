@@ -1,34 +1,48 @@
 import { createAction, props } from '@ngrx/store'
-import { User, UserLoginRequest } from '../../interfaces/api/user.interface'
+import { User, LoginRequest } from '../../interfaces/api/user.interface'
 
-// Sesión y Autenticación
+// Sesion y Autenticacion
 const loadUserSession = createAction('[User] Load Session')
-
-const preAuthenticateUser = createAction('[User] Pre-Authenticate')
 
 const userAuthenticationRequest = createAction(
   '[User] Authentication Request',
-  props<{ request: UserLoginRequest }>()
+  props<{ request: LoginRequest }>(),
 )
 
 const userAuthenticationSuccess = createAction(
   '[User] Authentication Success',
-  props<{ user: User }>()
-)
-
-const preAuthenticationSuccess = createAction(
-  '[User] Pre-Authentication Success',
-  props<{ user: User }>()
+  props<{
+    user: User
+    permissions: string[]
+    isSuperAdmin: boolean
+    modules: string[]
+  }>(),
 )
 
 const userAuthenticationFailure = createAction(
   '[User] Authentication Failure',
-  props<{ message: string }>()
+  props<{ message: string }>(),
 )
 
-const preAuthenticationFailure = createAction(
-  '[User] Pre-Authentication Failure',
-  props<{ message: string }>()
+// SSO Token Flow
+const ssoTokenReceived = createAction(
+  '[User] SSO Token Received',
+  props<{ token: string }>(),
+)
+
+const ssoAuthenticationSuccess = createAction(
+  '[User] SSO Authentication Success',
+  props<{
+    user: User
+    permissions: string[]
+    isSuperAdmin: boolean
+    modules: string[]
+  }>(),
+)
+
+const ssoAuthenticationFailure = createAction(
+  '[User] SSO Authentication Failure',
+  props<{ message: string }>(),
 )
 
 // Logout
@@ -39,28 +53,30 @@ const completeUserLogout = createAction('[User] Complete Logout')
 // Perfil de Usuario
 const requestUserProfileUpdate = createAction(
   '[User] Request Profile Update',
-  props<{ user: FormData }>()
+  props<{ user: object }>(),
 )
 
 const userProfileUpdateSuccess = createAction(
   '[User] Profile Update Success',
-  props<{ user: User }>()
+  props<{ user: User }>(),
 )
 
 const userProfileUpdateFailure = createAction(
   '[User] Profile Update Failure',
-  props<{ message: string }>()
+  props<{ message: string }>(),
 )
 
 export const UserActions = {
-  // Sesión y Autenticación
+  // Sesion y Autenticacion
   loadUserSession,
-  preAuthenticateUser,
   userAuthenticationRequest,
   userAuthenticationSuccess,
-  preAuthenticationSuccess,
   userAuthenticationFailure,
-  preAuthenticationFailure,
+
+  // SSO
+  ssoTokenReceived,
+  ssoAuthenticationSuccess,
+  ssoAuthenticationFailure,
 
   // Logout
   userLogout,

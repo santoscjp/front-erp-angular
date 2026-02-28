@@ -1,8 +1,30 @@
 //
 // tables.scss
+// Soft Minimal Design — Primary: #1B4B78 (navy)
 //
+
 th {
-    font-weight: $font-weight-semibold;
+    font-weight: $font-weight-medium;
+    font-size: 0.8125rem;
+    color: #6B7280;
+}
+
+td {
+    vertical-align: middle;
+}
+
+.table {
+    > :not(caption) > * > * {
+        border-bottom-color: var(--#{$prefix}border-color);
+    }
+
+    > tbody > tr {
+        transition: background-color 0.15s ease;
+
+        &:hover {
+            background-color: rgba(27, 75, 120, 0.06);
+        }
+    }
 }
 
 .thead-sm {
@@ -12,16 +34,16 @@ th {
 }
 
 .table-custom {
-    tfoot > tr > th:first-child, 
-    thead > tr > th:first-child, 
-    tr th:first-child, 
+    tfoot > tr > th:first-child,
+    thead > tr > th:first-child,
+    tr th:first-child,
     tr td:first-child {
         padding-left: calc($table-cell-padding-y * 1.5) !important;
     }
 
-    tfoot > tr > th:last-child, 
-    thead > tr > th:last-child, 
-    tr th:last-child, 
+    tfoot > tr > th:last-child,
+    thead > tr > th:last-child,
+    tr th:last-child,
     tr td:last-child {
         padding-right: calc($table-cell-padding-y * 1.5) !important;
     }
@@ -43,5 +65,21 @@ th {
         --#{$prefix}table-color: var(--#{$prefix}body-color);
         --#{$prefix}table-bg: var(--#{$prefix}light);
         --#{$prefix}table-border-color: var(--#{$prefix}border-color);
+    }
+
+    th {
+        color: #9CA3AF;
+    }
+
+    .table {
+        > :not(caption) > * > * {
+            border-bottom-color: var(--#{$prefix}border-color);
+        }
+
+        > tbody > tr {
+            &:hover {
+                background-color: rgba(27, 75, 120, 0.08);
+            }
+        }
     }
 }

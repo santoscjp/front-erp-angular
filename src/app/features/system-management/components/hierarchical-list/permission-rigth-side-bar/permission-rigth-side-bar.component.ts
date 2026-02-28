@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common'
 import {
-  ChangeDetectorRef,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   inject,
@@ -8,10 +7,8 @@ import {
   OnInit,
 } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import { MODAL_TYPE } from '@core/helpers/global/global.constants'
 import { Permission } from '@core/interfaces/api/permission.interface'
 import { PermissionService } from '@core/services/api/permission.service'
-import { BootstrapModalService } from '@core/services/ui/bootstrap-modal.service'
 import { SelectionService } from '@core/services/ui/selection.service'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { TranslateModule } from '@ngx-translate/core'
@@ -22,11 +19,9 @@ import {
   distinctUntilChanged,
   of,
   Subject,
-  switchMap,
   takeUntil,
   tap,
 } from 'rxjs'
-import { PermissionFormComponent } from '../../forms/permission-form/permission-form.component'
 
 @Component({
   selector: 'permission-rigth-side-bar',
@@ -41,37 +36,23 @@ export class PermissionRigthSideBarComponent implements OnInit, OnDestroy {
   >([])
   public searchTerm: string = ''
   public isLoading: boolean = false
-  public selectedModuleId: string | null = null
-  public selectedRoleId: string | null = null
-  public currentPage: number = 1
-  public pageSize: number = 10
+  public selectedModuleId: number | null = null
+  public selectedRoleId: number | null = null
 
   private searchSubject = new Subject<string>()
   private destroy$ = new Subject<void>()
 
   private _permissionsService = inject(PermissionService)
   private _selectionService = inject(SelectionService)
-  private _bootstrapModalService = inject(BootstrapModalService)
 
   ngOnInit(): void {
     this.initializeSubscriptions()
   }
 
   private initializeSubscriptions(): void {
-    this.subscribeToModalCloseForPermissions()
     this.subscribeToRoleSelectionForPermissions()
     this.subscribeToModuleSelectionForPermissions()
     this.subscribeToPermissionSearch()
-  }
-
-  private subscribeToModalCloseForPermissions(): void {
-    this._bootstrapModalService.getModalClosed().subscribe(() => {
-      this._bootstrapModalService.getDataIssued().subscribe((data) => {
-        if (data?.modalType === MODAL_TYPE.PERMISSION_FORM) {
-          this.loadPermissionsByModule()
-        }
-      })
-    })
   }
 
   private subscribeToRoleSelectionForPermissions(): void {
@@ -102,19 +83,20 @@ export class PermissionRigthSideBarComponent implements OnInit, OnDestroy {
       .pipe(
         debounceTime(500),
         distinctUntilChanged(),
-        switchMap((term) =>
-          this._permissionsService.getPermissionsByRoleAndModule(
-            this.selectedRoleId!,
-            this.selectedModuleId!,
-            term,
-            this.currentPage,
-            this.pageSize
-          )
-        ),
-        takeUntil(this.destroy$)
+        takeUntil(this.destroy$),
       )
-      .subscribe((response) => {
-        this.permissions$.next(response.data.result)
+      .subscribe((term) => {
+        if (this.selectedRoleId && this.selectedModuleId) {
+          this._permissionsService
+            .getPermissionsByRoleAndModule(
+              this.selectedRoleId,
+              this.selectedModuleId,
+              term,
+            )
+            .subscribe((response) => {
+              this.permissions$.next(response.data.result)
+            })
+        }
       })
   }
 
@@ -128,26 +110,18 @@ export class PermissionRigthSideBarComponent implements OnInit, OnDestroy {
         this.selectedRoleId,
         this.selectedModuleId,
         this.searchTerm,
-        this.currentPage,
-        this.pageSize
       )
       .pipe(
         tap((response) => {
           this.isLoading = false
           this.permissions$.next(response.data.result)
         }),
-        catchError((err) => {
+        catchError(() => {
           this.isLoading = false
           return of([])
-        })
+        }),
       )
       .subscribe()
-      .add(() => (this.isLoading = false))
-  }
-
-  public selectModule(moduleId: string): void {
-    this.selectedModuleId = moduleId
-    this._selectionService.setModuleId(moduleId)
   }
 
   public onSearchInput(): void {
@@ -155,14 +129,13 @@ export class PermissionRigthSideBarComponent implements OnInit, OnDestroy {
   }
 
   public searchPermissions(): void {
+    if (!this.selectedRoleId || !this.selectedModuleId) return
     this.isLoading = true
     this._permissionsService
       .getPermissionsByRoleAndModule(
-        this.selectedRoleId!,
-        this.selectedModuleId!,
+        this.selectedRoleId,
+        this.selectedModuleId,
         this.searchTerm,
-        this.currentPage,
-        this.pageSize
       )
       .subscribe((response) => {
         this.isLoading = false
@@ -170,41 +143,33 @@ export class PermissionRigthSideBarComponent implements OnInit, OnDestroy {
       })
   }
 
-  public togglePermissionStatus(permissionId: string): void {
+  public togglePermissionStatus(permissionName: string): void {
     if (!this.selectedRoleId) return
 
     this.isLoading = true
 
     this._permissionsService
-      .togglePermissionStatus(this.selectedRoleId, permissionId)
+      .togglePermissionStatus(this.selectedRoleId, permissionName)
       .pipe(
         tap(() => {
           this.permissions$.next(
             this.permissions$.value.map((permission) =>
-              permission._id === permissionId
+              permission.name === permissionName
                 ? {
                     ...permission,
                     isActiveForRole: !permission.isActiveForRole,
                   }
-                : permission
-            )
+                : permission,
+            ),
           )
         }),
-        catchError((err) => {
+        catchError(() => {
           return of([])
-        })
+        }),
       )
       .subscribe(() => {
         this.isLoading = false
       })
-  }
-
-  public openEditModal(permissionId: string, event: Event): void {
-    event.stopPropagation()
-    this._bootstrapModalService.openModal({
-      component: PermissionFormComponent,
-      data: { permissionId, modalType: MODAL_TYPE.PERMISSION_FORM },
-    })
   }
 
   ngOnDestroy(): void {
