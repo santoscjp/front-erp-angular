@@ -72,8 +72,15 @@
               "deepmerge",
               "dragula",
               "leaflet",
-              "crypto-js"
-            ]
+              "crypto-js",
+              "secure-web-storage",
+              "lodash"
+            ],
+            "stylePreprocessorOptions": {
+              "sass": {
+                "silenceDeprecations": ["import", "global-builtin", "color-functions", "slash-div"]
+              }
+            }
           },
           "configurations": {
             "production": {

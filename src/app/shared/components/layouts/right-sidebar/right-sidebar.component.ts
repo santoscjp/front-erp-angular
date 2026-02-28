@@ -29,11 +29,7 @@ import { SimplebarAngularModule } from 'simplebar-angular'
   standalone: true,
   imports: [SimplebarAngularModule],
   templateUrl: './right-sidebar.component.html',
-  styles: `
-    :host {
-      display: contents;
-    }
-  `,
+  styleUrls: ['./right-sidebar.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class RightSidebarComponent implements OnInit {

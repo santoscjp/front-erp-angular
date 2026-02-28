@@ -27,7 +27,7 @@ import { getSidebarsize } from '@core/states/layout/layout-selector'
     NgbOffcanvasModule,
   ],
   templateUrl: './vertical-layout.component.html',
-  styles: ``,
+  styleUrls: ['./vertical-layout.component.scss'],
 })
 export class VerticalLayoutComponent implements OnInit {
   private store = inject(Store)

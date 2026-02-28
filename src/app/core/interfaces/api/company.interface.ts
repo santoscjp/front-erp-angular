@@ -8,14 +8,14 @@ export interface EmisorModule {
 export interface Emisor {
   id: number
   ruc: string
-  razonSocial: string
-  nombreComercial: string | null
-  direccionMatriz: string
-  obligadoContabilidad: 'SI' | 'NO'
-  contribuyenteEspecial: string | null
-  agenteRetencion: boolean
-  regimenMicroempresa: boolean
-  regimenRimpe: boolean
+  businessName: string
+  tradeName: string | null
+  mainAddress: string
+  accountingObligation: 'SI' | 'NO'
+  specialTaxpayerCode: string | null
+  retentionAgent: boolean
+  microenterpriseRegime: boolean
+  rimpeRegime: boolean
   sourceSystem: string
   sourceEmisorId: number | null
   isActive: boolean
@@ -34,14 +34,14 @@ export interface EmisorListItem extends Emisor {
 
 export interface EmisorCreateRequest {
   ruc: string
-  razonSocial: string
-  nombreComercial?: string
-  direccionMatriz: string
-  obligadoContabilidad?: 'SI' | 'NO'
-  contribuyenteEspecial?: string
-  agenteRetencion?: boolean
-  regimenMicroempresa?: boolean
-  regimenRimpe?: boolean
+  businessName: string
+  tradeName?: string
+  mainAddress: string
+  accountingObligation?: 'SI' | 'NO'
+  specialTaxpayerCode?: string
+  retentionAgent?: boolean
+  microenterpriseRegime?: boolean
+  rimpeRegime?: boolean
   modules: ModuleKey[]
   adminUser: {
     username: string
@@ -58,14 +58,14 @@ export interface EmisorModuleUpdateRequest {
 }
 
 export interface EmisorUpdateRequest {
-  razonSocial?: string
-  nombreComercial?: string
-  direccionMatriz?: string
-  obligadoContabilidad?: 'SI' | 'NO'
-  contribuyenteEspecial?: string
-  agenteRetencion?: boolean
-  regimenMicroempresa?: boolean
-  regimenRimpe?: boolean
+  businessName?: string
+  tradeName?: string
+  mainAddress?: string
+  accountingObligation?: 'SI' | 'NO'
+  specialTaxpayerCode?: string
+  retentionAgent?: boolean
+  microenterpriseRegime?: boolean
+  rimpeRegime?: boolean
 }
 
 export interface EmisorStatusRequest {

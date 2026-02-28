@@ -155,7 +155,9 @@
       [ngClass]="{ active: activeMenuItems.includes(menu.key) }"
       [attr.data-menu-key]="menu.key"
     >
-      <i class="ti {{menu.icon}}" class="me-1" *ngIf="menu.icon"></i>
+      @if (menu.icon) {
+        <i class="ti {{menu.icon}} me-1"></i>
+      }
      {{ menu.label }}
     </a>
   </li>

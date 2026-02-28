@@ -14,14 +14,8 @@ import { NgxDatatableModule, ColumnMode } from '@swimlane/ngx-datatable'
 import { AdminEmisorService } from '@core/services/api/admin-emisor.service'
 import { MODULE_LABELS } from '@/app/shared/constants/modules.constants'
 import { EmisorListItem } from '@core/interfaces/api/company.interface'
+import { TableConfig } from '../../interfaces/table-config.interface'
 import { BehaviorSubject } from 'rxjs'
-
-interface TableConfig {
-  limit: number
-  page: number
-  totalCount: number
-  loading: boolean
-}
 
 @Component({
   selector: 'app-emisor-list',
@@ -53,7 +47,7 @@ export class EmisorListComponent implements OnInit {
   moduleLabels = MODULE_LABELS
 
   filterRuc = ''
-  filterRazonSocial = ''
+  filterBusinessName = ''
   filterStatus = ''
 
   config$ = new BehaviorSubject<TableConfig>({
@@ -77,7 +71,7 @@ export class EmisorListComponent implements OnInit {
       },
       {
         name: this.translate.instant('ADMIN.EMISOR.TABLE.RAZON_SOCIAL'),
-        prop: 'razonSocial',
+        prop: 'businessName',
         width: 250,
       },
       {
@@ -114,8 +108,8 @@ export class EmisorListComponent implements OnInit {
       limit: String(config.limit),
     }
     if (this.filterRuc) filter['ruc'] = this.filterRuc
-    if (this.filterRazonSocial)
-      filter['razonSocial'] = this.filterRazonSocial
+    if (this.filterBusinessName)
+      filter['businessName'] = this.filterBusinessName
     if (this.filterStatus) filter['isActive'] = this.filterStatus
 
     this.adminService.getEmisores(filter).subscribe({
@@ -147,13 +141,13 @@ export class EmisorListComponent implements OnInit {
 
   resetFilter(): void {
     this.filterRuc = ''
-    this.filterRazonSocial = ''
+    this.filterBusinessName = ''
     this.filterStatus = ''
     this.applyFilter()
   }
 
   viewDetail(emisor: EmisorListItem): void {
-    this.router.navigate(['/admin/emisores', emisor.id])
+    this.router.navigate(['/admin/issuers', emisor.id])
   }
 
   trackByEmisorId(_index: number, emisor: EmisorListItem): number {

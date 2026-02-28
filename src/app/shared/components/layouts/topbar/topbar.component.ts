@@ -45,7 +45,7 @@ import { getLayoutColor } from '@core/states/layout/layout-selector'
     LogoComponent,
     TranslateModule,
   ],
-  styles: ``,
+  styleUrls: ['./topbar.component.scss'],
 })
 export class TopbarComponent implements OnInit {
   public userProfile!: User

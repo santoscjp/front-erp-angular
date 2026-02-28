@@ -53,8 +53,8 @@ import { CreateEditUserComponent } from '../../forms/create-edit-user/create-edi
     NgxDatatableComponent,
   ],
   templateUrl: './table-user.component.html',
+  styleUrls: ['./table-user.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  styles: ``,
 })
 export class TableUserComponent implements OnInit, OnDestroy {
   public BUTTON_ACTIONS = BUTTON_ACTIONS

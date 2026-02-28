@@ -5,7 +5,7 @@ import { credits } from '@core/helpers/ui/constants'
   selector: 'app-footer',
   standalone: true,
   templateUrl: './footer.component.html',
-  styles: ``,
+  styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent {
   credits = credits

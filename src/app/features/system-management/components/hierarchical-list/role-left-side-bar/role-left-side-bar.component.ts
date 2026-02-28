@@ -32,8 +32,8 @@ import { MODAL_TYPE } from '@core/helpers/global/global.constants'
   standalone: true,
   imports: [CommonModule, TranslateModule, NgbModule, FormsModule],
   templateUrl: './role-left-side-bar.component.html',
+  styleUrls: ['./role-left-side-bar.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  styles: ``,
 })
 export class RoleLeftSideBarComponent implements OnInit, OnDestroy {
   public roles$: BehaviorSubject<Role[]> = new BehaviorSubject<Role[]>([])

@@ -5,7 +5,7 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
 } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { ActivatedRoute, RouterLink } from '@angular/router'
+import { ActivatedRoute } from '@angular/router'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { AdminEmisorService } from '@core/services/api/admin-emisor.service'
@@ -23,7 +23,6 @@ import { User } from '@core/interfaces/api/user.interface'
   standalone: true,
   imports: [
     CommonModule,
-    RouterLink,
     TranslateModule,
     EmisorModulesToggleComponent,
     EmisorUsersTableComponent,

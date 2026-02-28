@@ -14,9 +14,11 @@
           formControlName="username"
           [class.is-invalid]="f['username'].touched && f['username'].invalid"
         />
-        <div *ngIf="f['username'].touched && f['username'].invalid" class="invalid-feedback">
-          {{ 'USER.VALIDATION_USER.USERNAME_REQUIRED' | translate }}
-        </div>
+        @if (f['username'].touched && f['username'].invalid) {
+          <div class="invalid-feedback">
+            {{ 'USER.VALIDATION_USER.USERNAME_REQUIRED' | translate }}
+          </div>
+        }
       </div>
       <div class="col-md-6">
         <label class="form-label">{{ 'USER.VIEW.EMAIL' | translate }} *</label>

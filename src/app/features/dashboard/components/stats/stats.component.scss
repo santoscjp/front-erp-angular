@@ -1,6 +1,6 @@
 .stat-card {
   border: none;
-  border-radius: 12px;
+  border-radius: var(--bs-border-radius-lg);
   transition: box-shadow 0.2s ease;
 
   &:hover {

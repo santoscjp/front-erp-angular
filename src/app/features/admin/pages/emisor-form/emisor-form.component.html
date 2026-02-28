@@ -270,12 +270,12 @@
                   <input
                     type="text"
                     class="form-control"
-                    formControlName="razonSocial"
+                    formControlName="businessName"
                     [placeholder]="
                       'ADMIN.EMISOR.FORM.PLACEHOLDER.RAZON_SOCIAL' | translate
                     "
                     [class.is-invalid]="
-                      f['razonSocial'].touched && f['razonSocial'].invalid
+                      f['businessName'].touched && f['businessName'].invalid
                     "
                   />
                 </div>
@@ -286,7 +286,7 @@
                   <input
                     type="text"
                     class="form-control"
-                    formControlName="nombreComercial"
+                    formControlName="tradeName"
                     [placeholder]="
                       'ADMIN.EMISOR.FORM.PLACEHOLDER.NOMBRE_COMERCIAL'
                         | translate
@@ -301,14 +301,14 @@
                   <input
                     type="text"
                     class="form-control"
-                    formControlName="direccionMatriz"
+                    formControlName="mainAddress"
                     [placeholder]="
                       'ADMIN.EMISOR.FORM.PLACEHOLDER.DIRECCION_MATRIZ'
                         | translate
                     "
                     [class.is-invalid]="
-                      f['direccionMatriz'].touched &&
-                      f['direccionMatriz'].invalid
+                      f['mainAddress'].touched &&
+                      f['mainAddress'].invalid
                     "
                   />
                 </div>
@@ -318,7 +318,7 @@
                   </label>
                   <select
                     class="form-select"
-                    formControlName="obligadoContabilidad"
+                    formControlName="accountingObligation"
                   >
                     <option value="SI">{{ 'WORDS.YES' | translate }}</option>
                     <option value="NO">{{ 'WORDS.NO' | translate }}</option>
@@ -331,7 +331,7 @@
                   <input
                     type="text"
                     class="form-control"
-                    formControlName="contribuyenteEspecial"
+                    formControlName="specialTaxpayerCode"
                     [placeholder]="
                       'ADMIN.EMISOR.FORM.PLACEHOLDER.CONTRIBUYENTE_ESPECIAL'
                         | translate
@@ -343,10 +343,10 @@
                     <input
                       class="form-check-input"
                       type="checkbox"
-                      formControlName="agenteRetencion"
-                      id="agenteRetencion"
+                      formControlName="retentionAgent"
+                      id="retentionAgent"
                     />
-                    <label class="form-check-label" for="agenteRetencion">
+                    <label class="form-check-label" for="retentionAgent">
                       {{ 'ADMIN.EMISOR.FORM.AGENTE_RETENCION' | translate }}
                     </label>
                   </div>
@@ -356,10 +356,10 @@
                     <input
                       class="form-check-input"
                       type="checkbox"
-                      formControlName="regimenMicroempresa"
-                      id="regimenMicroempresa"
+                      formControlName="microenterpriseRegime"
+                      id="microenterpriseRegime"
                     />
-                    <label class="form-check-label" for="regimenMicroempresa">
+                    <label class="form-check-label" for="microenterpriseRegime">
                       {{ 'ADMIN.EMISOR.FORM.REGIMEN_MICROEMPRESA' | translate }}
                     </label>
                   </div>
@@ -369,10 +369,10 @@
                     <input
                       class="form-check-input"
                       type="checkbox"
-                      formControlName="regimenRimpe"
-                      id="regimenRimpe"
+                      formControlName="rimpeRegime"
+                      id="rimpeRegime"
                     />
-                    <label class="form-check-label" for="regimenRimpe">
+                    <label class="form-check-label" for="rimpeRegime">
                       {{ 'ADMIN.EMISOR.FORM.REGIMEN_RIMPE' | translate }}
                     </label>
                   </div>
@@ -428,7 +428,7 @@
     <div class="row mb-4">
       <div class="col-12 d-flex justify-content-end gap-2">
         @if (currentStep === 1) {
-          <a routerLink="/admin/emisores" class="btn btn-outline-secondary">
+          <a routerLink="/admin/issuers" class="btn btn-outline-secondary">
             {{ 'USER.BUTTON.CANCEL' | translate }}
           </a>
           <button type="button" class="btn btn-primary" (click)="nextStep()">

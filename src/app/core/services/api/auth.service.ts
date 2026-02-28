@@ -51,7 +51,7 @@ export class AuthenticationService {
   }
 
   public getMeUser(): Observable<ApiResponse<User>> {
-    return this._http.get<ApiResponse<User>>(`${this.url}/get-me-user`)
+    return this._http.get<ApiResponse<User>>(`${this.url}/me`)
   }
 
   logout(): void {

@@ -11,17 +11,17 @@ export const ADMIN_ROUTES: Route[] = [
     data: { title: 'ADMIN.DASHBOARD.TITLE' },
   },
   {
-    path: 'emisores',
+    path: 'issuers',
     component: EmisorListComponent,
     data: { title: 'ADMIN.EMISOR.TITLE' },
   },
   {
-    path: 'emisores/nuevo',
+    path: 'issuers/new',
     component: EmisorFormComponent,
     data: { title: 'ADMIN.EMISOR.NEW' },
   },
   {
-    path: 'emisores/:id',
+    path: 'issuers/:id',
     component: EmisorDetailComponent,
     data: { title: 'ADMIN.EMISOR.DETAIL' },
   },

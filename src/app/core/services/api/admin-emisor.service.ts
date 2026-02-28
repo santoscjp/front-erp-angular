@@ -44,14 +44,14 @@ export class AdminEmisorService {
   ): Observable<ApiResponse<ApiData<EmisorListItem[]>>> {
     const params = new HttpParams({ fromObject: { ...filter } })
     return this._httpClient.get<ApiResponse<ApiData<EmisorListItem[]>>>(
-      `${this.API_URL}/emisores`,
+      `${this.API_URL}/issuers`,
       { params },
     )
   }
 
   getEmisorById(id: number): Observable<ApiResponse<Emisor>> {
     return this._httpClient.get<ApiResponse<Emisor>>(
-      `${this.API_URL}/emisores/${id}`,
+      `${this.API_URL}/issuers/${id}`,
     )
   }
 
@@ -59,7 +59,7 @@ export class AdminEmisorService {
     data: EmisorCreateRequest,
   ): Observable<ApiResponse<Emisor>> {
     return this._httpClient
-      .post<ApiResponse<Emisor>>(`${this.API_URL}/emisores`, data)
+      .post<ApiResponse<Emisor>>(`${this.API_URL}/issuers`, data)
       .pipe(
         tap((res) =>
           this.notificationService.showNotification({
@@ -77,7 +77,7 @@ export class AdminEmisorService {
   ): Observable<ApiResponse<Emisor>> {
     return this._httpClient
       .put<ApiResponse<Emisor>>(
-        `${this.API_URL}/emisores/${emisorId}`,
+        `${this.API_URL}/issuers/${emisorId}`,
         data,
       )
       .pipe(
@@ -97,7 +97,7 @@ export class AdminEmisorService {
   ): Observable<ApiResponse<Emisor>> {
     return this._httpClient
       .patch<ApiResponse<Emisor>>(
-        `${this.API_URL}/emisores/${emisorId}/status`,
+        `${this.API_URL}/issuers/${emisorId}/status`,
         data,
       )
       .pipe(
@@ -115,7 +115,7 @@ export class AdminEmisorService {
     emisorId: number,
   ): Observable<ApiResponse<EmisorModule[]>> {
     return this._httpClient.get<ApiResponse<EmisorModule[]>>(
-      `${this.API_URL}/emisores/${emisorId}/modules`,
+      `${this.API_URL}/issuers/${emisorId}/modules`,
     )
   }
 
@@ -125,7 +125,7 @@ export class AdminEmisorService {
   ): Observable<ApiResponse<Emisor>> {
     return this._httpClient
       .put<ApiResponse<Emisor>>(
-        `${this.API_URL}/emisores/${emisorId}/modules`,
+        `${this.API_URL}/issuers/${emisorId}/modules`,
         data,
       )
       .pipe(
@@ -145,7 +145,7 @@ export class AdminEmisorService {
   ): Observable<ApiResponse<{ sourceEmisorId: number }>> {
     return this._httpClient
       .post<ApiResponse<{ sourceEmisorId: number }>>(
-        `${this.API_URL}/emisores/${emisorId}/sync-invoicing`,
+        `${this.API_URL}/issuers/${emisorId}/sync-invoicing`,
         body,
       )
       .pipe(
@@ -165,7 +165,7 @@ export class AdminEmisorService {
   ): Observable<ApiResponse<ApiData<User[]>>> {
     const params = new HttpParams({ fromObject: { ...filter } })
     return this._httpClient.get<ApiResponse<ApiData<User[]>>>(
-      `${this.API_URL}/emisores/${emisorId}/users`,
+      `${this.API_URL}/issuers/${emisorId}/users`,
       { params },
     )
   }
@@ -176,7 +176,7 @@ export class AdminEmisorService {
   ): Observable<ApiResponse<User>> {
     return this._httpClient
       .post<ApiResponse<User>>(
-        `${this.API_URL}/emisores/${emisorId}/users`,
+        `${this.API_URL}/issuers/${emisorId}/users`,
         data,
       )
       .pipe(

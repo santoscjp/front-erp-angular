@@ -22,7 +22,7 @@
     &.language-box {
       background-color: #fff;
       border: 1px solid #72717136;
-      border-radius: 8px;
+      border-radius: var(--bs-border-radius);
       padding: 4px 8px;
       margin: 0;
 
@@ -70,7 +70,7 @@
       padding: 0.5rem 0;
       margin-top: 8px;
       border: 1px solid var(--bs-border-color);
-      border-radius: 8px;
+      border-radius: var(--bs-border-radius);
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
       
       .dropdown-item {

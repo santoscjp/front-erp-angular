@@ -45,7 +45,7 @@ export class EmisorFormComponent implements OnInit {
 
   private readonly stepFields: Record<number, string[]> = {
     1: ['adminUsername', 'adminEmail', 'adminPassword', 'adminFirstName', 'adminLastName', 'adminRoleId'],
-    2: ['ruc', 'razonSocial', 'direccionMatriz', 'obligadoContabilidad'],
+    2: ['ruc', 'businessName', 'mainAddress', 'accountingObligation'],
     3: [],
   }
 
@@ -65,14 +65,14 @@ export class EmisorFormComponent implements OnInit {
   private initForm(): void {
     this.emisorForm = this.fb.group({
       ruc: ['', [Validators.required, Validators.pattern(/^\d{13}$/), rucValidator]],
-      razonSocial: ['', [Validators.required]],
-      nombreComercial: [''],
-      direccionMatriz: ['', [Validators.required]],
-      obligadoContabilidad: ['SI', [Validators.required]],
-      contribuyenteEspecial: [''],
-      agenteRetencion: [false],
-      regimenMicroempresa: [false],
-      regimenRimpe: [false],
+      businessName: ['', [Validators.required]],
+      tradeName: [''],
+      mainAddress: ['', [Validators.required]],
+      accountingObligation: ['SI', [Validators.required]],
+      specialTaxpayerCode: [''],
+      retentionAgent: [false],
+      microenterpriseRegime: [false],
+      rimpeRegime: [false],
       modules: [[] as ModuleKey[]],
       adminUsername: ['', [Validators.required, Validators.minLength(3)]],
       adminEmail: ['', [Validators.required, Validators.email]],
@@ -176,14 +176,14 @@ export class EmisorFormComponent implements OnInit {
 
     const request: EmisorCreateRequest = {
       ruc: formValue.ruc,
-      razonSocial: formValue.razonSocial,
-      nombreComercial: formValue.nombreComercial || undefined,
-      direccionMatriz: formValue.direccionMatriz,
-      obligadoContabilidad: formValue.obligadoContabilidad,
-      contribuyenteEspecial: formValue.contribuyenteEspecial || undefined,
-      agenteRetencion: formValue.agenteRetencion,
-      regimenMicroempresa: formValue.regimenMicroempresa,
-      regimenRimpe: formValue.regimenRimpe,
+      businessName: formValue.businessName,
+      tradeName: formValue.tradeName || undefined,
+      mainAddress: formValue.mainAddress,
+      accountingObligation: formValue.accountingObligation,
+      specialTaxpayerCode: formValue.specialTaxpayerCode || undefined,
+      retentionAgent: formValue.retentionAgent,
+      microenterpriseRegime: formValue.microenterpriseRegime,
+      rimpeRegime: formValue.rimpeRegime,
       modules: formValue.modules,
       adminUser: {
         username: formValue.adminUsername,
@@ -205,7 +205,7 @@ export class EmisorFormComponent implements OnInit {
             type: 'warning',
           })
         }
-        this.router.navigate(['/admin/emisores', response.data.id])
+        this.router.navigate(['/admin/issuers', response.data.id])
       },
       error: () => {
         this.isSubmitting = false

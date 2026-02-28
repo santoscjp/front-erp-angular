@@ -35,27 +35,27 @@
                 <label class="form-label text-muted">{{
                   'ADMIN.EMISOR.FORM.RAZON_SOCIAL' | translate
                 }}</label>
-                <p class="fw-medium mb-0">{{ emisor.razonSocial }}</p>
+                <p class="fw-medium mb-0">{{ emisor.businessName }}</p>
               </div>
               <div class="col-md-4">
                 <label class="form-label text-muted">{{
                   'ADMIN.EMISOR.FORM.NOMBRE_COMERCIAL' | translate
                 }}</label>
                 <p class="fw-medium mb-0">
-                  {{ emisor.nombreComercial ?? '-' }}
+                  {{ emisor.tradeName ?? '-' }}
                 </p>
               </div>
               <div class="col-md-6">
                 <label class="form-label text-muted">{{
                   'ADMIN.EMISOR.FORM.DIRECCION_MATRIZ' | translate
                 }}</label>
-                <p class="fw-medium mb-0">{{ emisor.direccionMatriz }}</p>
+                <p class="fw-medium mb-0">{{ emisor.mainAddress }}</p>
               </div>
               <div class="col-md-3">
                 <label class="form-label text-muted">{{
                   'ADMIN.EMISOR.FORM.OBLIGADO_CONTABILIDAD' | translate
                 }}</label>
-                <p class="fw-medium mb-0">{{ emisor.obligadoContabilidad }}</p>
+                <p class="fw-medium mb-0">{{ emisor.accountingObligation }}</p>
               </div>
               <div class="col-md-3">
                 <label class="form-label text-muted">{{

@@ -1,6 +1,6 @@
 .overview-card {
   border: none;
-  border-radius: 12px;
+  border-radius: var(--bs-border-radius-lg);
 
   &__header {
     display: flex;
@@ -11,7 +11,7 @@
 
   &__subtitle {
     font-size: 13px;
-    color: #9ca3af;
+    color: var(--bs-tertiary-color);
     margin-bottom: 4px;
     font-weight: 400;
   }
@@ -51,7 +51,7 @@
 
   &__label {
     font-size: 12px;
-    color: #9ca3af;
+    color: var(--bs-tertiary-color);
     font-weight: 400;
   }
 }
@@ -73,7 +73,7 @@
     align-items: center;
     gap: 6px;
     font-size: 13px;
-    color: #6b7280;
+    color: var(--bs-secondary-color);
   }
 
   &__dot {

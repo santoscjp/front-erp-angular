@@ -12,6 +12,7 @@ import { TranslatePipe } from '@ngx-translate/core'
   standalone: true,
   imports: [CommonModule, NgbModule, TranslatePipe],
   templateUrl: './toogle-panel.component.html',
+  styleUrls: ['./toogle-panel.component.scss'],
 })
 export class TooglePanelComponent {
   @Input()

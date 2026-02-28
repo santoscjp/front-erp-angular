@@ -11,7 +11,7 @@ import { TableUserComponent } from '../components/tables/table-user/table-user.c
   standalone: true,
   imports: [CommonModule, TranslateModule, NgbModule, TableUserComponent],
   templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  styles: ``,
 })
 export class UserComponent {}

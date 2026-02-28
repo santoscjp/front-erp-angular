@@ -5,6 +5,5 @@ import { Component } from '@angular/core'
   standalone: true,
   imports: [],
   template: '',
-  styles: ``,
 })
 export class EstimatedCardComponent {}

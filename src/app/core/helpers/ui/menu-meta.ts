@@ -44,7 +44,7 @@ export const ADMIN_MENU_ITEMS: MenuItemType[] = [
     key: 'EMISORES',
     label: 'EMISORES',
     icon: 'ti-building',
-    url: '/admin/emisores',
+    url: '/admin/issuers',
   },
 ]
 

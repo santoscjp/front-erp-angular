@@ -11,7 +11,7 @@ import { FooterComponent } from "../footer/footer.component";
   standalone: true,
   imports: [TopbarComponent, RouterModule, HorizontalNavComponent, FooterComponent],
   templateUrl: './horizontal-layout.component.html',
-  styles: ``
+  styleUrls: ['./horizontal-layout.component.scss'],
 })
 export class HorizontalLayoutComponent implements OnInit, OnDestroy  {
   private offcanvasService = inject(NgbOffcanvas);

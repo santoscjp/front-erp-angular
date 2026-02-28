@@ -15,14 +15,11 @@
         class="form-control"
         formControlName="username"
       />
-      <div
-        *ngIf="
-          userForm.get('username')?.invalid && userForm.get('username')?.touched
-        "
-        class="text-danger"
-      >
-        {{ 'USER.VALIDATION_USER.USERNAME_REQUIRED' | translate }}
-      </div>
+      @if (userForm.get('username')?.invalid && userForm.get('username')?.touched) {
+        <div class="text-danger">
+          {{ 'USER.VALIDATION_USER.USERNAME_REQUIRED' | translate }}
+        </div>
+      }
     </div>
 
     <div class="col-md-6">
@@ -35,14 +32,11 @@
         class="form-control"
         formControlName="firstName"
       />
-      <div
-        *ngIf="
-          userForm.get('firstName')?.invalid && userForm.get('firstName')?.touched
-        "
-        class="text-danger"
-      >
-        {{ 'USER.VALIDATION_USER.FIRST_NAME_REQUIRED' | translate }}
-      </div>
+      @if (userForm.get('firstName')?.invalid && userForm.get('firstName')?.touched) {
+        <div class="text-danger">
+          {{ 'USER.VALIDATION_USER.FIRST_NAME_REQUIRED' | translate }}
+        </div>
+      }
     </div>
 
     <div class="col-md-6">
@@ -55,14 +49,11 @@
         class="form-control"
         formControlName="lastName"
       />
-      <div
-        *ngIf="
-          userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched
-        "
-        class="text-danger"
-      >
-        {{ 'USER.VALIDATION_USER.LAST_NAME_REQUIRED' | translate }}
-      </div>
+      @if (userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched) {
+        <div class="text-danger">
+          {{ 'USER.VALIDATION_USER.LAST_NAME_REQUIRED' | translate }}
+        </div>
+      }
     </div>
 
     <div class="col-md-6">
@@ -75,12 +66,11 @@
         class="form-control"
         formControlName="email"
       />
-      <div
-        *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched"
-        class="text-danger"
-      >
-        {{ 'USER.VALIDATION_USER.EMAIL_INVALID' | translate }}
-      </div>
+      @if (userForm.get('email')?.invalid && userForm.get('email')?.touched) {
+        <div class="text-danger">
+          {{ 'USER.VALIDATION_USER.EMAIL_INVALID' | translate }}
+        </div>
+      }
     </div>
 
     <div class="col-md-6">
@@ -88,9 +78,9 @@
         'USER.EDIT.ROLES' | translate
       }}</label>
       <select id="roleId" class="form-select" formControlName="roleId">
-        <option *ngFor="let role of roles" [value]="role.id">
-          {{ role.displayName }}
-        </option>
+        @for (role of roles; track role.id) {
+          <option [value]="role.id">{{ role.displayName }}</option>
+        }
       </select>
     </div>
 

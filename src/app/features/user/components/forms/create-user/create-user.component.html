@@ -16,12 +16,11 @@
         formControlName="username"
         required
       />
-      <div
-        *ngIf="userForm.get('username')?.invalid && userForm.get('username')?.touched"
-        class="text-danger"
-      >
-        {{ 'USER.VALIDATION_USER.USERNAME_REQUIRED' | translate }}
-      </div>
+      @if (userForm.get('username')?.invalid && userForm.get('username')?.touched) {
+        <div class="text-danger">
+          {{ 'USER.VALIDATION_USER.USERNAME_REQUIRED' | translate }}
+        </div>
+      }
     </div>
     <div class="mb-3">
       <label for="email" class="form-label">{{
@@ -34,12 +33,11 @@
         formControlName="email"
         required
       />
-      <div
-        *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched"
-        class="text-danger"
-      >
-        {{ 'USER.VALIDATION_USER.EMAIL_INVALID' | translate }}
-      </div>
+      @if (userForm.get('email')?.invalid && userForm.get('email')?.touched) {
+        <div class="text-danger">
+          {{ 'USER.VALIDATION_USER.EMAIL_INVALID' | translate }}
+        </div>
+      }
     </div>
     <div class="mb-3">
       <label for="password" class="form-label">{{
@@ -87,9 +85,9 @@
         formControlName="roleId"
         required
       >
-        <option *ngFor="let role of roles" [value]="role.id">
-          {{ role.displayName }}
-        </option>
+        @for (role of roles; track role.id) {
+          <option [value]="role.id">{{ role.displayName }}</option>
+        }
       </select>
     </div>
 
