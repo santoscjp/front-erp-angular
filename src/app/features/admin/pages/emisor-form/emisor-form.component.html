@@ -159,6 +159,20 @@
           <div class="card-body">
             <div class="row g-3">
               <div class="col-md-6">
+                <label class="form-label">{{ 'USER.VIEW.USERNAME' | translate }} *</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="adminUsername"
+                  [class.is-invalid]="f['adminUsername'].touched && f['adminUsername'].invalid"
+                />
+                @if (f['adminUsername'].touched && f['adminUsername'].invalid) {
+                  <div class="invalid-feedback">
+                    {{ 'USER.VALIDATION_USER.USERNAME_REQUIRED' | translate }}
+                  </div>
+                }
+              </div>
+              <div class="col-md-6">
                 <label class="form-label">{{ 'USER.VIEW.EMAIL' | translate }} *</label>
                 <input
                   type="email"

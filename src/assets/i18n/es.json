@@ -2,12 +2,13 @@
   "LOGIN": {
     "TITLE": "Bienvenido a la Evaluación de la Habilidad",
     "SUBTITLE": "Iniciar sesión",
-    "DESCRIPTION": "Introduzca su correo electrónico o teléfono y contraseña para acceder a su cuenta.",
+    "DESCRIPTION": "Introduzca su nombre de usuario y contraseña para acceder a su cuenta.",
     "JOIN_NOW": "¡Únete ahora!",
     "NO_ACCOUNT": "¿No tienes una cuenta?",
     "SIGNUP": "¡Regístrate!",
     "INPUT": {
       "EMISOR_RUC": "RUC de la Empresa",
+      "USERNAME": "Nombre de usuario",
       "EMAIL": "Correo Electronico",
       "PASSWORD": "Contraseña",
       "REMEMBER_ME": "Recuérdame",
@@ -18,8 +19,15 @@
     },
     "PLACEHOLDER": {
       "EMISOR_RUC": "Ingrese el RUC de 13 dígitos",
+      "USERNAME": "Introduzca su nombre de usuario",
       "EMAIL": "Introduzca su correo electrónico",
       "PASSWORD": "Introduzca su contraseña"
+    },
+    "VALIDATION": {
+      "USERNAME_REQUIRED": "El nombre de usuario es obligatorio.",
+      "EMAIL_REQUIRED": "El correo electrónico es obligatorio.",
+      "PASSWORD_REQUIRED": "La contraseña es obligatoria.",
+      "EMISOR_RUC_PATTERN": "El RUC debe tener 13 dígitos."
     },
     "MESSAGES": {
       "FORM_INCOMPLETE": "Por favor complete todos los campos requeridos.",

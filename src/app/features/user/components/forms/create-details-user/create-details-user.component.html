@@ -6,6 +6,19 @@
 <div class="modal-body">
   <form [formGroup]="userDetailsForm" class="row g-3">
     <div class="col-md-6">
+      <label for="username" class="form-label">{{
+        'USER.VIEW.USERNAME' | translate
+      }}</label>
+      <input
+        id="username"
+        type="text"
+        class="form-control"
+        formControlName="username"
+        readonly
+      />
+    </div>
+
+    <div class="col-md-6">
       <label for="firstName" class="form-label">{{
         'USER.VIEW.FIRST_NAME' | translate
       }}</label>

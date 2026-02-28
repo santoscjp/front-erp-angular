@@ -1,10 +1,11 @@
 import { inject } from '@angular/core'
 import { CanActivateFn, Router } from '@angular/router'
 import { Store } from '@ngrx/store'
-import { combineLatest, map, take } from 'rxjs'
+import { combineLatest, filter, map, switchMap, take } from 'rxjs'
 import {
   selectIsSuperAdmin,
   selectModules,
+  selectSessionLoaded,
 } from '@core/states/auth/auth.selectors'
 
 export const moduleGuard: CanActivateFn = (route) => {
@@ -15,11 +16,15 @@ export const moduleGuard: CanActivateFn = (route) => {
 
   if (!requiredModule) return true
 
-  return combineLatest([
-    store.select(selectIsSuperAdmin),
-    store.select(selectModules),
-  ]).pipe(
+  return store.select(selectSessionLoaded).pipe(
+    filter((loaded) => loaded),
     take(1),
+    switchMap(() =>
+      combineLatest([
+        store.select(selectIsSuperAdmin),
+        store.select(selectModules),
+      ]).pipe(take(1)),
+    ),
     map(([isSuperAdmin, modules]) => {
       if (isSuperAdmin) return true
       if (modules.includes(requiredModule)) return true

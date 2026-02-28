@@ -7,6 +7,18 @@
   <form [formGroup]="userForm">
     <div class="row g-3">
       <div class="col-md-6">
+        <label class="form-label">{{ 'USER.VIEW.USERNAME' | translate }} *</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="username"
+          [class.is-invalid]="f['username'].touched && f['username'].invalid"
+        />
+        <div *ngIf="f['username'].touched && f['username'].invalid" class="invalid-feedback">
+          {{ 'USER.VALIDATION_USER.USERNAME_REQUIRED' | translate }}
+        </div>
+      </div>
+      <div class="col-md-6">
         <label class="form-label">{{ 'USER.VIEW.EMAIL' | translate }} *</label>
         <input
           type="email"

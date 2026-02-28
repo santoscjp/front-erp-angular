@@ -2,6 +2,7 @@ import { Role } from './rol.interface'
 
 export interface User {
   id: number
+  username: string
   email: string
   firstName: string
   lastName: string
@@ -19,13 +20,13 @@ export interface User {
 }
 
 export interface LoginRequest {
-  email: string
+  username: string
   password: string
-  emisorRuc?: string
 }
 
 export interface LoginResponse {
   id: number
+  username: string
   email: string
   firstName: string
   lastName: string
@@ -40,6 +41,7 @@ export interface LoginResponse {
 }
 
 export interface RegisterRequest {
+  username: string
   email: string
   password: string
   firstName: string
@@ -56,4 +58,5 @@ export interface UserState {
   token: string | null
   message: string | null
   loading: boolean
+  sessionLoaded: boolean
 }

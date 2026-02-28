@@ -67,8 +67,7 @@ export class LockScreenComponent implements OnInit {
   unlockSession(): void {
     if (this.unlockForm.valid) {
       const data: LoginRequest = {
-        emisorRuc: '',
-        email: this.userProfile.email,
+        username: this.userProfile.username,
         password: this.unlockForm.get('password')?.value,
       }
 

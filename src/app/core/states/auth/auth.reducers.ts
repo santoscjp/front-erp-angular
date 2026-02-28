@@ -10,6 +10,7 @@ export const initialUserState: UserState = {
   token: null,
   message: null,
   loading: false,
+  sessionLoaded: false,
 }
 
 export const authReducer = createReducer(
@@ -35,12 +36,14 @@ export const authReducer = createReducer(
       isSuperAdmin,
       modules,
       loading: false,
+      sessionLoaded: true,
       message: 'Authentication successful.',
     }),
   ),
   on(UserActions.userAuthenticationFailure, (state, { message }) => ({
     ...state,
     loading: false,
+    sessionLoaded: true,
     message: `Authentication failed: ${message}`,
   })),
 
@@ -59,12 +62,14 @@ export const authReducer = createReducer(
       isSuperAdmin,
       modules,
       loading: false,
+      sessionLoaded: true,
       message: 'SSO authentication successful.',
     }),
   ),
   on(UserActions.ssoAuthenticationFailure, (state, { message }) => ({
     ...state,
     loading: false,
+    sessionLoaded: true,
     message: `SSO authentication failed: ${message}`,
   })),
 

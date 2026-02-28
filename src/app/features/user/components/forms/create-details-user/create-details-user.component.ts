@@ -37,6 +37,7 @@ export class CreateDetailsUserComponent implements OnInit {
   }
   private initForm(): void {
     this.userDetailsForm = this.fb.group({
+      username: [{ value: '', disabled: true }],
       firstName: [{ value: '', disabled: true }],
       lastName: [{ value: '', disabled: true }],
       email: [{ value: '', disabled: true }],
@@ -48,6 +49,7 @@ export class CreateDetailsUserComponent implements OnInit {
 
   private updateForm(user: User): void {
     this.userDetailsForm.patchValue({
+      username: user.username,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,

@@ -42,6 +42,7 @@ export class CreateEditUserComponent {
   private initForm(): void {
     this.userForm = this.fb.group({
       id: [''],
+      username: ['', [Validators.required, Validators.minLength(3)]],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -53,6 +54,7 @@ export class CreateEditUserComponent {
   private updateForm(user: User): void {
     this.userForm.patchValue({
       id: user.id,
+      username: user.username,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
@@ -93,6 +95,9 @@ export class CreateEditUserComponent {
     const userId = updatedUser.id
     delete updatedUser.id
 
+    if (!this.userForm.get('username')?.dirty) {
+      delete updatedUser.username
+    }
     if (!this.userForm.get('email')?.dirty) {
       delete updatedUser.email
     }

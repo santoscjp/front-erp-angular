@@ -1,8 +1,11 @@
 import { inject } from '@angular/core'
 import { CanActivateFn, Router } from '@angular/router'
 import { Store } from '@ngrx/store'
-import { map, take } from 'rxjs'
-import { selectPermissions } from '@core/states/auth/auth.selectors'
+import { filter, map, switchMap, take } from 'rxjs'
+import {
+  selectPermissions,
+  selectSessionLoaded,
+} from '@core/states/auth/auth.selectors'
 import { ADMIN_PERMISSION } from '@core/helpers/global/global.constants'
 
 export const permissionGuard: CanActivateFn = (route) => {
@@ -13,8 +16,10 @@ export const permissionGuard: CanActivateFn = (route) => {
 
   if (!requiredPermission) return true
 
-  return store.select(selectPermissions).pipe(
+  return store.select(selectSessionLoaded).pipe(
+    filter((loaded) => loaded),
     take(1),
+    switchMap(() => store.select(selectPermissions).pipe(take(1))),
     map((permissions) => {
       if (permissions.includes(ADMIN_PERMISSION)) return true
       if (permissions.includes(requiredPermission)) return true

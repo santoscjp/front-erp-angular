@@ -25,6 +25,14 @@ Before writing ANY code, read and follow ALL rules in `.claude/rules/`:
 | Auth | JWT (HS256) |
 | Styles | SCSS with BEM naming |
 
+## i18n — Spanish Only, No Translations
+
+- The app is **Spanish only**. There is no multi-language support.
+- `ngx-translate` is still installed (used in 85+ files via `| translate` pipe) but locked to `es`.
+- All user-facing text goes in `src/assets/i18n/es.json`. Write labels directly in Spanish.
+- Do NOT create additional language files. Do NOT add language switching logic.
+- When writing new components, use the `| translate` pipe with keys from `es.json` to stay consistent with existing code.
+
 ## Architecture
 
 ```

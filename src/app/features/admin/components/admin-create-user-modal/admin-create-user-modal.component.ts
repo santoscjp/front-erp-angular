@@ -57,6 +57,7 @@ export class AdminCreateUserModalComponent implements OnInit {
 
   private initForm(): void {
     this.userForm = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],

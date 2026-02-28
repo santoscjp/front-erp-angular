@@ -16,7 +16,7 @@ const estaCerradoPeriodo = true;
 function calcularBalanceComprobacion() {}
 ```
 
-Exception: User-facing text (labels, messages, placeholders) is in Spanish. These go in dedicated constant files, never hardcoded in templates.
+Exception: User-facing text (labels, messages, placeholders) is in Spanish. These go in `src/assets/i18n/es.json` and are accessed via the `| translate` pipe. The app is Spanish only — no multi-language support, no additional language files.
 
 ## No `any`
 

@@ -34,6 +34,7 @@ export class CreateUserComponent implements OnInit {
   private _translate = inject(TranslateService)
   constructor() {
     this.userForm = this._fb.group({
+      username: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       firstName: ['', Validators.required],

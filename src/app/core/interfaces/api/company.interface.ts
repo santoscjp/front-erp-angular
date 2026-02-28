@@ -44,6 +44,7 @@ export interface EmisorCreateRequest {
   regimenRimpe?: boolean
   modules: ModuleKey[]
   adminUser: {
+    username: string
     email: string
     firstName: string
     lastName: string

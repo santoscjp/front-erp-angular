@@ -94,6 +94,20 @@
           <div class="col-md-6">
             <div class="d-flex align-items-baseline gap-2">
               <p class="mb-1 text-muted">
+                {{ 'PROFILE.MY_PROFILE.USERNAME' | translate }}
+              </p>
+              @if (isEditing) {
+                <i
+                  class="ti ti-info-circle fs-16"
+                  ngbTooltip="{{ 'PROFILE.TOOLTIPS.SUPPORT' | translate }}"
+                ></i>
+              }
+            </div>
+            <p class="fw-semibold">{{ userProfile?.username }}</p>
+          </div>
+          <div class="col-md-6">
+            <div class="d-flex align-items-baseline gap-2">
+              <p class="mb-1 text-muted">
                 {{ 'PROFILE.MY_PROFILE.EMAIL' | translate }}
               </p>
               @if (isEditing) {

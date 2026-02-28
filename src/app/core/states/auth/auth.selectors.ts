@@ -35,6 +35,11 @@ export const selectModules = createSelector(
   (state) => state.modules,
 )
 
+export const selectSessionLoaded = createSelector(
+  selectAuth,
+  (state) => state.sessionLoaded,
+)
+
 export const selectHasPermission = (permission: string) =>
   createSelector(
     selectPermissions,

@@ -9,41 +9,20 @@
 
   <form [formGroup]="signInForm" (ngSubmit)="login()">
     <div class="mb-3">
-      <label class="form-label" for="emisorRuc">
-        {{ 'LOGIN.INPUT.EMISOR_RUC' | translate }}
-        <span class="text-muted fw-normal ms-1">({{ 'WORDS.OPTIONAL' | translate }})</span>
+      <label class="form-label" for="username">
+        {{ 'LOGIN.INPUT.USERNAME' | translate }} <span class="text-danger">*</span>
       </label>
       <input
-        formControlName="emisorRuc"
+        formControlName="username"
         type="text"
-        id="emisorRuc"
+        id="username"
         class="form-control"
-        [class.is-invalid]="isSubmitted && formValues['emisorRuc'].errors"
-        [placeholder]="'LOGIN.PLACEHOLDER.EMISOR_RUC' | translate"
-        maxlength="13"
+        [class.is-invalid]="isSubmitted && formValues['username'].errors"
+        [placeholder]="'LOGIN.PLACEHOLDER.USERNAME' | translate"
       />
-      @if (isSubmitted && formValues['emisorRuc'].errors?.['pattern']) {
+      @if (isSubmitted && formValues['username'].errors?.['required']) {
         <div class="invalid-feedback">
-          {{ 'LOGIN.VALIDATION.EMISOR_RUC_PATTERN' | translate }}
-        </div>
-      }
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label" for="email">
-        {{ 'LOGIN.INPUT.EMAIL' | translate }} <span class="text-danger">*</span>
-      </label>
-      <input
-        formControlName="email"
-        type="text"
-        id="email"
-        class="form-control"
-        [class.is-invalid]="isSubmitted && formValues['email'].errors"
-        [placeholder]="'LOGIN.PLACEHOLDER.EMAIL' | translate"
-      />
-      @if (isSubmitted && formValues['email'].errors?.['required']) {
-        <div class="invalid-feedback">
-          {{ 'LOGIN.VALIDATION.EMAIL_REQUIRED' | translate }}
+          {{ 'LOGIN.VALIDATION.USERNAME_REQUIRED' | translate }}
         </div>
       }
     </div>

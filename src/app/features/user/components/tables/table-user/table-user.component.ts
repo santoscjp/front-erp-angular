@@ -101,6 +101,10 @@ export class TableUserComponent implements OnInit, OnDestroy {
       page: this.PAGINATION.PAGE,
       columns: [
         {
+          name: 'USER.TABLE.USERNAME',
+          prop: 'username',
+        },
+        {
           name: 'USER.TABLE.FIRST_NAME',
           prop: 'firstName',
         },

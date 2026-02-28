@@ -6,6 +6,26 @@
 <div class="modal-body">
   <form [formGroup]="userForm" class="row g-3">
     <div class="col-md-6">
+      <label for="username" class="form-label">{{
+        'USER.EDIT.USERNAME' | translate
+      }}</label>
+      <input
+        id="username"
+        type="text"
+        class="form-control"
+        formControlName="username"
+      />
+      <div
+        *ngIf="
+          userForm.get('username')?.invalid && userForm.get('username')?.touched
+        "
+        class="text-danger"
+      >
+        {{ 'USER.VALIDATION_USER.USERNAME_REQUIRED' | translate }}
+      </div>
+    </div>
+
+    <div class="col-md-6">
       <label for="firstName" class="form-label">{{
         'USER.EDIT.FIRST_NAME' | translate
       }}</label>

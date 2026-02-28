@@ -17,7 +17,6 @@ import * as CryptoJS from 'crypto-js'
 const SESSION_LOCK_KEY = 'session_locked'
 const STORAGE_KEY_USER = 'rememberedUser'
 const STORAGE_KEY_PASS = 'rememberedPass'
-const STORAGE_KEY_RUC = 'rememberedRuc'
 const SECRET_KEY = 'baseProjectKey2025!'
 
 @Injectable({ providedIn: 'root' })
@@ -103,36 +102,24 @@ export class AuthenticationService {
     sessionStorage.removeItem(SESSION_LOCK_KEY)
   }
 
-  rememberUser(email: string, password: string, emisorRuc: string) {
-    localStorage.setItem(STORAGE_KEY_USER, email)
+  rememberUser(username: string, password: string) {
+    localStorage.setItem(STORAGE_KEY_USER, username)
     const encryptedPass = CryptoJS.AES.encrypt(password, SECRET_KEY).toString()
     localStorage.setItem(STORAGE_KEY_PASS, encryptedPass)
-    const encryptedRuc = CryptoJS.AES.encrypt(
-      emisorRuc,
-      SECRET_KEY,
-    ).toString()
-    localStorage.setItem(STORAGE_KEY_RUC, encryptedRuc)
   }
 
   getRememberedUser(): {
-    email: string
+    username: string
     password: string
-    emisorRuc: string
   } | null {
-    const email = localStorage.getItem(STORAGE_KEY_USER)
+    const username = localStorage.getItem(STORAGE_KEY_USER)
     const encryptedPass = localStorage.getItem(STORAGE_KEY_PASS)
-    const encryptedRuc = localStorage.getItem(STORAGE_KEY_RUC)
 
-    if (email && encryptedPass) {
+    if (username && encryptedPass) {
       try {
         const bytes = CryptoJS.AES.decrypt(encryptedPass, SECRET_KEY)
         const decryptedPass = bytes.toString(CryptoJS.enc.Utf8)
-        let decryptedRuc = ''
-        if (encryptedRuc) {
-          const rucBytes = CryptoJS.AES.decrypt(encryptedRuc, SECRET_KEY)
-          decryptedRuc = rucBytes.toString(CryptoJS.enc.Utf8)
-        }
-        return { email, password: decryptedPass, emisorRuc: decryptedRuc }
+        return { username, password: decryptedPass }
       } catch (error) {
         return null
       }
@@ -143,7 +130,6 @@ export class AuthenticationService {
   clearRememberedUser() {
     localStorage.removeItem(STORAGE_KEY_USER)
     localStorage.removeItem(STORAGE_KEY_PASS)
-    localStorage.removeItem(STORAGE_KEY_RUC)
   }
 
   getSsoToInvoicingUrl(): Observable<

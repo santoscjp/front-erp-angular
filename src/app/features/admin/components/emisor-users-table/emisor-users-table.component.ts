@@ -54,6 +54,10 @@ export class EmisorUsersTableComponent implements OnInit, OnChanges {
   private initColumns(): void {
     this.columns = [
       {
+        name: this.translate.instant('USER.TABLE.USERNAME'),
+        prop: 'username',
+      },
+      {
         name: this.translate.instant('WORDS.FIRST_NAME'),
         prop: 'firstName',
       },

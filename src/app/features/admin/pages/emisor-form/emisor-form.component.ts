@@ -51,6 +51,7 @@ export class EmisorFormComponent implements OnInit {
       regimenMicroempresa: [false],
       regimenRimpe: [false],
       modules: [[] as ModuleKey[]],
+      adminUsername: ['', [Validators.required, Validators.minLength(3)]],
       adminEmail: ['', [Validators.required, Validators.email]],
       adminFirstName: ['', [Validators.required]],
       adminLastName: ['', [Validators.required]],
@@ -105,6 +106,7 @@ export class EmisorFormComponent implements OnInit {
       regimenRimpe: formValue.regimenRimpe,
       modules: formValue.modules,
       adminUser: {
+        username: formValue.adminUsername,
         email: formValue.adminEmail,
         firstName: formValue.adminFirstName,
         lastName: formValue.adminLastName,

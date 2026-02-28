@@ -6,6 +6,24 @@
 <div class="modal-body">
   <form [formGroup]="userForm" (ngSubmit)="createUser()">
     <div class="mb-3">
+      <label for="username" class="form-label">{{
+        'USER.VIEW.USERNAME' | translate
+      }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="username"
+        formControlName="username"
+        required
+      />
+      <div
+        *ngIf="userForm.get('username')?.invalid && userForm.get('username')?.touched"
+        class="text-danger"
+      >
+        {{ 'USER.VALIDATION_USER.USERNAME_REQUIRED' | translate }}
+      </div>
+    </div>
+    <div class="mb-3">
       <label for="email" class="form-label">{{
         'USER.VIEW.EMAIL' | translate
       }}</label>
@@ -16,6 +34,12 @@
         formControlName="email"
         required
       />
+      <div
+        *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched"
+        class="text-danger"
+      >
+        {{ 'USER.VALIDATION_USER.EMAIL_INVALID' | translate }}
+      </div>
     </div>
     <div class="mb-3">
       <label for="password" class="form-label">{{

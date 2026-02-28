@@ -53,8 +53,7 @@ export class LoginComponent implements OnInit {
 
   private initSignInForm(): void {
     this.signInForm = this.fb.group({
-      emisorRuc: ['', [Validators.pattern(/^\d{13}$/)]],
-      email: ['', [Validators.required]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required]],
       rememberMe: [false],
     })
@@ -64,8 +63,7 @@ export class LoginComponent implements OnInit {
     const rememberedUser = this.authService.getRememberedUser()
     if (rememberedUser) {
       this.signInForm.patchValue({
-        emisorRuc: rememberedUser.emisorRuc,
-        email: rememberedUser.email,
+        username: rememberedUser.username,
         password: rememberedUser.password,
         rememberMe: true,
       })
@@ -88,9 +86,9 @@ export class LoginComponent implements OnInit {
   }
 
   private handleRememberMe(): void {
-    const { emisorRuc, email, password, rememberMe } = this.signInForm.value
+    const { username, password, rememberMe } = this.signInForm.value
     if (rememberMe) {
-      this.authService.rememberUser(email, password, emisorRuc)
+      this.authService.rememberUser(username, password)
     } else {
       this.authService.clearRememberedUser()
     }
@@ -98,8 +96,7 @@ export class LoginComponent implements OnInit {
 
   private authenticateUser(): void {
     const data: LoginRequest = {
-      emisorRuc: this.signInForm.get('emisorRuc')?.value,
-      email: this.signInForm.get('email')?.value,
+      username: this.signInForm.get('username')?.value,
       password: this.signInForm.get('password')?.value,
     }
     if (data) {
