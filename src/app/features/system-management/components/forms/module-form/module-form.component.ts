@@ -1,19 +1,11 @@
-import { CommonModule } from '@angular/common'
 import { Component, inject, OnDestroy, OnInit } from '@angular/core'
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  UntypedFormBuilder,
-  UntypedFormGroup,
-  Validators,
-} from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms'
 import { BootstrapModalService } from '@core/services/ui/bootstrap-modal.service'
-import { TranslatePipe } from '@ngx-translate/core'
 import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'module-form',
-  imports: [FormsModule, ReactiveFormsModule, CommonModule, TranslatePipe],
+  standalone: false,
   templateUrl: './module-form.component.html',
   styleUrl: './module-form.component.scss',
 })

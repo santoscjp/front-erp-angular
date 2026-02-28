@@ -4,20 +4,16 @@ import {
   FormGroup,
   FormBuilder,
   Validators,
-  FormsModule,
-  ReactiveFormsModule,
 } from '@angular/forms'
 import { RoleService } from '@core/services/api/role.service'
 import { UserService } from '@core/services/api/user.service'
 import { Role } from '@core/interfaces/api/rol.interface'
-import { CommonModule } from '@angular/common'
-import { TranslatePipe, TranslateService } from '@ngx-translate/core'
+import { TranslateService } from '@ngx-translate/core'
 import { ToastrNotificationService } from '@core/services/ui/notification.service'
 
 @Component({
   selector: 'app-create-user',
-  standalone: true,
-  imports: [FormsModule, CommonModule, ReactiveFormsModule, TranslatePipe],
+  standalone: false,
   templateUrl: './create-user.component.html',
   styleUrls: ['./create-user.component.scss'],
 })

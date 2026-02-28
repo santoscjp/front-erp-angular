@@ -7,14 +7,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap'
 
 @Component({
   selector: 'app-dashboard',
-  standalone: true,
-  imports: [
-    StatsComponent,
-    OverviewChartComponent,
-    TrafficSourceComponent,
-    TranslateModule,
-    NgbDropdownModule,
-  ],
+  standalone: false,
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })

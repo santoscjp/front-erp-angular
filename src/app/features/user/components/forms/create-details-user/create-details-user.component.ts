@@ -1,15 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms'
+import { FormBuilder, FormGroup } from '@angular/forms'
 import { User } from '@core/interfaces/api/user.interface'
-import { CommonModule } from '@angular/common'
 import { BootstrapModalService } from '@core/services/ui/bootstrap-modal.service'
 import { take } from 'rxjs'
-import { TranslatePipe } from '@ngx-translate/core'
 
 @Component({
   selector: 'app-create-details-user',
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, TranslatePipe],
+  standalone: false,
   templateUrl: './create-details-user.component.html',
   styleUrls: ['./create-details-user.component.scss'],
 })

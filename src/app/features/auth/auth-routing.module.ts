@@ -1,8 +1,9 @@
-import type { Route } from '@angular/router'
+import { NgModule } from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
 import { LoginComponent } from './pages/login/login.component'
 import { BlockedComponent } from './pages/blocked/blocked.component'
 
-export const AUTH_ROUTES: Route[] = [
+const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
@@ -14,3 +15,9 @@ export const AUTH_ROUTES: Route[] = [
     data: { title: 'Account Deactivation' },
   },
 ]
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class AuthRoutingModule {}

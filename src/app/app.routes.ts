@@ -20,7 +20,7 @@ export const routes: Routes = [
     path: 'admin',
     component: LayoutComponent,
     loadChildren: () =>
-      import('./features/admin/admin.route').then((mod) => mod.ADMIN_ROUTES),
+      import('./features/admin/admin.module').then((m) => m.AdminModule),
     canActivate: [AuthGuard, superAdminGuard],
   },
   {
@@ -34,7 +34,7 @@ export const routes: Routes = [
     path: 'auth',
     component: AuthLayoutComponent,
     loadChildren: () =>
-      import('./features/auth/auth.route').then((mod) => mod.AUTH_ROUTES),
+      import('./features/auth/auth.module').then((m) => m.AuthModule),
     canActivate: [LoginGuard],
   },
 ]

@@ -5,36 +5,25 @@ import {
   EventEmitter,
   OnInit,
   inject,
-  CUSTOM_ELEMENTS_SCHEMA,
 } from '@angular/core'
-import { CommonModule } from '@angular/common'
 import {
   FormBuilder,
   FormGroup,
-  ReactiveFormsModule,
   Validators,
 } from '@angular/forms'
-import { TranslateModule, TranslateService } from '@ngx-translate/core'
+import { TranslateService } from '@ngx-translate/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { AdminEmisorService } from '@core/services/api/admin-emisor.service'
 import { ToastrNotificationService } from '@core/services/ui/notification.service'
 import { RoleService } from '@core/services/api/role.service'
 import { Role } from '@core/interfaces/api/rol.interface'
-import { NgSelectModule } from '@ng-select/ng-select'
 import { EmisorModule } from '@core/interfaces/api/company.interface'
 
 @Component({
   selector: 'app-admin-create-user-modal',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    TranslateModule,
-    NgSelectModule,
-  ],
+  standalone: false,
   templateUrl: './admin-create-user-modal.component.html',
   styleUrls: ['./admin-create-user-modal.component.scss'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AdminCreateUserModalComponent implements OnInit {
   @Input() emisorId!: number

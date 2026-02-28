@@ -2,7 +2,6 @@ import {
   Component,
   OnInit,
   inject,
-  CUSTOM_ELEMENTS_SCHEMA,
 } from '@angular/core'
 import {
   FormBuilder,
@@ -25,9 +24,7 @@ import { Subject, takeUntil } from 'rxjs'
 
 @Component({
   selector: 'login',
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, TranslateModule],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  standalone: false,
   templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit {

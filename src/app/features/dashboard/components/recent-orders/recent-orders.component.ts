@@ -2,8 +2,7 @@ import { Component } from '@angular/core'
 
 @Component({
   selector: 'recent-orders',
-  standalone: true,
-  imports: [],
+  standalone: false,
   template: '',
 })
 export class RecentOrdersComponent {}

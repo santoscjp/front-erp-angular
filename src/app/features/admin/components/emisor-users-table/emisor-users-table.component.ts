@@ -6,24 +6,20 @@ import {
   OnInit,
   OnChanges,
   SimpleChanges,
-  CUSTOM_ELEMENTS_SCHEMA,
   TemplateRef,
   ViewChild,
   inject,
 } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { TranslateModule, TranslateService } from '@ngx-translate/core'
-import { NgxDatatableModule, ColumnMode } from '@swimlane/ngx-datatable'
+import { TranslateService } from '@ngx-translate/core'
+import { ColumnMode } from '@swimlane/ngx-datatable'
 import { AdminEmisorService } from '@core/services/api/admin-emisor.service'
 import { User } from '@core/interfaces/api/user.interface'
 
 @Component({
   selector: 'app-emisor-users-table',
-  standalone: true,
-  imports: [CommonModule, TranslateModule, NgxDatatableModule],
+  standalone: false,
   templateUrl: './emisor-users-table.component.html',
   styleUrls: ['./emisor-users-table.component.scss'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class EmisorUsersTableComponent implements OnInit, OnChanges {
   @Input() emisorId!: number

@@ -1,26 +1,14 @@
 import { Component, HostListener, inject, OnInit } from '@angular/core'
-import { CommonModule } from '@angular/common'
 import { PageTitleComponent } from '@/app/shared/components/layouts/page-title/page-title.component'
 import { RoleLeftSideBarComponent } from '../../components/hierarchical-list/role-left-side-bar/role-left-side-bar.component'
 import { ModuleAreaComponent } from '../../components/hierarchical-list/module-area/module-area.component'
 import { PermissionRigthSideBarComponent } from '../../components/hierarchical-list/permission-rigth-side-bar/permission-rigth-side-bar.component'
-import { TranslatePipe } from '@ngx-translate/core'
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap'
 import { SelectionService } from '@core/services/ui/selection.service'
 import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'roles-and-permissions',
-  standalone: true,
-  imports: [
-    CommonModule,
-    PageTitleComponent,
-    RoleLeftSideBarComponent,
-    ModuleAreaComponent,
-    PermissionRigthSideBarComponent,
-    TranslatePipe,
-    NgbNavModule,
-  ],
+  standalone: false,
   templateUrl: './roles-and-permissions.component.html',
 })
 export class RolesAndPermissionsComponent implements OnInit {

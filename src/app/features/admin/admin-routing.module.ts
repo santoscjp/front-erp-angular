@@ -1,10 +1,11 @@
-import type { Route } from '@angular/router'
+import { NgModule } from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component'
 import { EmisorListComponent } from './pages/emisor-list/emisor-list.component'
 import { EmisorFormComponent } from './pages/emisor-form/emisor-form.component'
 import { EmisorDetailComponent } from './pages/emisor-detail/emisor-detail.component'
 
-export const ADMIN_ROUTES: Route[] = [
+const routes: Routes = [
   {
     path: '',
     component: AdminDashboardComponent,
@@ -26,3 +27,9 @@ export const ADMIN_ROUTES: Route[] = [
     data: { title: 'ADMIN.EMISOR.DETAIL' },
   },
 ]
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class AdminRoutingModule {}

@@ -1,15 +1,9 @@
-import { Component, OnInit, inject, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { Router, RouterLink } from '@angular/router'
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms'
-import { TranslateModule, TranslateService } from '@ngx-translate/core'
-import { NgSelectModule } from '@ng-select/ng-select'
+import { Component, OnInit, inject } from '@angular/core'
+import { Router } from '@angular/router'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { TranslateService } from '@ngx-translate/core'
 import { AdminEmisorService } from '@core/services/api/admin-emisor.service'
+
 import { RoleService } from '@core/services/api/role.service'
 import { ToastrNotificationService } from '@core/services/ui/notification.service'
 import { ModuleKey } from '@/app/shared/enums/module-key.enum'
@@ -20,11 +14,9 @@ import { rucValidator } from '@/app/shared/validators/ruc.validator'
 
 @Component({
   selector: 'app-emisor-form',
-  standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule, TranslateModule, NgSelectModule],
+  standalone: false,
   templateUrl: './emisor-form.component.html',
   styleUrls: ['./emisor-form.component.scss'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class EmisorFormComponent implements OnInit {
   private fb = inject(FormBuilder)

@@ -7,8 +7,7 @@ import type { OverViewChartType } from '@core/helpers/global/second-dashboard.co
 
 @Component({
   selector: 'overview-chart',
-  standalone: true,
-  imports: [NgbDropdownModule, NgApexchartsModule],
+  standalone: false,
   templateUrl: './overview-chart.component.html',
   styleUrls: ['./overview-chart.component.scss'],
 })

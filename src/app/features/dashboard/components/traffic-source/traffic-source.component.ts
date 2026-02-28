@@ -5,8 +5,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap'
 
 @Component({
   selector: 'traffic-source',
-  standalone: true,
-  imports: [NgbDropdownModule],
+  standalone: false,
   templateUrl: './traffic-source.component.html',
   styleUrls: ['./traffic-source.component.scss'],
 })

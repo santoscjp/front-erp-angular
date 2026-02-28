@@ -3,21 +3,16 @@ import {
   Input,
   Output,
   EventEmitter,
-  CUSTOM_ELEMENTS_SCHEMA,
 } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { TranslateModule } from '@ngx-translate/core'
 import { ModuleKey } from '@/app/shared/enums/module-key.enum'
 import { MODULE_LABELS } from '@/app/shared/constants/modules.constants'
 import { EmisorModule } from '@core/interfaces/api/company.interface'
 
 @Component({
   selector: 'app-emisor-modules-toggle',
-  standalone: true,
-  imports: [CommonModule, TranslateModule],
+  standalone: false,
   templateUrl: './emisor-modules-toggle.component.html',
   styleUrls: ['./emisor-modules-toggle.component.scss'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class EmisorModulesToggleComponent {
   @Input() modules: EmisorModule[] = []

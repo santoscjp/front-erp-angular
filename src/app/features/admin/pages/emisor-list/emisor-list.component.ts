@@ -2,16 +2,14 @@ import {
   Component,
   OnInit,
   inject,
-  CUSTOM_ELEMENTS_SCHEMA,
   TemplateRef,
   ViewChild,
 } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { Router, RouterLink } from '@angular/router'
-import { TranslateModule, TranslateService } from '@ngx-translate/core'
-import { FormsModule } from '@angular/forms'
-import { NgxDatatableModule, ColumnMode } from '@swimlane/ngx-datatable'
+import { Router } from '@angular/router'
+import { TranslateService } from '@ngx-translate/core'
+import { ColumnMode } from '@swimlane/ngx-datatable'
 import { AdminEmisorService } from '@core/services/api/admin-emisor.service'
+
 import { MODULE_LABELS } from '@/app/shared/constants/modules.constants'
 import { EmisorListItem } from '@core/interfaces/api/company.interface'
 import { TableConfig } from '../../interfaces/table-config.interface'
@@ -19,17 +17,9 @@ import { BehaviorSubject } from 'rxjs'
 
 @Component({
   selector: 'app-emisor-list',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterLink,
-    TranslateModule,
-    FormsModule,
-    NgxDatatableModule,
-  ],
+  standalone: false,
   templateUrl: './emisor-list.component.html',
   styleUrls: ['./emisor-list.component.scss'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class EmisorListComponent implements OnInit {
   @ViewChild('modulesTpl', { static: true })

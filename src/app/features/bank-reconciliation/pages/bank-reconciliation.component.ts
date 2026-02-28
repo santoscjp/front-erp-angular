@@ -3,8 +3,7 @@ import { TranslateModule } from '@ngx-translate/core'
 
 @Component({
   selector: 'app-bank-reconciliation',
-  standalone: true,
-  imports: [TranslateModule],
+  standalone: false,
   template: `
     <div class="row">
       <div class="col-12">

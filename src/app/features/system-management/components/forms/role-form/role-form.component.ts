@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common'
 import {
   Component,
-  CUSTOM_ELEMENTS_SCHEMA,
   inject,
   OnInit,
 } from '@angular/core'
@@ -20,9 +19,7 @@ import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'role-form',
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule, TranslatePipe],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  standalone: false,
   templateUrl: './role-form.component.html',
 })
 export class RoleFormComponent implements OnInit {

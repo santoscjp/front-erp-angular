@@ -1,18 +1,14 @@
-import { CommonModule } from '@angular/common'
 import {
   Component,
-  CUSTOM_ELEMENTS_SCHEMA,
   inject,
   OnDestroy,
   OnInit,
 } from '@angular/core'
-import { FormsModule } from '@angular/forms'
 import { Role } from '@core/interfaces/api/role.interface'
 import { RoleService } from '@core/services/api/role.service'
 import { BootstrapModalService } from '@core/services/ui/bootstrap-modal.service'
 import { SelectionService } from '@core/services/ui/selection.service'
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-import { TranslateModule } from '@ngx-translate/core'
+
 import {
   BehaviorSubject,
   catchError,
@@ -29,11 +25,9 @@ import { MODAL_TYPE } from '@core/helpers/global/global.constants'
 
 @Component({
   selector: 'role-left-side-bar',
-  standalone: true,
-  imports: [CommonModule, TranslateModule, NgbModule, FormsModule],
+  standalone: false,
   templateUrl: './role-left-side-bar.component.html',
   styleUrls: ['./role-left-side-bar.component.scss'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class RoleLeftSideBarComponent implements OnInit, OnDestroy {
   public roles$: BehaviorSubject<Role[]> = new BehaviorSubject<Role[]>([])

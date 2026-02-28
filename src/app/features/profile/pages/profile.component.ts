@@ -7,15 +7,7 @@ import { SecuritySettingsComponent } from '../components/security/security-setti
 
 @Component({
   selector: 'profile',
-  standalone: true,
-  imports: [
-    PageTitleComponent,
-    TranslatePipe,
-    NgbNavModule,
-    TranslatePipe,
-    ProfileDetailsComponent,
-    SecuritySettingsComponent,
-  ],
+  standalone: false,
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })

@@ -285,6 +285,20 @@ Topbar CSS
     animation: tada 1.5s ease infinite
 }
 
+.page-title-box{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+
+    .page-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--#{$prefix}body-color);
+        margin: 0;
+    }
+}
+
 @keyframes tada {
     0% {
         transform: scaleZ(1)

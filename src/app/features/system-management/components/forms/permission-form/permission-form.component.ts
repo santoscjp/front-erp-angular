@@ -13,8 +13,7 @@ import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'permission-form',
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule, TranslatePipe],
+  standalone: false,
   templateUrl: './permission-form.component.html',
 })
 export class PermissionFormComponent implements OnInit, OnDestroy {

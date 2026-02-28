@@ -1,11 +1,9 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
-import { TranslatePipe } from '@ngx-translate/core'
 
 @Component({
   selector: 'user-modal-form',
-  standalone: true,
-  imports: [TranslatePipe],
+  standalone: false,
   templateUrl: './user-modal-form.component.html',
 })
 export class UserModalFormComponent implements OnInit, OnDestroy {

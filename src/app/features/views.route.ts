@@ -8,15 +8,13 @@ export const VIEWS_ROUTES: Route[] = [
   {
     path: 'dashboard',
     loadChildren: () =>
-      import('./dashboard/dashboard.route').then(
-        (mod) => mod.DASHBOARD_ROUTES,
-      ),
+      import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
   {
     path: 'chart-of-accounts',
     loadChildren: () =>
-      import('./chart-of-accounts/chart-of-accounts.route').then(
-        (mod) => mod.CHART_OF_ACCOUNTS_ROUTES,
+      import('./chart-of-accounts/chart-of-accounts.module').then(
+        (m) => m.ChartOfAccountsModule,
       ),
     canActivate: [permissionGuard, moduleGuard],
     data: {
@@ -27,8 +25,8 @@ export const VIEWS_ROUTES: Route[] = [
   {
     path: 'journal-entries',
     loadChildren: () =>
-      import('./journal-entries/journal-entries.route').then(
-        (mod) => mod.JOURNAL_ENTRIES_ROUTES,
+      import('./journal-entries/journal-entries.module').then(
+        (m) => m.JournalEntriesModule,
       ),
     canActivate: [permissionGuard, moduleGuard],
     data: {
@@ -39,8 +37,8 @@ export const VIEWS_ROUTES: Route[] = [
   {
     path: 'fiscal-periods',
     loadChildren: () =>
-      import('./fiscal-periods/fiscal-periods.route').then(
-        (mod) => mod.FISCAL_PERIODS_ROUTES,
+      import('./fiscal-periods/fiscal-periods.module').then(
+        (m) => m.FiscalPeriodsModule,
       ),
     canActivate: [permissionGuard],
     data: {
@@ -50,8 +48,8 @@ export const VIEWS_ROUTES: Route[] = [
   {
     path: 'general-ledger',
     loadChildren: () =>
-      import('./general-ledger/general-ledger.route').then(
-        (mod) => mod.GENERAL_LEDGER_ROUTES,
+      import('./general-ledger/general-ledger.module').then(
+        (m) => m.GeneralLedgerModule,
       ),
     canActivate: [permissionGuard, moduleGuard],
     data: {
@@ -62,8 +60,8 @@ export const VIEWS_ROUTES: Route[] = [
   {
     path: 'financial-statements',
     loadChildren: () =>
-      import('./financial-statements/financial-statements.route').then(
-        (mod) => mod.FINANCIAL_STATEMENTS_ROUTES,
+      import('./financial-statements/financial-statements.module').then(
+        (m) => m.FinancialStatementsModule,
       ),
     canActivate: [permissionGuard, moduleGuard],
     data: {
@@ -74,8 +72,8 @@ export const VIEWS_ROUTES: Route[] = [
   {
     path: 'bank-reconciliation',
     loadChildren: () =>
-      import('./bank-reconciliation/bank-reconciliation.route').then(
-        (mod) => mod.BANK_RECONCILIATION_ROUTES,
+      import('./bank-reconciliation/bank-reconciliation.module').then(
+        (m) => m.BankReconciliationModule,
       ),
     canActivate: [permissionGuard, moduleGuard],
     data: {
@@ -86,8 +84,8 @@ export const VIEWS_ROUTES: Route[] = [
   {
     path: 'sri-reports',
     loadChildren: () =>
-      import('./sri-reports/sri-reports.route').then(
-        (mod) => mod.SRI_REPORTS_ROUTES,
+      import('./sri-reports/sri-reports.module').then(
+        (m) => m.SriReportsModule,
       ),
     canActivate: [permissionGuard, moduleGuard],
     data: {
@@ -98,7 +96,7 @@ export const VIEWS_ROUTES: Route[] = [
   {
     path: 'settings',
     loadChildren: () =>
-      import('./settings/settings.route').then((mod) => mod.SETTINGS_ROUTES),
+      import('./settings/settings.module').then((m) => m.SettingsModule),
     canActivate: [permissionGuard],
     data: {
       permission: PERMISSIONS.SETTINGS.READ,
@@ -107,20 +105,20 @@ export const VIEWS_ROUTES: Route[] = [
   {
     path: 'users-management',
     loadChildren: () =>
-      import('./user/user.route').then((mod) => mod.USER_ROUTES),
+      import('./user/user.module').then((m) => m.UserModule),
     canActivate: [permissionGuard],
     data: { permission: PERMISSIONS.USERS.READ },
   },
   {
     path: 'system-management',
     loadChildren: () =>
-      import('./system-management/system-management.route').then(
-        (mod) => mod.SYSTEM_MANAGEMENT_ROUTES,
+      import('./system-management/system-management.module').then(
+        (m) => m.SystemManagementModule,
       ),
   },
   {
     path: 'profile',
     loadChildren: () =>
-      import('./profile/profile.route').then((mod) => mod.PROFILE_ROUTES),
+      import('./profile/profile.module').then((m) => m.ProfileModule),
   },
 ]

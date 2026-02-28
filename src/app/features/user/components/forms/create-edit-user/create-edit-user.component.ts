@@ -1,10 +1,7 @@
-import { CommonModule } from '@angular/common'
 import { Component, inject } from '@angular/core'
 import {
   FormBuilder,
   FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
   Validators,
 } from '@angular/forms'
 import { Role } from '@core/interfaces/api/rol.interface'
@@ -13,13 +10,11 @@ import { RoleService } from '@core/services/api/role.service'
 import { UserService } from '@core/services/api/user.service'
 import { BootstrapModalService } from '@core/services/ui/bootstrap-modal.service'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { TranslatePipe } from '@ngx-translate/core'
 import { take } from 'rxjs'
 
 @Component({
   selector: 'create-edit-user',
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, FormsModule, TranslatePipe],
+  standalone: false,
   templateUrl: './create-edit-user.component.html',
   styleUrl: './create-edit-user.component.scss',
 })

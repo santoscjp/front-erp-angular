@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common'
 import {
   Component,
-  CUSTOM_ELEMENTS_SCHEMA,
   inject,
   OnDestroy,
   OnInit,
@@ -25,10 +24,8 @@ import {
 
 @Component({
   selector: 'permission-rigth-side-bar',
-  standalone: true,
-  imports: [CommonModule, TranslateModule, NgbModule, FormsModule],
+  standalone: false,
   templateUrl: './permission-rigth-side-bar.component.html',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class PermissionRigthSideBarComponent implements OnInit, OnDestroy {
   public permissions$: BehaviorSubject<Permission[]> = new BehaviorSubject<

@@ -1,23 +1,13 @@
-import { Component, OnInit, inject, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { RouterLink } from '@angular/router'
-import { TranslateModule } from '@ngx-translate/core'
+import { Component, OnInit, inject } from '@angular/core'
 import { AdminEmisorService } from '@core/services/api/admin-emisor.service'
 import { AdminDashboardStats } from '@core/interfaces/api/admin.interface'
 import { EmisorStatsCardsComponent } from '../../components/emisor-stats-cards/emisor-stats-cards.component'
 
 @Component({
   selector: 'app-admin-dashboard',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterLink,
-    TranslateModule,
-    EmisorStatsCardsComponent,
-  ],
+  standalone: false,
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AdminDashboardComponent implements OnInit {
   private adminService = inject(AdminEmisorService)

@@ -4,8 +4,7 @@ import type { StatType } from '@core/helpers/global/second-dashboard.constants'
 
 @Component({
   selector: 'app-stats',
-  standalone: true,
-  imports: [],
+  standalone: false,
   templateUrl: './stats.component.html',
   styleUrls: ['./stats.component.scss'],
 })

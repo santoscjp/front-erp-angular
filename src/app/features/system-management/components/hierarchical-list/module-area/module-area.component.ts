@@ -1,14 +1,10 @@
-import { CommonModule } from '@angular/common'
 import {
   Component,
-  CUSTOM_ELEMENTS_SCHEMA,
   inject,
   OnDestroy,
   OnInit,
 } from '@angular/core'
-import { FormsModule } from '@angular/forms'
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-import { TranslateModule } from '@ngx-translate/core'
+
 import {
   BehaviorSubject,
   debounceTime,
@@ -22,10 +18,8 @@ import { SelectionService } from '@core/services/ui/selection.service'
 
 @Component({
   selector: 'module-area',
-  standalone: true,
-  imports: [CommonModule, TranslateModule, NgbModule, FormsModule],
+  standalone: false,
   templateUrl: './module-area.component.html',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ModuleAreaComponent implements OnInit, OnDestroy {
   public modules$: BehaviorSubject<Module[]> = new BehaviorSubject<Module[]>([])

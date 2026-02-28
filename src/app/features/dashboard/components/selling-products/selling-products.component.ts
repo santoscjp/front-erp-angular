@@ -2,8 +2,7 @@ import { Component } from '@angular/core'
 
 @Component({
   selector: 'selling-products',
-  standalone: true,
-  imports: [],
+  standalone: false,
   template: '',
 })
 export class SellingProductsComponent {}

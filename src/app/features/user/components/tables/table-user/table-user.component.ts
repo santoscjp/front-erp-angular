@@ -1,7 +1,5 @@
-import { CommonModule } from '@angular/common'
 import {
   Component,
-  CUSTOM_ELEMENTS_SCHEMA,
   inject,
   OnDestroy,
   OnInit,
@@ -20,8 +18,7 @@ import { NgxDatatableConfig } from '@core/interfaces/ui/ngx-datatable.interface'
 import { ButtonAction } from '@core/interfaces/ui/ui.interface'
 import { UserService } from '@core/services/api/user.service'
 import { BootstrapModalService } from '@core/services/ui/bootstrap-modal.service'
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-import { TranslateModule } from '@ngx-translate/core'
+
 import {
   BehaviorSubject,
   catchError,
@@ -43,18 +40,9 @@ import { CreateEditUserComponent } from '../../forms/create-edit-user/create-edi
 
 @Component({
   selector: 'app-table-user',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
-    PageTitleComponent,
-    TooglePanelComponent,
-    NgbModule,
-    NgxDatatableComponent,
-  ],
+  standalone: false,
   templateUrl: './table-user.component.html',
   styleUrls: ['./table-user.component.scss'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class TableUserComponent implements OnInit, OnDestroy {
   public BUTTON_ACTIONS = BUTTON_ACTIONS

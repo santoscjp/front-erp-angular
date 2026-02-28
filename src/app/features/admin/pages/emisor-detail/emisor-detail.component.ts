@@ -2,13 +2,12 @@ import {
   Component,
   OnInit,
   inject,
-  CUSTOM_ELEMENTS_SCHEMA,
 } from '@angular/core'
-import { CommonModule } from '@angular/common'
 import { ActivatedRoute } from '@angular/router'
-import { TranslateModule, TranslateService } from '@ngx-translate/core'
+import { TranslateService } from '@ngx-translate/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { AdminEmisorService } from '@core/services/api/admin-emisor.service'
+
 import { ToastrNotificationService } from '@core/services/ui/notification.service'
 import Swal from 'sweetalert2'
 import { Emisor } from '@core/interfaces/api/company.interface'
@@ -20,16 +19,9 @@ import { User } from '@core/interfaces/api/user.interface'
 
 @Component({
   selector: 'app-emisor-detail',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
-    EmisorModulesToggleComponent,
-    EmisorUsersTableComponent,
-  ],
+  standalone: false,
   templateUrl: './emisor-detail.component.html',
   styleUrls: ['./emisor-detail.component.scss'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class EmisorDetailComponent implements OnInit {
   private route = inject(ActivatedRoute)

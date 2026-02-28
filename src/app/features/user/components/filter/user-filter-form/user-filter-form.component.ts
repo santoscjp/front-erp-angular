@@ -1,25 +1,15 @@
 import { FlatpickrDirective } from '@/app/shared/directives/flatpickr.directive'
-import { CommonModule } from '@angular/common'
 import { Component, inject, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms'
+import { FormBuilder, FormGroup } from '@angular/forms'
 import { BLOCKED_OPTIONS } from '@core/helpers/global/global.constants'
 import { NgSelect } from '@core/interfaces/ui/ui.interface'
 import { FilterCommunicationService } from '@core/services/ui/filter-comumunication.service'
-import { NgSelectModule } from '@ng-select/ng-select'
-import { TranslatePipe } from '@ngx-translate/core'
 import { Observable, of } from 'rxjs'
 import { format } from 'date-fns'
 
 @Component({
   selector: 'user-filter-form',
-  standalone: true,
-  imports: [
-    TranslatePipe,
-    NgSelectModule,
-    CommonModule,
-    ReactiveFormsModule,
-    FlatpickrDirective,
-  ],
+  standalone: false,
   providers: [],
   templateUrl: './user-filter-form.component.html',
 })
