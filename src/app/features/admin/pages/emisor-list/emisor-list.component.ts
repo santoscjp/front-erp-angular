@@ -12,6 +12,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { FormsModule } from '@angular/forms'
 import { NgxDatatableModule, ColumnMode } from '@swimlane/ngx-datatable'
 import { AdminEmisorService } from '@core/services/api/admin-emisor.service'
+import { MODULE_LABELS } from '@/app/shared/constants/modules.constants'
 import { EmisorListItem } from '@core/interfaces/api/company.interface'
 import { BehaviorSubject } from 'rxjs'
 
@@ -49,6 +50,7 @@ export class EmisorListComponent implements OnInit {
   emisores: EmisorListItem[] = []
   columns: unknown[] = []
   columnMode = ColumnMode.force
+  moduleLabels = MODULE_LABELS
 
   filterRuc = ''
   filterRazonSocial = ''

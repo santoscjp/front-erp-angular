@@ -52,7 +52,8 @@ export class TopbarComponent implements OnInit {
   public currency = currency
   public appsChunks = splitArray(appData, 3)
   public color!: string
-  public userImage: string = 'assets/images/default-avatar.png'
+  public userImage: string = 'assets/images/profile/default-avatar.png'
+  public imageError = false
 
   @Output() settingsButtonClicked = new EventEmitter<void>()
   @Output() mobileMenuButtonClicked = new EventEmitter<void>()
@@ -100,6 +101,17 @@ export class TopbarComponent implements OnInit {
     this.store.select(getLayoutColor).subscribe((theme) => {
       document.documentElement.setAttribute('data-bs-theme', theme)
     })
+  }
+
+  onImageError(): void {
+    this.imageError = true
+  }
+
+  get userInitials(): string {
+    if (!this.userProfile) return ''
+    const first = this.userProfile.firstName?.charAt(0) || ''
+    const last = this.userProfile.lastName?.charAt(0) || ''
+    return (first + last).toUpperCase()
   }
 
   logout(): void {

@@ -11,33 +11,46 @@
     <div class="mb-3">
       <label class="form-label" for="emisorRuc">
         {{ 'LOGIN.INPUT.EMISOR_RUC' | translate }}
+        <span class="text-muted fw-normal ms-1">({{ 'WORDS.OPTIONAL' | translate }})</span>
       </label>
       <input
         formControlName="emisorRuc"
         type="text"
         id="emisorRuc"
         class="form-control"
+        [class.is-invalid]="isSubmitted && formValues['emisorRuc'].errors"
         [placeholder]="'LOGIN.PLACEHOLDER.EMISOR_RUC' | translate"
         maxlength="13"
       />
+      @if (isSubmitted && formValues['emisorRuc'].errors?.['pattern']) {
+        <div class="invalid-feedback">
+          {{ 'LOGIN.VALIDATION.EMISOR_RUC_PATTERN' | translate }}
+        </div>
+      }
     </div>
 
     <div class="mb-3">
       <label class="form-label" for="email">
-        {{ 'LOGIN.INPUT.EMAIL' | translate }}
+        {{ 'LOGIN.INPUT.EMAIL' | translate }} <span class="text-danger">*</span>
       </label>
       <input
         formControlName="email"
         type="text"
         id="email"
         class="form-control"
+        [class.is-invalid]="isSubmitted && formValues['email'].errors"
         [placeholder]="'LOGIN.PLACEHOLDER.EMAIL' | translate"
       />
+      @if (isSubmitted && formValues['email'].errors?.['required']) {
+        <div class="invalid-feedback">
+          {{ 'LOGIN.VALIDATION.EMAIL_REQUIRED' | translate }}
+        </div>
+      }
     </div>
 
     <div class="mb-3">
       <label class="form-label" for="example-password">
-        {{ 'LOGIN.INPUT.PASSWORD' | translate }}
+        {{ 'LOGIN.INPUT.PASSWORD' | translate }} <span class="text-danger">*</span>
       </label>
       <div class="position-relative">
         <input
@@ -45,6 +58,7 @@
           formControlName="password"
           id="example-password"
           class="form-control"
+          [class.is-invalid]="isSubmitted && formValues['password'].errors"
           [placeholder]="'LOGIN.PLACEHOLDER.PASSWORD' | translate"
         />
         <button
@@ -58,6 +72,11 @@
           ></i>
         </button>
       </div>
+      @if (isSubmitted && formValues['password'].errors?.['required']) {
+        <div class="text-danger fs-12 mt-1">
+          {{ 'LOGIN.VALIDATION.PASSWORD_REQUIRED' | translate }}
+        </div>
+      }
     </div>
 
     <div class="d-flex justify-content-between mb-3">
@@ -75,7 +94,10 @@
     </div>
 
     <div class="d-grid mb-2">
-      <button class="btn btn-primary" type="submit">
+      <button class="btn btn-primary" type="submit" [disabled]="isLoading">
+        @if (isLoading) {
+          <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+        }
         {{ 'LOGIN.BUTTON.SIGN_IN' | translate }}
       </button>
     </div>

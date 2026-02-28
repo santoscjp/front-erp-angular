@@ -8,6 +8,7 @@ import {
 import { CommonModule } from '@angular/common'
 import { TranslateModule } from '@ngx-translate/core'
 import { ModuleKey } from '@/app/shared/enums/module-key.enum'
+import { MODULE_LABELS } from '@/app/shared/constants/modules.constants'
 import { EmisorModule } from '@core/interfaces/api/company.interface'
 
 @Component({
@@ -29,6 +30,7 @@ export class EmisorModulesToggleComponent {
   @Output() syncInvoicingRequested = new EventEmitter<void>()
 
   moduleKeys = Object.values(ModuleKey)
+  moduleLabels = MODULE_LABELS
 
   isModuleActive(moduleKey: string): boolean {
     const mod = this.modules.find((m) => m.moduleKey === moduleKey)

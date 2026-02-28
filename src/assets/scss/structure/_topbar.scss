@@ -137,6 +137,11 @@ Topbar CSS
         background-color: #252630;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     }
+
+    .nav-user__avatar--initials {
+        background-color: rgba(100, 160, 210, 0.2);
+        color: #8BBCE0;
+    }
 }
 
 .nav-user {
@@ -151,6 +156,63 @@ Topbar CSS
     transition: none;
     padding-left: 12px;
     margin-left: 4px;
+
+    &__toggle {
+        display: flex;
+        align-items: center;
+        width: auto !important;
+        height: auto !important;
+        padding: 4px 8px;
+    }
+
+    &__avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+        flex-shrink: 0;
+
+        &--initials {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(27, 75, 120, 0.12);
+            color: #1B4B78;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1;
+        }
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        margin-left: 8px;
+        text-align: left;
+        min-width: 0;
+        max-width: 150px;
+    }
+
+    &__name {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--#{$prefix}body-color);
+        line-height: 1.3;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__role {
+        font-size: 12px;
+        font-weight: 400;
+        color: var(--#{$prefix}secondary-color);
+        line-height: 1.3;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }
 
 
@@ -288,6 +350,21 @@ Topbar CSS
             i {
                 font-size: 16px !important;
             }
+        }
+    }
+
+    .nav-user {
+        &__avatar {
+            width: 28px;
+            height: 28px;
+
+            &--initials {
+                font-size: 11px;
+            }
+        }
+
+        &__toggle {
+            padding: 4px;
         }
     }
 }

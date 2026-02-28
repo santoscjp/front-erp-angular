@@ -11,6 +11,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { AdminEmisorService } from '@core/services/api/admin-emisor.service'
 import { ToastrNotificationService } from '@core/services/ui/notification.service'
 import { ModuleKey } from '@/app/shared/enums/module-key.enum'
+import { MODULE_LABELS } from '@/app/shared/constants/modules.constants'
 import { EmisorCreateRequest } from '@core/interfaces/api/company.interface'
 import { rucValidator } from '@/app/shared/validators/ruc.validator'
 
@@ -32,6 +33,7 @@ export class EmisorFormComponent implements OnInit {
   emisorForm!: FormGroup
   isSubmitting = false
   moduleKeys = Object.values(ModuleKey)
+  moduleLabels = MODULE_LABELS
 
   ngOnInit(): void {
     this.initForm()

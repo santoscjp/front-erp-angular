@@ -54,8 +54,8 @@ export class LoginComponent implements OnInit {
   private initSignInForm(): void {
     this.signInForm = this.fb.group({
       emisorRuc: ['', [Validators.pattern(/^\d{13}$/)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]],
       rememberMe: [false],
     })
   }

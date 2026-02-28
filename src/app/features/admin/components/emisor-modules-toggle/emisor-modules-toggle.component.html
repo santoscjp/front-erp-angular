@@ -16,7 +16,7 @@
               (change)="onToggle(moduleKey, $event)"
             />
             <label class="form-check-label" [for]="'toggle_' + moduleKey">
-              {{ moduleKey }}
+              {{ moduleLabels[moduleKey] | translate }}
             </label>
           </div>
 

@@ -46,28 +46,34 @@
         <div ngbDropdown>
           <a
             ngbDropdownToggle
-            class="topbar-link drop-arrow-none px-2"
+            class="topbar-link drop-arrow-none nav-user__toggle"
             data-bs-toggle="dropdown"
             data-bs-offset="0,19"
             type="button"
             aria-haspopup="false"
             aria-expanded="false"
           >
-            <img
-              [src]="userImage || 'assets/images/default-avatar.png'"
-              width="32"
-              class="rounded-circle me-lg-2 d-flex"
-              alt="user-image"
-            />
-            <span class="d-lg-flex flex-column gap-1 d-none">
-              <h5 class="my-0">{{ userProfile?.firstName }} {{ userProfile?.lastName }}</h5>
-              <h6 class="my-0 fw-normal">
+            @if (!imageError) {
+              <img
+                [src]="userImage"
+                (error)="onImageError()"
+                width="32"
+                height="32"
+                class="nav-user__avatar"
+                alt="user-image"
+              />
+            } @else {
+              <span class="nav-user__avatar nav-user__avatar--initials">
+                {{ userInitials }}
+              </span>
+            }
+            <span class="nav-user__info d-none d-lg-flex">
+              <span class="nav-user__name">{{ userProfile?.firstName }} {{ userProfile?.lastName }}</span>
+              <span class="nav-user__role">
                 {{ userProfile?.role?.displayName }}
-              </h6>
+              </span>
             </span>
-            <i
-              class="ti ti-chevron-down d-none d-lg-block align-middle ms-2"
-            ></i>
+            <i class="ti ti-chevron-down d-none d-lg-block align-middle ms-2"></i>
           </a>
           <div ngbDropdownMenu class="dropdown-menu-end">
             <div class="dropdown-header noti-title">

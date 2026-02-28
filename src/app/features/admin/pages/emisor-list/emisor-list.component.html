@@ -1,24 +1,36 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-12">
-      <div class="page-title-box d-flex align-items-center justify-content-between">
-        <h4 class="page-title">{{ 'ADMIN.EMISOR.TITLE' | translate }}</h4>
-        <a routerLink="/admin/emisores/nuevo" class="btn btn-primary">
-          <i class="ti ti-plus me-1"></i>
-          {{ 'ADMIN.EMISOR.NEW' | translate }}
-        </a>
+      <div
+        class="page-title-box d-flex align-items-center justify-content-between"
+      >
+        <h4 class="page-title mb-0">{{ 'ADMIN.EMISOR.TITLE' | translate }}</h4>
+        <div class="d-flex align-items-center gap-2">
+          <a
+            routerLink="/admin/emisores/nuevo"
+            class="btn emisor-list__btn-new"
+          >
+            <iconify-icon
+              icon="solar:add-circle-bold-duotone"
+              class="me-1"
+            ></iconify-icon>
+            {{ 'ADMIN.EMISOR.NEW' | translate }}
+          </a>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- Filters -->
-  <div class="row mb-3">
+  <div class="row">
     <div class="col-12">
       <div class="card">
         <div class="card-body">
           <div class="row g-2 align-items-end">
             <div class="col-md-3">
-              <label class="form-label">{{ 'ADMIN.EMISOR.TABLE.RUC' | translate }}</label>
+              <label class="form-label">{{
+                'ADMIN.EMISOR.TABLE.RUC' | translate
+              }}</label>
               <input
                 type="text"
                 class="form-control"
@@ -27,7 +39,9 @@
               />
             </div>
             <div class="col-md-3">
-              <label class="form-label">{{ 'ADMIN.EMISOR.TABLE.RAZON_SOCIAL' | translate }}</label>
+              <label class="form-label">{{
+                'ADMIN.EMISOR.TABLE.RAZON_SOCIAL' | translate
+              }}</label>
               <input
                 type="text"
                 class="form-control"
@@ -36,10 +50,14 @@
               />
             </div>
             <div class="col-md-2">
-              <label class="form-label">{{ 'ADMIN.EMISOR.TABLE.STATUS' | translate }}</label>
+              <label class="form-label">
+                {{ 'ADMIN.EMISOR.TABLE.STATUS' | translate }}
+              </label>
               <select class="form-select" [(ngModel)]="filterStatus">
                 <option value="">{{ 'WORDS.FILTER' | translate }}</option>
-                <option value="true">{{ 'WORDS.IS_ACTIVE' | translate }}</option>
+                <option value="true">
+                  {{ 'WORDS.IS_ACTIVE' | translate }}
+                </option>
                 <option value="false">{{ 'WORDS.NO' | translate }}</option>
               </select>
             </div>
@@ -62,26 +80,22 @@
   <!-- Table -->
   <div class="row">
     <div class="col-12">
-      <div class="card">
-        <div class="card-body">
-          <ngx-datatable
-            class="bootstrap"
-            [rows]="emisores"
-            [columns]="columns"
-            [columnMode]="columnMode"
-            [headerHeight]="50"
-            [footerHeight]="50"
-            [rowHeight]="'auto'"
-            [limit]="(config$ | async)?.limit ?? 10"
-            [count]="(config$ | async)?.totalCount ?? 0"
-            [offset]="((config$ | async)?.page ?? 1) - 1"
-            [externalPaging]="true"
-            [loadingIndicator]="(config$ | async)?.loading ?? false"
-            (page)="onPageChange($event)"
-          >
-          </ngx-datatable>
-        </div>
-      </div>
+      <ngx-datatable
+        class="material"
+        [rows]="emisores"
+        [columns]="columns"
+        [columnMode]="columnMode"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        [rowHeight]="'auto'"
+        [limit]="(config$ | async)?.limit ?? 10"
+        [count]="(config$ | async)?.totalCount ?? 0"
+        [offset]="((config$ | async)?.page ?? 1) - 1"
+        [externalPaging]="true"
+        [loadingIndicator]="(config$ | async)?.loading ?? false"
+        (page)="onPageChange($event)"
+      >
+      </ngx-datatable>
     </div>
   </div>
 </div>
@@ -91,7 +105,9 @@
   <div class="d-flex flex-wrap gap-1">
     @for (mod of row.modules; track mod.moduleKey) {
       @if (mod.isActive) {
-        <span class="badge bg-info-subtle text-info">{{ mod.moduleKey }}</span>
+        <span class="badge bg-info-subtle text-info">{{
+          moduleLabels[mod.moduleKey] | translate
+        }}</span>
       }
     }
   </div>
@@ -100,9 +116,13 @@
 <!-- Status template -->
 <ng-template #statusTpl let-row="row">
   @if (row.isActive) {
-    <span class="badge bg-success-subtle text-success">{{ 'WORDS.IS_ACTIVE' | translate }}</span>
+    <span class="badge bg-success-subtle text-success">
+      {{ 'WORDS.IS_ACTIVE' | translate }}</span
+    >
   } @else {
-    <span class="badge bg-danger-subtle text-danger">{{ 'WORDS.NO' | translate }}</span>
+    <span class="badge bg-danger-subtle text-danger">
+      {{ 'WORDS.NO' | translate }}
+    </span>
   }
 </ng-template>
 
