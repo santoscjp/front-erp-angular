@@ -141,17 +141,40 @@
                   <label class="form-label">
                     {{ 'USER.VIEW.PASSWORD' | translate }} *
                   </label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    formControlName="adminPassword"
-                    [placeholder]="
-                      'ADMIN.EMISOR.FORM.PLACEHOLDER.PASSWORD' | translate
-                    "
-                    [class.is-invalid]="
-                      f['adminPassword'].touched && f['adminPassword'].invalid
-                    "
-                  />
+                  <div class="input-group">
+                    <input
+                      [type]="showAdminPassword ? 'text' : 'password'"
+                      class="form-control"
+                      formControlName="adminPassword"
+                      [placeholder]="
+                        'ADMIN.EMISOR.FORM.PLACEHOLDER.PASSWORD' | translate
+                      "
+                      [class.is-invalid]="
+                        f['adminPassword'].touched && f['adminPassword'].invalid
+                      "
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary"
+                      (click)="togglePasswordVisibility()"
+                      [title]="(showAdminPassword ? 'WORDS.HIDE' : 'WORDS.SHOW') | translate"
+                    >
+                      <i [class]="showAdminPassword ? 'ti ti-eye-off' : 'ti ti-eye'"></i>
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary"
+                      (click)="generatePassword()"
+                      [title]="'ADMIN.EMISOR.FORM.GENERATE_PASSWORD' | translate"
+                    >
+                      <i class="ti ti-refresh"></i>
+                    </button>
+                  </div>
+                  @if (f['adminPassword'].touched && f['adminPassword'].invalid) {
+                    <div class="text-danger small mt-1">
+                      {{ 'USER.VALIDATION_USER.PASSWORD_MIN_LENGTH' | translate }}
+                    </div>
+                  }
                 </div>
                 <div class="col-md-6">
                   <label class="form-label">

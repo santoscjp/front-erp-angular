@@ -1,5 +1,7 @@
 <div class="modal-header">
-  <h5 class="modal-title">{{ 'ADMIN.EMISOR.USERS.CREATE_USER' | translate }}</h5>
+  <h5 class="modal-title">
+    {{ 'ADMIN.EMISOR.USERS.CREATE_USER' | translate }}
+  </h5>
   <button type="button" class="btn-close" (click)="onCancel()"></button>
 </div>
 
@@ -8,7 +10,9 @@
     <div class="row g-3">
       @if (emisorHasInvoicing) {
         <div class="col-md-6">
-          <label class="form-label">{{ 'ADMIN.USER.USERNAME_INVOICING' | translate }} *</label>
+          <label class="form-label">
+            {{ 'ADMIN.USER.USERNAME' | translate }} *
+          </label>
           <input
             type="text"
             class="form-control"
@@ -21,7 +25,6 @@
               {{ 'USER.VALIDATION_USER.USERNAME_REQUIRED' | translate }}
             </div>
           }
-          <small class="text-muted">{{ 'ADMIN.USER.USERNAME_HELP' | translate }}</small>
         </div>
       }
       <div class="col-md-6">
@@ -34,7 +37,9 @@
         />
       </div>
       <div class="col-md-6">
-        <label class="form-label">{{ 'USER.VIEW.PASSWORD' | translate }} *</label>
+        <label class="form-label"
+          >{{ 'USER.VIEW.PASSWORD' | translate }} *</label
+        >
         <input
           type="password"
           class="form-control"
@@ -60,7 +65,7 @@
           [class.is-invalid]="f['lastName'].touched && f['lastName'].invalid"
         />
       </div>
-      <div class="col-12">
+      <div class="col-md-6">
         <label class="form-label">{{ 'USER.VIEW.ROLES' | translate }} *</label>
         <ng-select
           formControlName="roleId"
@@ -79,7 +84,12 @@
   <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">
     {{ 'USER.BUTTON.CANCEL' | translate }}
   </button>
-  <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="isSubmitting">
+  <button
+    type="button"
+    class="btn btn-primary"
+    (click)="onSubmit()"
+    [disabled]="isSubmitting"
+  >
     @if (isSubmitting) {
       <span class="spinner-border spinner-border-sm me-1" role="status"></span>
       {{ 'WORDS.CREATING' | translate }}

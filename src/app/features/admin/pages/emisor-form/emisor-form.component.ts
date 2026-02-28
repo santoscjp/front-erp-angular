@@ -34,6 +34,7 @@ export class EmisorFormComponent implements OnInit {
 
   currentStep = 1
   readonly TOTAL_STEPS = 3
+  showAdminPassword = false
 
   private readonly stepFields: Record<number, string[]> = {
     1: ['adminUsername', 'adminEmail', 'adminPassword', 'adminFirstName', 'adminLastName', 'adminRoleId'],
@@ -150,6 +151,35 @@ export class EmisorFormComponent implements OnInit {
   isModuleSelected(moduleKey: ModuleKey): boolean {
     const modules: ModuleKey[] = this.emisorForm.get('modules')?.value || []
     return modules.includes(moduleKey)
+  }
+
+  togglePasswordVisibility(): void {
+    this.showAdminPassword = !this.showAdminPassword
+  }
+
+  generatePassword(): void {
+    const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    const lowercase = 'abcdefghijklmnopqrstuvwxyz'
+    const digits = '0123456789'
+    const symbols = '!@#$%^&*'
+    const allChars = uppercase + lowercase + digits + symbols
+
+    const mandatoryChars = [
+      uppercase[Math.floor(Math.random() * uppercase.length)],
+      lowercase[Math.floor(Math.random() * lowercase.length)],
+      digits[Math.floor(Math.random() * digits.length)],
+      symbols[Math.floor(Math.random() * symbols.length)],
+    ]
+
+    const remainingChars = Array.from({ length: 8 }, () =>
+      allChars[Math.floor(Math.random() * allChars.length)]
+    )
+
+    const passwordChars = [...mandatoryChars, ...remainingChars].sort(() => Math.random() - 0.5)
+    const generatedPassword = passwordChars.join('')
+
+    this.emisorForm.patchValue({ adminPassword: generatedPassword })
+    this.showAdminPassword = true
   }
 
   onSubmit(): void {

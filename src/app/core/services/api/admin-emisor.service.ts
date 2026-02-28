@@ -122,9 +122,9 @@ export class AdminEmisorService {
   updateEmisorModules(
     emisorId: number,
     data: EmisorModuleUpdateRequest,
-  ): Observable<ApiResponse<Emisor>> {
+  ): Observable<ApiResponse<EmisorModule[]>> {
     return this._httpClient
-      .put<ApiResponse<Emisor>>(
+      .put<ApiResponse<EmisorModule[]>>(
         `${this.API_URL}/issuers/${emisorId}/modules`,
         data,
       )

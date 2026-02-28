@@ -30,7 +30,7 @@
         </button>
       </div>
 
-      <div class="topbar-item d-none d-sm-flex">
+      <div class="topbar-item d-flex">
         <div class="theme-toggle" (click)="changeTheme()" id="light-dark-mode">
           <div class="theme-toggle__indicator" [class.theme-toggle__indicator--dark]="color === 'dark'"></div>
           <button type="button" class="theme-toggle__btn" [class.active]="color === 'light'">

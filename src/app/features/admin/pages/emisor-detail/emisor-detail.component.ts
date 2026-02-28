@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  inject,
-} from '@angular/core'
+import { Component, OnInit, inject } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { TranslateService } from '@ngx-translate/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
@@ -11,8 +7,6 @@ import { AdminEmisorService } from '@core/services/api/admin-emisor.service'
 import { ToastrNotificationService } from '@core/services/ui/notification.service'
 import Swal from 'sweetalert2'
 import { Emisor } from '@core/interfaces/api/company.interface'
-import { EmisorModulesToggleComponent } from '../../components/emisor-modules-toggle/emisor-modules-toggle.component'
-import { EmisorUsersTableComponent } from '../../components/emisor-users-table/emisor-users-table.component'
 import { AdminCreateUserModalComponent } from '../../components/admin-create-user-modal/admin-create-user-modal.component'
 import { AdminEditUserModalComponent } from '../../components/admin-edit-user-modal/admin-edit-user-modal.component'
 import { User } from '@core/interfaces/api/user.interface'
@@ -62,11 +56,16 @@ export class EmisorDetailComponent implements OnInit {
         : { moduleKey: m.moduleKey, isActive: m.isActive }
     )
 
+    this.emisor = { ...this.emisor, modules: updatedModules }
+
     this.adminService
       .updateEmisorModules(this.emisorId, { modules: updatedModules })
       .subscribe({
         next: (response) => {
-          this.emisor = response.data
+          this.emisor = { ...this.emisor!, modules: response.data }
+        },
+        error: () => {
+          this.loadEmisor()
         },
       })
   }

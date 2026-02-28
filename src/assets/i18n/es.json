@@ -171,7 +171,8 @@
     },
     "VALIDATION_USER": {
       "USERNAME_REQUIRED": "El nombre de usuario es obligatorio (mínimo 3 caracteres).",
-      "EMAIL_INVALID": "Debe ingresar un correo válido."
+      "EMAIL_INVALID": "Debe ingresar un correo válido.",
+      "PASSWORD_MIN_LENGTH": "La contraseña debe tener al menos 8 caracteres."
     },
     "ERRORS": {
       "ERROR_REQUIRED_FIELDS": "Por favor, complete todos los campos."
@@ -236,7 +237,8 @@
           "PASSWORD": "Ingrese la contraseña",
           "FIRST_NAME": "Ingrese el nombre",
           "LAST_NAME": "Ingrese el apellido"
-        }
+        },
+        "GENERATE_PASSWORD": "Generar contraseña"
       },
       "MODULES": {
         "TITLE": "Módulos Activos",
@@ -267,7 +269,7 @@
       }
     },
     "USER": {
-      "USERNAME_INVOICING": "Usuario de facturación",
+      "USERNAME": "Usuario",
       "USERNAME_PLACEHOLDER": "Ej: mlopez",
       "USERNAME_HELP": "Usuario para acceder al sistema de facturación"
     }
@@ -383,7 +385,9 @@
     "MODULE_UNDER_CONSTRUCTION": "Este módulo está en construcción.",
     "FIRST_NAME": "Nombre",
     "LAST_NAME": "Apellido",
-    "IS_ACTIVE": "Activo"
+    "IS_ACTIVE": "Activo",
+    "SHOW": "Mostrar",
+    "HIDE": "Ocultar"
   },
   "SWEET_ALERT": {
     "ARE_YOU_SURE": "¿Estas seguro?",

@@ -4,9 +4,7 @@
   <div class="card-body">
     <div class="row">
       <!-- Sidebar con línea divisoria -->
-      <div
-        class="col-sm-2 mb-2 mb-sm-0 border-end border-secondary-subtle border-3 rounded-top rounded-bottom"
-      >
+      <div class="col-sm-2 mb-2 mb-sm-0">
         <div
           ngbNav
           #verticalnav="ngbNav"
@@ -23,7 +21,8 @@
               aria-controls="v-pills-home"
               aria-selected="true"
             >
-            <i class="ti ti-user-circle fs-18 me-1"></i> {{'PROFILE.MY_PROFILE.TITLE' | translate}}
+              <i class="ti ti-user-circle fs-18 me-1"></i>
+              {{ 'PROFILE.MY_PROFILE.TITLE' | translate }}
             </a>
             <ng-template ngbNavContent>
               <profile-details />
@@ -37,7 +36,8 @@
               aria-controls="v-pills-profile"
               aria-selected="false"
             >
-              <i class="ti ti-shield-lock fs-18 me-1"></i> {{'PROFILE.SECURITY.TITLE' | translate}}
+              <i class="ti ti-shield-lock fs-18 me-1"></i>
+              {{ 'PROFILE.SECURITY.TITLE' | translate }}
             </a>
             <ng-template ngbNavContent> <security-settings /> </ng-template>
           </ng-container>
