@@ -124,6 +124,13 @@ export class AuthenticationService {
     )
   }
 
+  unlockUser(userId: number): Observable<ApiResponse<null>> {
+    return this._http.post<ApiResponse<null>>(
+      `${this.url}/users/${userId}/unlock`,
+      {},
+    )
+  }
+
   setup2FA(): Observable<ApiResponse<{ qrCodeUrl: string }>> {
     return this._http.post<ApiResponse<{ qrCodeUrl: string }>>(
       `${this.url}/2fa/setup`,

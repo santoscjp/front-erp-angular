@@ -25,6 +25,7 @@ export class EmisorUsersTableComponent implements OnInit, OnChanges {
   @Input() emisorId!: number
   @Output() createUserRequested = new EventEmitter<void>()
   @Output() editUserRequested = new EventEmitter<User>()
+  @Output() unlockUserRequested = new EventEmitter<User>()
 
   @ViewChild('roleTpl', { static: true }) roleTpl!: TemplateRef<unknown>
   @ViewChild('sourceTpl', { static: true }) sourceTpl!: TemplateRef<unknown>
@@ -119,6 +120,14 @@ export class EmisorUsersTableComponent implements OnInit, OnChanges {
 
   onEditUser(user: User): void {
     this.editUserRequested.emit(user)
+  }
+
+  onUnlockUser(user: User): void {
+    this.unlockUserRequested.emit(user)
+  }
+
+  isUserLocked(user: User): boolean {
+    return user.lockedUntil !== null
   }
 
   trackByUserId(_index: number, user: User): number {

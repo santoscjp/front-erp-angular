@@ -42,15 +42,43 @@
   </div>
 </div>
 
-<ng-template #createdAt let-row="row" let-rowIndex="rowIndex">
-  <span> {{ row.createdAt | date: FORMAT_FOR_DATES }} </span>
+<ng-template #createdAt let-row="row">
+  <span>{{ row.createdAt | date: FORMAT_FOR_DATES }}</span>
 </ng-template>
 
-<ng-template #actionsTemplate let-row="row" let-rowIndex="rowIndex">
+<ng-template #statusTemplate let-row="row">
+  @if (isUserLocked(row)) {
+    <span class="badge bg-danger-subtle text-danger">
+      <i class="ti ti-lock me-1"></i>
+      {{ 'USER.TABLE.LOCKED' | translate }}
+    </span>
+  } @else if (row.isActive) {
+    <span class="badge bg-success-subtle text-success">
+      {{ 'USER.TABLE.ACTIVE' | translate }}
+    </span>
+  } @else {
+    <span class="badge bg-secondary-subtle text-secondary">
+      {{ 'USER.TABLE.INACTIVE' | translate }}
+    </span>
+  }
+</ng-template>
+
+<ng-template #actionsTemplate let-row="row">
+  @if (isUserLocked(row)) {
+    <button
+      *appHasPermission="'users:write'"
+      class="btn btn-outline-warning btn-xs m-1"
+      placement="left"
+      [ngbTooltip]="'USER.BUTTONS.UNLOCK' | translate"
+      (click)="unlockUser(row)"
+    >
+      <i class="ti ti-lock-open"></i>
+    </button>
+  }
   <button
     class="btn btn-outline-secondary btn-xs m-1"
     placement="left"
-    [ngbTooltip]="'Ver Detalles'"
+    [ngbTooltip]="'USER.BUTTONS.VIEW' | translate"
     (click)="openModal(BUTTON_ACTIONS.VIEW, row)"
   >
     <i class="fa fa-eye"></i>
@@ -58,7 +86,7 @@
   <button
     class="btn btn-outline-secondary btn-xs m-1"
     placement="left"
-    [ngbTooltip]="'Editar usuario'"
+    [ngbTooltip]="'USER.BUTTONS.EDIT' | translate"
     (click)="openModal(BUTTON_ACTIONS.EDIT, row)"
   >
     <i class="fa fa-edit"></i>

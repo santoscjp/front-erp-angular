@@ -16,6 +16,7 @@ import {
 } from '@core/interfaces/ui/bootstrap-modal.interface'
 import { NgxDatatableConfig } from '@core/interfaces/ui/ngx-datatable.interface'
 import { ButtonAction } from '@core/interfaces/ui/ui.interface'
+import { AuthenticationService } from '@core/services/api/auth.service'
 import { UserService } from '@core/services/api/user.service'
 import { BootstrapModalService } from '@core/services/ui/bootstrap-modal.service'
 
@@ -29,9 +30,6 @@ import {
   takeUntil,
   tap,
 } from 'rxjs'
-import { TooglePanelComponent } from '../../../../../shared/components/accordions/toogle-panel/toogle-panel.component'
-import { PageTitleComponent } from '../../../../../shared/components/layouts/page-title/page-title.component'
-import { NgxDatatableComponent } from '../../../../../shared/components/tables/ngx-datatabale/ngx-datatable.component'
 import { UserFilterFormComponent } from '../../filter/user-filter-form/user-filter-form.component'
 import { FilterCommunicationService } from '@core/services/ui/filter-comumunication.service'
 import { CreateUserComponent } from '../../forms/create-user/create-user.component'
@@ -53,17 +51,18 @@ export class TableUserComponent implements OnInit, OnDestroy {
 
   @ViewChild('createdAt', { static: true })
   public createdAtTemplate?: TemplateRef<HTMLElement>
+  @ViewChild('statusTemplate', { static: true })
+  public statusTemplate?: TemplateRef<HTMLElement>
   @ViewChild('actionsTemplate', { static: true })
   public actionsTemplate?: TemplateRef<HTMLElement>
   public config$ = new BehaviorSubject<Partial<NgxDatatableConfig>>({})
   public data$: Observable<User[]> = of([])
 
-  private filter: object = {}
   private unsubscribe$: Subject<boolean> = new Subject<boolean>()
 
   private _filterCommunicationService = inject(FilterCommunicationService)
   private _userService = inject(UserService)
-
+  private _authService = inject(AuthenticationService)
   private _bsModalService = inject(BootstrapModalService)
 
   ngOnInit(): void {
@@ -79,7 +78,7 @@ export class TableUserComponent implements OnInit, OnDestroy {
         next: (filter) => {
           this.reloadDatatable(filter || {})
         },
-        error: (err) => {},
+        error: () => {},
       })
   }
 
@@ -111,7 +110,7 @@ export class TableUserComponent implements OnInit, OnDestroy {
         },
         {
           name: 'USER.TABLE.IS_ACTIVE',
-          prop: 'isActive',
+          cellTemplate: this.statusTemplate ?? undefined,
           cellClass: 'col-is-active',
         },
         {
@@ -131,13 +130,13 @@ export class TableUserComponent implements OnInit, OnDestroy {
   private fetchUsers(filter: object): Observable<User[]> {
     this.config$.next({ ...this.config$.value, loadingIndicator: true })
 
-    const UpdateFilter = {
+    const updatedFilter = {
       ...filter,
       limit: this.config$.value.limit,
       page: this.config$.value.page,
     }
 
-    return this._userService.findUsers(UpdateFilter).pipe(
+    return this._userService.findUsers(updatedFilter).pipe(
       tap((res) => {
         this.config$.next({
           ...this.config$.value,
@@ -146,10 +145,10 @@ export class TableUserComponent implements OnInit, OnDestroy {
         })
       }),
       map((res) => res.data.result || []),
-      catchError((err) => {
+      catchError(() => {
         this.config$.next({ ...this.config$.value, loadingIndicator: false })
         return of([])
-      })
+      }),
     )
   }
 
@@ -176,6 +175,21 @@ export class TableUserComponent implements OnInit, OnDestroy {
   public onChangePage(page: number): void {
     this.config$.next({ ...this.config$.value, page })
     this.data$ = this.fetchUsers({})
+  }
+
+  public isUserLocked(user: User): boolean {
+    return user.lockedUntil !== null
+  }
+
+  public unlockUser(user: User): void {
+    this._authService
+      .unlockUser(user.id)
+      .pipe(catchError(() => of(null)))
+      .subscribe((res) => {
+        if (res) {
+          this.reloadDatatable()
+        }
+      })
   }
 
   public openModal(buttonAction: ButtonAction, user?: User): void {

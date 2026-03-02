@@ -37,6 +37,7 @@ export const BUTTON_ACTIONS = {
   REJECT: 'reject',
   PROCESS: 'process',
   STATE: 'state',
+  UNLOCK: 'unlock',
 } as const
 
 export const basePath: string = '/'

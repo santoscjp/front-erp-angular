@@ -14,6 +14,7 @@ export interface User {
   emisorName?: string
   sourceSystem: 'LOCAL' | 'INVOICING'
   twoFactorEnabled: boolean
+  lockedUntil: string | null
   lastLoginAt: string | null
   createdAt: string
   updatedAt: string

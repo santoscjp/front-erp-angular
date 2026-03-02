@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router'
 import { TranslateService } from '@ngx-translate/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { AdminEmisorService } from '@core/services/api/admin-emisor.service'
-
 import { ToastrNotificationService } from '@core/services/ui/notification.service'
 import Swal from 'sweetalert2'
 import { Emisor } from '@core/interfaces/api/company.interface'
@@ -143,6 +142,22 @@ export class EmisorDetailComponent implements OnInit {
     modalRef.componentInstance.user = user
     modalRef.componentInstance.userUpdated.subscribe(() => {
       this.loadEmisor()
+    })
+  }
+
+  onUnlockUserRequested(user: User): void {
+    this.adminService.unlockEmisorUser(this.emisorId, user.id).subscribe({
+      next: () => {
+        this.notificationService.showNotification({
+          type: 'success',
+          title: this.translate.instant('USER.UNLOCK.SUCCESS_TITLE'),
+          message: this.translate.instant('USER.UNLOCK.SUCCESS_MESSAGE', {
+            username: user.username,
+          }),
+        })
+        this.loadEmisor()
+      },
+      error: () => {},
     })
   }
 }

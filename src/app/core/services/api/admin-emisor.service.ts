@@ -209,4 +209,14 @@ export class AdminEmisorService {
         ),
       )
   }
+
+  unlockEmisorUser(
+    emisorId: number,
+    userId: number,
+  ): Observable<ApiResponse<null>> {
+    return this._httpClient.post<ApiResponse<null>>(
+      `${this.API_URL}/issuers/${emisorId}/users/${userId}/unlock`,
+      {},
+    )
+  }
 }

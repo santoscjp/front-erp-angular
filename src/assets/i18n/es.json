@@ -134,7 +134,14 @@
   "USER": {
     "TITLE": "Usuarios",
     "BUTTONS": {
-      "ADD_USER": "Agregar usuario"
+      "ADD_USER": "Agregar usuario",
+      "UNLOCK": "Desbloquear cuenta",
+      "VIEW": "Ver detalles",
+      "EDIT": "Editar usuario"
+    },
+    "UNLOCK": {
+      "SUCCESS_TITLE": "Cuenta desbloqueada",
+      "SUCCESS_MESSAGE": "La cuenta de {{username}} ha sido desbloqueada exitosamente."
     },
     "FILTER": {
       "RESET": "Resetear",
@@ -142,11 +149,17 @@
     },
     "TABLE": {
       "USERNAME": "Nombre de usuario",
+      "FIRST_NAME": "Nombre",
+      "LAST_NAME": "Apellido",
       "EMAIL": "Email",
       "ADDRESS": "Dirección",
       "PHONE": "Telefono",
       "ROLES": "Rol",
+      "IS_ACTIVE": "Estado",
       "IS_LOCKED": "Bloqueado",
+      "ACTIVE": "Activo",
+      "INACTIVE": "Inactivo",
+      "LOCKED": "Bloqueado",
       "CREATED_AT": "Creado en",
       "INITIAL_DATE": "Fecha de inicio",
       "END_DATE": "Fecha de finalización",
