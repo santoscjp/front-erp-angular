@@ -105,6 +105,7 @@ export const MENU_ITEMS: MenuItemType[] = [
         url: '/fiscal-periods',
         parentKey: 'ACCOUNTING',
         permission: 'fiscal_periods:read',
+        module: ModuleKey.FISCAL_PERIODS,
       },
     ],
   },

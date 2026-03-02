@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
   apiBaseUrl: 'http://localhost:3000/api/v1',
-  apiTranslateUrl: 'http://192.168.1.34:5000/translate',
+  //apiBaseUrl: 'http://192.168.1.118:3000/api/v1',
   secretKey: 'S0RT1365',
 }

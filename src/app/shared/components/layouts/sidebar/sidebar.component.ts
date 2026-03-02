@@ -76,6 +76,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           this.scrollToActive()
         }, 200)
+        if (document.documentElement.classList.contains('sidebar-enable')) {
+          this.closeSidebar()
+        }
       }
     })
   }

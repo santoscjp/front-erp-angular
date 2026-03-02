@@ -54,40 +54,48 @@ export class EmisorUsersTableComponent implements OnInit, OnChanges {
       {
         name: this.translate.instant('USER.TABLE.USERNAME'),
         prop: 'username',
+        cellClass: 'col-username',
       },
       {
         name: this.translate.instant('WORDS.FIRST_NAME'),
         prop: 'firstName',
+        cellClass: 'col-first-name',
       },
       {
         name: this.translate.instant('WORDS.LAST_NAME'),
         prop: 'lastName',
+        cellClass: 'col-last-name',
       },
       {
         name: this.translate.instant('USER.TABLE.EMAIL'),
         prop: 'email',
         width: 250,
+        cellClass: 'col-email',
       },
       {
         name: this.translate.instant('USER.TABLE.ROLES'),
         cellTemplate: this.roleTpl,
         width: 150,
+        cellClass: 'col-role',
       },
       {
         name: 'Source',
         cellTemplate: this.sourceTpl,
         width: 120,
+        cellClass: 'col-source',
       },
       {
         name: this.translate.instant('ADMIN.EMISOR.TABLE.STATUS'),
         cellTemplate: this.statusTpl,
         width: 100,
+        cellClass: 'col-status',
       },
       {
         name: this.translate.instant('USER.TABLE.ACTIONS'),
         cellTemplate: this.actionsTpl,
         width: 80,
         sortable: false,
+        cellClass: 'col-actions',
       },
     ]
   }

@@ -13,11 +13,12 @@
       </div>
     } @else {
       <ngx-datatable
-        class="bootstrap"
+        class="material"
         [rows]="users"
         [columns]="columns"
         [columnMode]="columnMode"
         [headerHeight]="50"
+        [footerHeight]="50"
         [rowHeight]="'auto'"
         [limit]="10"
         [loadingIndicator]="isLoading"

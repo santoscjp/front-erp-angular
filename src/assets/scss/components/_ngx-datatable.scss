@@ -19,7 +19,8 @@
     .datatable-header-cell {
       font-size: 0.8125rem;
       font-weight: 500;
-      color: #6B7280;
+      color: var(--#{$prefix}secondary-color);
+      background-color:var(--#{$prefix}secondary-bg)!important;
       padding: 0.75rem 1rem;
     }
   }
@@ -72,7 +73,7 @@
     .datatable-body-cell {
       padding: 0.75rem 1rem;
       font-size: 0.875rem;
-      color: var(--#{$prefix}body-color);
+      color: var(--#{$prefix}body-color) !important;
       vertical-align: middle;
     }
 
@@ -111,6 +112,12 @@
     .datatable-body-row
     .datatable-body-cell {
     height: auto !important;
+  }
+
+  // Action column — prevent button text from wrapping on any screen size
+  .col-actions .datatable-body-cell-label {
+    white-space: nowrap;
+    overflow: visible;
   }
 
   .datatable-footer {
@@ -188,13 +195,225 @@
   }
 }
 
+// Mobile — card layout for all tables
+@media only screen and (max-width: 767.98px) {
+  .ngx-datatable.material {
+    border: none !important;
+    overflow: visible !important;
+    background-color: transparent !important;
+
+    // Hide table header — labels appear via ::before on each cell
+    .datatable-header {
+      display: none !important;
+    }
+
+    // Let body flow naturally instead of using JS-calculated fixed height
+    .datatable-body,
+    .datatable-scroll {
+      width: 100% !important;
+      height: auto !important;
+      overflow: visible !important;
+    }
+
+    // Each row wrapper resets any JS offset
+    .datatable-row-wrapper {
+      padding: 0 !important;
+      transform: none !important;
+    }
+
+    // Row element — reset JS-injected dimensions
+    datatable-body-row,
+    .datatable-body-row {
+      width: 100% !important;
+      height: auto !important;
+      border-bottom: none !important;
+      display: block !important;
+      margin-bottom: 0.75rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--#{$prefix}border-color) !important;
+    }
+
+    // The row group becomes the visible card
+    .datatable-row-group {
+      display: block !important;
+      width: 100% !important;
+      height: auto !important;
+      border-radius: 0.5rem;
+      border: none !important;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+      background-color: var(--#{$prefix}secondary-bg);
+      overflow: hidden;
+    }
+
+    // Center column — stack cells vertically
+    .datatable-row-center {
+      display: block !important;
+      width: 100% !important;
+      transform: none !important;
+    }
+
+    // Each cell: flex row — label (::before) left, value right
+    .datatable-body-cell {
+      display: flex !important;
+      align-items: center;
+      justify-content: space-between;
+      width: 100% !important;
+      height: auto !important;
+      min-height: 0 !important;
+      padding: 0.75rem 1rem;
+      border: none !important;
+      border-bottom: 1px solid var(--#{$prefix}border-color) !important;
+
+      // Label placeholder — content set per column class below
+      &::before {
+        content: none;
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--#{$prefix}secondary-color);
+        flex-shrink: 0;
+        white-space: nowrap;
+        margin-right: 0.75rem;
+      }
+
+      .datatable-body-cell-label {
+        white-space: normal;
+        overflow: visible;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        color:var(--#{$prefix}body-color);
+      }
+    }
+
+    // First cell — card header: main identifier, full-width, no label
+    .datatable-body-cell:first-child {
+      background-color: var(--#{$prefix}tertiary-bg);
+      padding: 0.875rem 1rem;
+      border-bottom: 1px solid var(--#{$prefix}border-color) !important;
+
+      &::before {
+        display: none;
+      }
+
+      .datatable-body-cell-label {
+        font-weight: 600;
+        font-size: 0.9375rem;
+        color: var(--#{$prefix}emphasis-color);
+        justify-content: flex-start;
+      }
+    }
+
+    // Last cell — action button centered, no bottom separator
+    .datatable-body-cell:last-child {
+      border-bottom: none !important;
+      justify-content: center;
+      padding: 0.875rem 1rem;
+
+      &::before {
+        display: none;
+      }
+
+      .datatable-body-cell-label {
+        justify-content: center;
+      }
+    }
+
+    // ── Column labels (shared across tables) ──────────────────────────
+    .col-status::before        { content: "Estado"; }
+
+    // Emisor list
+    .col-business-name::before { content: "Razón Social"; }
+    .col-users::before         { content: "Usuarios"; }
+
+    // Users table
+    .col-username::before      { content: "Usuario"; }
+    .col-first-name::before    { content: "Nombre"; }
+    .col-last-name::before     { content: "Apellido"; }
+    .col-email::before         { content: "Correo"; }
+    .col-role::before          { content: "Rol"; }
+    .col-source::before        { content: "Origen"; }
+    .col-is-active::before     { content: "Activo"; }
+    .col-created-at::before    { content: "Creado"; }
+
+    // Modules: badges wrap, so align label to top
+    .col-modules {
+      align-items: flex-start !important;
+
+      &::before {
+        content: "Módulos";
+        padding-top: 0.25rem;
+      }
+
+      .datatable-body-cell-label {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+      }
+    }
+
+    // Keep footer visible below the cards
+    .datatable-footer {
+     
+      border-radius: 0.5rem;
+      border: 1px solid var(--#{$prefix}border-color);
+      margin-bottom: 0.5rem;
+      .page-count {
+        color: var(--#{$prefix}body-color);
+      }
+    }
+  }
+}
+
 // Dark mode — colors now mostly come from CSS variables automatically
 // Only override what's not covered by var(--#{$prefix}...)
 [data-bs-theme="dark"] {
   .ngx-datatable.material {
+    border-color: rgba(255, 255, 255, 0.1);
+
+    // Header — force dark background so it doesn't show as white
     .datatable-header {
+      background-color: #1e2130;
+      border-bottom-color: rgba(255, 255, 255, 0.08);
+
       .datatable-header-cell {
         color: #9CA3AF;
+      }
+    }
+
+    // Row separators — subtle in dark mode
+    .datatable-body .datatable-body-row {
+      border-bottom-color: rgba(255, 255, 255, 0.06) !important;
+    }
+
+    // Footer
+    .datatable-footer {
+      background-color: #1e2130;
+      border-top-color: rgba(255, 255, 255, 0.08);
+
+      .datatable-footer-inner {
+        .footer-left {
+          .page-size-container,
+          .total-rows-container {
+            color: #9CA3AF;
+          }
+        }
+      }
+    }
+
+    // Mobile card layout — dark mode adjustments
+    @media (max-width: 767.98px) {
+      .datatable-row-group {
+        background-color: #2a2d3a;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      }
+
+      .datatable-body-cell {
+        border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+      }
+
+      .datatable-body-cell:first-child {
+        background-color: #1e2130;
       }
     }
   }

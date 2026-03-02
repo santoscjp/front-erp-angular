@@ -30,6 +30,7 @@
           [width]="col.width || 200"
           [frozenLeft]="col.frozenLeft || false"
           [frozenRight]="col.frozenRight || false"
+          [cellClass]="col.cellClass || ''"
           [summaryFunc]="col.summaryFunc ?? col.summaryFunc!"
           [summaryTemplate]="col.summaryTemplate ?? col.summaryTemplate!"
         ></ngx-datatable-column>
@@ -43,6 +44,7 @@
           [sortable]="col.sortable ?? true"
           [frozenLeft]="col.frozenLeft || false"
           [frozenRight]="col.frozenRight || false"
+          [cellClass]="col.cellClass || ''"
           [summaryFunc]="col.summaryFunc ?? col.summaryFunc!"
           [summaryTemplate]="col.summaryTemplate ?? col.summaryTemplate!"
         >

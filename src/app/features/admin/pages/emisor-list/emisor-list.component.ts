@@ -58,33 +58,39 @@ export class EmisorListComponent implements OnInit {
         name: this.translate.instant('ADMIN.EMISOR.TABLE.RUC'),
         prop: 'ruc',
         width: 150,
+        cellClass: 'col-ruc',
       },
       {
         name: this.translate.instant('ADMIN.EMISOR.TABLE.RAZON_SOCIAL'),
         prop: 'businessName',
         width: 250,
+        cellClass: 'col-business-name',
       },
       {
         name: this.translate.instant('ADMIN.EMISOR.TABLE.MODULES'),
         cellTemplate: this.modulesTpl,
         width: 250,
         sortable: false,
+        cellClass: 'col-modules',
       },
       {
         name: this.translate.instant('ADMIN.EMISOR.TABLE.USERS'),
         prop: 'userCount',
         width: 100,
+        cellClass: 'col-users',
       },
       {
         name: this.translate.instant('ADMIN.EMISOR.TABLE.STATUS'),
         cellTemplate: this.statusTpl,
         width: 100,
+        cellClass: 'col-status',
       },
       {
         name: this.translate.instant('ADMIN.EMISOR.TABLE.ACTIONS'),
         cellTemplate: this.actionsTpl,
-        width: 120,
+        width: 100,
         sortable: false,
+        cellClass: 'col-actions',
       },
     ]
   }

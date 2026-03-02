@@ -91,31 +91,38 @@ export class TableUserComponent implements OnInit, OnDestroy {
         {
           name: 'USER.TABLE.USERNAME',
           prop: 'username',
+          cellClass: 'col-username',
         },
         {
           name: 'USER.TABLE.FIRST_NAME',
           prop: 'firstName',
+          cellClass: 'col-first-name',
         },
         {
           name: 'USER.TABLE.LAST_NAME',
           prop: 'lastName',
+          cellClass: 'col-last-name',
         },
         {
           name: 'USER.TABLE.EMAIL',
           width: 300,
           prop: 'email',
+          cellClass: 'col-email',
         },
         {
           name: 'USER.TABLE.IS_ACTIVE',
           prop: 'isActive',
+          cellClass: 'col-is-active',
         },
         {
           name: 'USER.TABLE.CREATED_AT',
           cellTemplate: this.createdAtTemplate ?? undefined,
+          cellClass: 'col-created-at',
         },
         {
           name: 'USER.TABLE.ACTIONS',
           cellTemplate: this.actionsTemplate ?? undefined,
+          cellClass: 'col-actions',
         },
       ],
     })
