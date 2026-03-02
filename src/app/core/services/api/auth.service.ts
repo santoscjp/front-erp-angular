@@ -4,7 +4,7 @@ import { isBefore } from 'date-fns'
 import {
   LoginRequest,
   LoginResponse,
-  User,
+  MeResponse,
 } from '@core/interfaces/api/user.interface'
 import { StorageService } from '../ui/storage.service'
 import { Router } from '@angular/router'
@@ -50,8 +50,8 @@ export class AuthenticationService {
     )
   }
 
-  public getMeUser(): Observable<ApiResponse<User>> {
-    return this._http.get<ApiResponse<User>>(`${this.url}/me`)
+  public getMeUser(): Observable<ApiResponse<MeResponse>> {
+    return this._http.get<ApiResponse<MeResponse>>(`${this.url}/me`)
   }
 
   logout(): void {
@@ -122,6 +122,25 @@ export class AuthenticationService {
     return this._http.get<ApiResponse<{ redirectUrl: string }>>(
       `${this.url}/sso-to-invoicing`,
     )
+  }
+
+  setup2FA(): Observable<ApiResponse<{ qrCodeUrl: string }>> {
+    return this._http.post<ApiResponse<{ qrCodeUrl: string }>>(
+      `${this.url}/2fa/setup`,
+      {},
+    )
+  }
+
+  enable2FA(code: string): Observable<ApiResponse<null>> {
+    return this._http.post<ApiResponse<null>>(`${this.url}/2fa/enable`, {
+      code,
+    })
+  }
+
+  disable2FA(code: string): Observable<ApiResponse<null>> {
+    return this._http.post<ApiResponse<null>>(`${this.url}/2fa/disable`, {
+      code,
+    })
   }
 
   getDecodedToken(): Record<string, unknown> | null {

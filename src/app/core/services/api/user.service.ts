@@ -56,6 +56,16 @@ export class UserService {
       .pipe(tap((res) => this.showNotification(res.message)))
   }
 
+  public changeMyPassword(
+    currentPassword: string,
+    newPassword: string,
+  ): Observable<ApiResponse<null>> {
+    const endpoint = `${this.API_URL}/change-my-password`
+    return this._httpClient
+      .patch<ApiResponse<null>>(endpoint, { currentPassword, newPassword })
+      .pipe(tap((res) => this.showNotification(res.message, 'PROFILE.TITLE')))
+  }
+
   public updateUser(id: number, user: object): Observable<ApiResponse<User>> {
     const endpoint = `${this.API_URL}/update-user/${id}`
     return this._httpClient

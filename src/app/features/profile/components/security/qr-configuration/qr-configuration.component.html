@@ -1,1 +1,176 @@
-<p>qr-configuration works!</p>
+<div class="card shadow-sm rounded">
+  <div class="card-body">
+    <div class="d-flex align-items-start justify-content-between mb-1">
+      <div>
+        <h5 class="fw-semibold mb-1">
+          {{ 'PROFILE.SECURITY.TWO_FACTOR.TITLE' | translate }}
+        </h5>
+        <p class="text-muted mb-0 fs-14">
+          {{ 'PROFILE.SECURITY.TWO_FACTOR.SUBTITLE' | translate }}
+        </p>
+      </div>
+      @if (isTwoFactorEnabled) {
+        <span class="badge bg-success-subtle text-success fs-12">
+          <i class="ti ti-shield-check me-1"></i>
+          {{ 'PROFILE.SECURITY.TWO_FACTOR.STATUS_ACTIVE' | translate }}
+        </span>
+      } @else {
+        <span class="badge bg-secondary-subtle text-secondary fs-12">
+          <i class="ti ti-shield-off me-1"></i>
+          {{ 'PROFILE.SECURITY.TWO_FACTOR.STATUS_INACTIVE' | translate }}
+        </span>
+      }
+    </div>
+
+    <hr class="my-3" />
+
+    <!-- Estado idle — botón de acción principal -->
+    @if (step === 'idle') {
+      @if (isTwoFactorEnabled) {
+        <button
+          class="btn btn-outline-danger rounded-pill"
+          (click)="onStartDisable()"
+        >
+          <i class="ti ti-shield-x me-1"></i>
+          {{ 'PROFILE.BUTTONS.DEACTIVATE_TWO_FACTOR' | translate }}
+        </button>
+      } @else {
+        <button
+          class="btn btn-outline-primary rounded-pill"
+          (click)="onGenerateQR()"
+          [disabled]="isLoading"
+        >
+          @if (isLoading) {
+            <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+          } @else {
+            <i class="ti ti-qrcode me-1"></i>
+          }
+          {{ 'PROFILE.BUTTONS.GENERATE_QR' | translate }}
+        </button>
+      }
+    }
+
+    <!-- Paso QR — escanear y verificar -->
+    @if (step === 'qr') {
+      <div class="row g-3 align-items-start">
+        <div class="col-auto">
+          @if (qrCodeUrl) {
+            <img
+              [src]="qrCodeUrl"
+              alt="QR 2FA"
+              class="border rounded"
+              width="160"
+              height="160"
+            />
+          }
+        </div>
+        <div class="col">
+          <p class="text-muted fs-14 mb-3">
+            {{ 'PROFILE.SECURITY.TWO_FACTOR.SCAN_INSTRUCTION' | translate }}
+          </p>
+          <form [formGroup]="verificationForm" (ngSubmit)="onVerifyAndEnable()">
+            <div class="mb-3">
+              <label class="form-label text-muted">
+                {{ 'PROFILE.SECURITY.TWO_FACTOR.CODE_LABEL' | translate }}
+              </label>
+              <input
+                class="form-control"
+                type="text"
+                inputmode="numeric"
+                maxlength="6"
+                formControlName="code"
+                [placeholder]="'PROFILE.SECURITY.TWO_FACTOR.CODE_PLACEHOLDER' | translate"
+                [class.is-invalid]="
+                  verificationForm.get('code')?.invalid &&
+                  verificationForm.get('code')?.touched
+                "
+              />
+              @if (
+                verificationForm.get('code')?.invalid &&
+                verificationForm.get('code')?.touched
+              ) {
+                <div class="invalid-feedback">
+                  {{ 'PROFILE.SECURITY.TWO_FACTOR.CODE_INVALID' | translate }}
+                </div>
+              }
+            </div>
+            <div class="d-flex gap-2">
+              <button
+                type="submit"
+                class="btn btn-primary rounded-pill"
+                [disabled]="verificationForm.invalid || isLoading"
+              >
+                @if (isLoading) {
+                  <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                } @else {
+                  <i class="ti ti-shield-check me-1"></i>
+                }
+                {{ 'PROFILE.SECURITY.TWO_FACTOR.VERIFY_AND_ACTIVATE' | translate }}
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-secondary rounded-pill"
+                (click)="onCancelAction()"
+              >
+                {{ 'PROFILE.BUTTONS.CANCEL' | translate }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    }
+
+    <!-- Paso desactivar — confirmar con código -->
+    @if (step === 'disabling') {
+      <form [formGroup]="disableForm" (ngSubmit)="onConfirmDisable()">
+        <p class="text-muted fs-14 mb-3">
+          {{ 'PROFILE.SECURITY.TWO_FACTOR.DISABLE_INSTRUCTION' | translate }}
+        </p>
+        <div class="mb-3" style="max-width: 280px">
+          <label class="form-label text-muted">
+            {{ 'PROFILE.SECURITY.TWO_FACTOR.CODE_LABEL' | translate }}
+          </label>
+          <input
+            class="form-control"
+            type="text"
+            inputmode="numeric"
+            maxlength="6"
+            formControlName="code"
+            [placeholder]="'PROFILE.SECURITY.TWO_FACTOR.CODE_PLACEHOLDER' | translate"
+            [class.is-invalid]="
+              disableForm.get('code')?.invalid && disableForm.get('code')?.touched
+            "
+          />
+          @if (
+            disableForm.get('code')?.invalid && disableForm.get('code')?.touched
+          ) {
+            <div class="invalid-feedback">
+              {{ 'PROFILE.SECURITY.TWO_FACTOR.CODE_INVALID' | translate }}
+            </div>
+          }
+        </div>
+        <div class="d-flex gap-2">
+          <button
+            type="submit"
+            class="btn btn-danger rounded-pill"
+            [disabled]="disableForm.invalid || isLoading"
+          >
+            @if (isLoading) {
+              <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+            } @else {
+              <i class="ti ti-shield-x me-1"></i>
+            }
+            {{ 'PROFILE.BUTTONS.DEACTIVATE_TWO_FACTOR' | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-secondary rounded-pill"
+            (click)="onCancelAction()"
+          >
+            {{ 'PROFILE.BUTTONS.CANCEL' | translate }}
+          </button>
+        </div>
+      </form>
+    }
+  </div>
+</div>

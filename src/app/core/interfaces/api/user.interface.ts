@@ -12,11 +12,16 @@ export interface User {
   emisorId: number | null
   emisorRuc?: string
   emisorName?: string
-  modules: string[]
   sourceSystem: 'LOCAL' | 'INVOICING'
+  twoFactorEnabled: boolean
   lastLoginAt: string | null
   createdAt: string
   updatedAt: string
+}
+
+export interface MeResponse {
+  user: User
+  modules: string[]
 }
 
 export interface LoginRequest {

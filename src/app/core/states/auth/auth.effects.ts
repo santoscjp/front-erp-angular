@@ -39,9 +39,8 @@ export class AuthEffects {
         this._authService.handleSsoToken(action.token)
         return this._authService.getMeUser().pipe(
           map((response) => {
-            const user = response.data
-            const { permissions, isSuperAdmin, modules } =
-              this.extractAuthData(user)
+            const { user, modules } = response.data
+            const { permissions, isSuperAdmin } = this.extractAuthData(user)
             const redirectPath = isSuperAdmin ? '/admin' : '/dashboard'
             this._router.navigate([redirectPath], { replaceUrl: true })
             return UserActions.ssoAuthenticationSuccess({
@@ -99,12 +98,10 @@ export class AuthEffects {
   private extractAuthData(user: User): {
     permissions: string[]
     isSuperAdmin: boolean
-    modules: string[]
   } {
     const permissions = user.role?.permissions || []
     const isSuperAdmin = user.isSuperAdmin ?? false
-    const modules = user.modules ?? []
-    return { permissions, isSuperAdmin, modules }
+    return { permissions, isSuperAdmin }
   }
 
   private loadUserSession() {
@@ -121,9 +118,8 @@ export class AuthEffects {
     if (storedSession) {
       return this._authService.getMeUser().pipe(
         map((response) => {
-          const user = response.data
-          const { permissions, isSuperAdmin, modules } =
-            this.extractAuthData(user)
+          const { user, modules } = response.data
+          const { permissions, isSuperAdmin } = this.extractAuthData(user)
           return UserActions.userAuthenticationSuccess({
             user,
             permissions,
@@ -190,9 +186,8 @@ export class AuthEffects {
     if (storedSession) {
       return this._authService.getMeUser().pipe(
         map((response) => {
-          const user = response.data
-          const { permissions, isSuperAdmin, modules } =
-            this.extractAuthData(user)
+          const { user, modules } = response.data
+          const { permissions, isSuperAdmin } = this.extractAuthData(user)
           const redirectPath = isSuperAdmin ? '/admin' : '/dashboard'
           this._router.navigate([redirectPath])
 

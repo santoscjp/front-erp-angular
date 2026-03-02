@@ -108,7 +108,27 @@
       "CHANGE_PHOTO": "¿Deseas cambiar tu foto de perfil?"
     },
     "SECURITY": {
-      "TITLE": "Seguridad"
+      "TITLE": "Seguridad",
+      "CHANGE_PASSWORD": {
+        "TITLE": "Cambiar contraseña",
+        "SUBTITLE": "Actualiza tu contraseña de acceso al sistema",
+        "SSO_NOTICE": "Tu cuenta utiliza autenticación SSO. La contraseña se gestiona desde el sistema de facturación.",
+        "REQUIRED": "Este campo es obligatorio",
+        "MIN_LENGTH": "La contraseña debe tener al menos 8 caracteres",
+        "MISMATCH": "Las contraseñas no coinciden"
+      },
+      "TWO_FACTOR": {
+        "TITLE": "Autenticación de dos factores (2FA)",
+        "SUBTITLE": "Añade una capa extra de seguridad a tu cuenta",
+        "STATUS_ACTIVE": "Activo",
+        "STATUS_INACTIVE": "Inactivo",
+        "SCAN_INSTRUCTION": "Escanea el código QR con tu aplicación autenticadora (Google Authenticator, Authy, etc.) y luego ingresa el código generado para activar 2FA.",
+        "DISABLE_INSTRUCTION": "Ingresa el código de tu aplicación autenticadora para confirmar la desactivación.",
+        "CODE_LABEL": "Código de verificación",
+        "CODE_PLACEHOLDER": "000000",
+        "CODE_INVALID": "Ingresa un código de 6 dígitos",
+        "VERIFY_AND_ACTIVATE": "Verificar y activar"
+      }
     }
   },
   "USER": {

@@ -1,1 +1,10 @@
-<p>security-settings works!</p>
+@if (user$ | async; as user) {
+  <div class="row g-3">
+    <div class="col-12">
+      <change-password [user]="user" />
+    </div>
+    <div class="col-12">
+      <qr-configuration [user]="user" />
+    </div>
+  </div>
+}
