@@ -1,0 +1,209 @@
+<div class="row">
+  <div class="col-12">
+    <div class="page-title-head d-flex align-items-sm-center flex-sm-row flex-column gap-2">
+      <div class="flex-grow-1">
+        <h4 class="fs-18 fw-semibold m-0">{{ 'FINANCIAL_STATEMENTS.TITLE' | translate }}</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+@if (isComingSoon) {
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body text-center p-5">
+          <i class="ti ti-clock fs-1 text-muted mb-3 d-block"></i>
+          <h5 class="fw-semibold mb-2">{{ 'WORDS.COMING_SOON' | translate }}</h5>
+          <p class="text-muted mb-0">{{ 'WORDS.COMING_SOON_DESC' | translate }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+} @else {
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup]="filterForm">
+            <div class="row g-3 align-items-end">
+              <div class="col-md-5">
+                <label class="form-label fw-medium">{{ 'FINANCIAL_STATEMENTS.FILTER.PERIOD' | translate }}</label>
+                <ng-select
+                  formControlName="periodId"
+                  [items]="periods"
+                  bindValue="id"
+                  [searchable]="false"
+                  [clearable]="true"
+                  [placeholder]="'FINANCIAL_STATEMENTS.FILTER.PERIOD_PLACEHOLDER' | translate">
+                  <ng-template ng-label-tmp let-item="item">{{ getPeriodLabel(item) }}</ng-template>
+                  <ng-template ng-option-tmp let-item="item">{{ getPeriodLabel(item) }}</ng-template>
+                </ng-select>
+              </div>
+              <div class="col-md-3">
+                <button
+                  type="button"
+                  class="btn btn-primary w-100"
+                  [disabled]="!filterForm.value.periodId || isLoading"
+                  (click)="loadStatements()">
+                  <i class="ti ti-refresh me-1"></i>
+                  {{ 'WORDS.LOAD' | translate }}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @if (isLoading) {
+    <div class="row mt-3">
+      <div class="col-12 text-center py-4">
+        <div class="spinner-border text-primary" role="status"></div>
+      </div>
+    </div>
+  }
+
+  @if (hasLoaded) {
+    <div class="row mt-3">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  [class.active]="isActiveTab('trial-balance')"
+                  (click)="setActiveTab('trial-balance')">
+                  {{ 'FINANCIAL_STATEMENTS.TABS.TRIAL_BALANCE' | translate }}
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  [class.active]="isActiveTab('balance-sheet')"
+                  (click)="setActiveTab('balance-sheet')">
+                  {{ 'FINANCIAL_STATEMENTS.TABS.BALANCE_SHEET' | translate }}
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  [class.active]="isActiveTab('income-statement')"
+                  (click)="setActiveTab('income-statement')">
+                  {{ 'FINANCIAL_STATEMENTS.TABS.INCOME_STATEMENT' | translate }}
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body">
+
+            @if (isActiveTab('trial-balance')) {
+              @if (trialBalance.length === 0) {
+                <p class="text-muted text-center py-4">{{ 'FINANCIAL_STATEMENTS.EMPTY' | translate }}</p>
+              } @else {
+                <div class="table-responsive">
+                  <table class="table table-sm table-hover align-middle mb-0">
+                    <thead class="table-light">
+                      <tr>
+                        <th>{{ 'FINANCIAL_STATEMENTS.TABLE.ACCOUNT_CODE' | translate }}</th>
+                        <th>{{ 'FINANCIAL_STATEMENTS.TABLE.ACCOUNT_NAME' | translate }}</th>
+                        <th class="text-end">{{ 'FINANCIAL_STATEMENTS.TABLE.DEBIT' | translate }}</th>
+                        <th class="text-end">{{ 'FINANCIAL_STATEMENTS.TABLE.CREDIT' | translate }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @for (item of trialBalance; track item.accountCode) {
+                        <tr>
+                          <td><span class="badge bg-light text-dark">{{ item.accountCode }}</span></td>
+                          <td>{{ item.accountName }}</td>
+                          <td class="text-end">{{ item.debit | number: '1.2-2' }}</td>
+                          <td class="text-end">{{ item.credit | number: '1.2-2' }}</td>
+                        </tr>
+                      }
+                    </tbody>
+                    <tfoot class="table-light fw-semibold">
+                      <tr>
+                        <td colspan="2">{{ 'WORDS.TOTALS' | translate }}</td>
+                        <td class="text-end">{{ getTrialBalanceTotalDebit() | number: '1.2-2' }}</td>
+                        <td class="text-end">{{ getTrialBalanceTotalCredit() | number: '1.2-2' }}</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              }
+            }
+
+            @if (isActiveTab('balance-sheet')) {
+              @if (balanceSheet.length === 0) {
+                <p class="text-muted text-center py-4">{{ 'FINANCIAL_STATEMENTS.EMPTY' | translate }}</p>
+              } @else {
+                <div class="table-responsive">
+                  <table class="table table-sm table-hover align-middle mb-0">
+                    <thead class="table-light">
+                      <tr>
+                        <th>{{ 'FINANCIAL_STATEMENTS.TABLE.CATEGORY' | translate }}</th>
+                        <th>{{ 'FINANCIAL_STATEMENTS.TABLE.ACCOUNT_NAME' | translate }}</th>
+                        <th class="text-end">{{ 'FINANCIAL_STATEMENTS.TABLE.AMOUNT' | translate }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @for (item of balanceSheet; track $index) {
+                        <tr>
+                          <td><span class="badge bg-secondary-subtle text-secondary">{{ item.category }}</span></td>
+                          <td>{{ item.accountName }}</td>
+                          <td class="text-end">{{ item.amount | number: '1.2-2' }}</td>
+                        </tr>
+                      }
+                    </tbody>
+                    <tfoot class="table-light fw-semibold">
+                      <tr>
+                        <td colspan="2">{{ 'WORDS.TOTALS' | translate }}</td>
+                        <td class="text-end">{{ getBalanceSheetTotal() | number: '1.2-2' }}</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              }
+            }
+
+            @if (isActiveTab('income-statement')) {
+              @if (incomeStatement.length === 0) {
+                <p class="text-muted text-center py-4">{{ 'FINANCIAL_STATEMENTS.EMPTY' | translate }}</p>
+              } @else {
+                <div class="table-responsive">
+                  <table class="table table-sm table-hover align-middle mb-0">
+                    <thead class="table-light">
+                      <tr>
+                        <th>{{ 'FINANCIAL_STATEMENTS.TABLE.CATEGORY' | translate }}</th>
+                        <th>{{ 'FINANCIAL_STATEMENTS.TABLE.DESCRIPTION' | translate }}</th>
+                        <th class="text-end">{{ 'FINANCIAL_STATEMENTS.TABLE.AMOUNT' | translate }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @for (item of incomeStatement; track $index) {
+                        <tr>
+                          <td><span class="badge bg-secondary-subtle text-secondary">{{ item.category }}</span></td>
+                          <td>{{ item.description }}</td>
+                          <td class="text-end">{{ item.amount | number: '1.2-2' }}</td>
+                        </tr>
+                      }
+                    </tbody>
+                    <tfoot class="table-light fw-semibold">
+                      <tr>
+                        <td colspan="2">{{ 'WORDS.TOTALS' | translate }}</td>
+                        <td class="text-end">{{ getIncomeStatementTotal() | number: '1.2-2' }}</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              }
+            }
+
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+}

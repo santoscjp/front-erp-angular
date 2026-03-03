@@ -15,7 +15,9 @@
       "Bash(python3 -c \":*)",
       "Bash(grep -l \"standalone\" \"/Users/jeansantos/Downloads/Proyectos Free/front-erp-angular/src/app/shared/directives/\"*.ts)",
       "Bash(grep \"standalone\" \"/Users/jeansantos/Downloads/Proyectos Free/front-erp-angular/src/app/shared/directives/\"*.ts)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(npx tsc --noEmit)",
+      "Bash(grep -ohE \"''[A-Z_]+\\\\.[A-Z_\\\\.]+'' \\\\| translate\" src/app/features/*/pages/*.component.html)"
     ]
   }
 }

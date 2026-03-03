@@ -30,9 +30,11 @@ import {
   selectIsSuperAdmin,
   selectModules,
 } from '@core/states/auth/auth.selectors'
-import { combineLatest, type Subscription } from 'rxjs'
+import { combineLatest, filter, type Subscription, take } from 'rxjs'
 import { AuthenticationService } from '@core/services/api/auth.service'
 import { ToastrNotificationService } from '@core/services/ui/notification.service'
+import { SidebarMenuService } from '@core/services/ui/sidebar-menu.service'
+import { scrollToActiveElement } from '@/app/shared/utils/scroll.utils'
 
 @Component({
   selector: 'app-sidebar',
@@ -63,32 +65,35 @@ export class SidebarComponent implements OnInit, OnDestroy {
   private renderer = inject(Renderer2)
   private authService = inject(AuthenticationService)
   private notificationService = inject(ToastrNotificationService)
+  private sidebarMenuService = inject(SidebarMenuService)
   private menuSub?: Subscription
+  private routerSub?: Subscription
 
-  constructor() {
-    this.router.events.forEach((event) => {
-      if (event instanceof NavigationEnd) {
+  ngOnInit(): void {
+    this.initMenu()
+    this.routerSub = this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
         this.trimmedURL = this.router.url?.replaceAll(
           basePath !== '' ? basePath + '/' : '',
           '/',
         )
         this._activateMenu()
-        setTimeout(() => {
-          this.scrollToActive()
-        }, 200)
+        setTimeout(() => scrollToActiveElement('.sidenav-menu', '.side-nav-item li a.active'), 200)
         if (document.documentElement.classList.contains('sidebar-enable')) {
           this.closeSidebar()
         }
-      }
-    })
-  }
-
-  ngOnInit(): void {
-    this.initMenu()
+      })
   }
 
   ngOnDestroy(): void {
     this.menuSub?.unsubscribe()
+    this.routerSub?.unsubscribe()
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => this._activateMenu())
+    setTimeout(() => scrollToActiveElement('.sidenav-menu', '.side-nav-item li a.active'), 200)
   }
 
   initMenu(): void {
@@ -100,65 +105,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
       if (isSuperAdmin) {
         this.menuItems = [...ADMIN_MENU_ITEMS]
       } else {
-        this.menuItems = this.filterMenu(MENU_ITEMS, permissions, modules)
+        this.menuItems = this.sidebarMenuService.filterMenu(MENU_ITEMS, permissions, modules)
       }
     })
-  }
-
-  private filterMenu(
-    items: MenuItemType[],
-    permissions: string[],
-    modules: string[],
-  ): MenuItemType[] {
-    const hasAll = permissions.includes('all')
-
-    const filteredItems = items.map((item) => {
-      if (item.children) {
-        const filteredChildren = item.children.filter((child) =>
-          this.isItemVisible(child, permissions, modules, hasAll),
-        )
-        if (filteredChildren.length === 0) return null
-        return { ...item, children: filteredChildren }
-      }
-      if (item.isTitle) return item
-      if (!this.isItemVisible(item, permissions, modules, hasAll)) return null
-      return item
-    })
-
-    const result: MenuItemType[] = []
-    for (let i = 0; i < filteredItems.length; i++) {
-      const item = filteredItems[i]
-      if (!item) continue
-
-      if (item.isTitle) {
-        let hasVisibleChild = false
-        for (let j = i + 1; j < filteredItems.length; j++) {
-          if (filteredItems[j]?.isTitle) break
-          if (filteredItems[j]) {
-            hasVisibleChild = true
-            break
-          }
-        }
-        if (hasVisibleChild) result.push(item)
-      } else {
-        result.push(item)
-      }
-    }
-
-    return result
-  }
-
-  private isItemVisible(
-    item: MenuItemType,
-    permissions: string[],
-    modules: string[],
-    hasAllPermissions: boolean,
-  ): boolean {
-    if (item.module && !modules.includes(item.module)) return false
-    if (item.permission) {
-      return hasAllPermissions || permissions.includes(item.permission)
-    }
-    return true
   }
 
   onExternalMenuClick(menu: MenuItemType): void {
@@ -178,108 +127,44 @@ export class SidebarComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this._activateMenu()
-    })
-    setTimeout(() => {
-      this.scrollToActive()
-    }, 200)
-  }
-
   hasSubmenu(menu: MenuItemType): boolean {
-    return menu.children ? true : false
-  }
-
-  scrollToActive(): void {
-    const activatedItem = document.querySelector('.side-nav-item li a.active')
-    if (activatedItem) {
-      const simplebarContent = document.querySelector(
-        '.sidenav-menu .simplebar-content-wrapper',
-      )
-      if (simplebarContent) {
-        const activatedItemRect = activatedItem.getBoundingClientRect()
-        const simplebarContentRect = simplebarContent.getBoundingClientRect()
-        const activatedItemOffsetTop =
-          activatedItemRect.top + simplebarContent.scrollTop
-        const centerOffset =
-          activatedItemOffsetTop -
-          simplebarContentRect.top -
-          simplebarContent.clientHeight / 2 +
-          activatedItemRect.height / 2
-        this.scrollTo(simplebarContent, centerOffset, 600)
-      }
-    }
-  }
-
-  easeInOutQuad(t: number, b: number, c: number, d: number): number {
-    t /= d / 2
-    if (t < 1) return (c / 2) * t * t + b
-    t--
-    return (-c / 2) * (t * (t - 2) - 1) + b
-  }
-
-  scrollTo(element: Element, to: number, duration: number): void {
-    const start = element.scrollTop
-    const change = to - start
-    const increment = 20
-    let currentTime = 0
-
-    const animateScroll = () => {
-      currentTime += increment
-      const val = this.easeInOutQuad(currentTime, start, change, duration)
-      element.scrollTop = val
-      if (currentTime < duration) {
-        setTimeout(animateScroll, increment)
-      }
-    }
-    animateScroll()
+    return !!menu.children
   }
 
   _activateMenu(): void {
     const div = document.querySelector('.sidenav-menu')
+    if (!div) return
 
-    let matchingMenuItem = null
+    const items = div.getElementsByClassName('nav-link-ref')
+    let matchingMenuItem: HTMLAnchorElement | null = null
 
-    if (div) {
-      const items: HTMLCollectionOf<Element> =
-        div.getElementsByClassName('nav-link-ref')
-      for (let i = 0; i < items.length; ++i) {
-        const navItem = items[i] as HTMLAnchorElement
-        if (this.trimmedURL === navItem.pathname) {
-          matchingMenuItem = navItem
-          break
-        }
+    for (let i = 0; i < items.length; ++i) {
+      const navItem = items[i] as HTMLAnchorElement
+      if (this.trimmedURL === navItem.pathname) {
+        matchingMenuItem = navItem
+        break
       }
+    }
 
-      if (matchingMenuItem) {
-        const mid = matchingMenuItem.getAttribute('aria-controls')
-        if (!mid) return
-        const activeMt = findMenuItem(this.menuItems, mid)
+    if (!matchingMenuItem) return
 
-        if (activeMt) {
-          const matchingObjs = [
-            activeMt['key'],
-            ...findAllParent(this.menuItems, activeMt),
-          ]
+    const mid = matchingMenuItem.getAttribute('aria-controls')
+    if (!mid) return
+    const activeMt = findMenuItem(this.menuItems, mid)
 
-          this.activeMenuItems = matchingObjs
-          this.menuItems.forEach((menu: MenuItemType) => {
-            menu.collapsed = !matchingObjs.includes(menu.key!)
-          })
-        }
-      }
+    if (activeMt) {
+      const matchingObjs = [activeMt['key'], ...findAllParent(this.menuItems, activeMt)]
+      this.activeMenuItems = matchingObjs
+      this.menuItems.forEach((menu: MenuItemType) => {
+        menu.collapsed = !matchingObjs.includes(menu.key!)
+      })
     }
   }
 
   toggleMenuItem(menuItem: MenuItemType, collapse: NgbCollapse): void {
     collapse.toggle()
-    let openMenuItems: string[]
     if (!menuItem.collapsed) {
-      openMenuItems = [
-        menuItem['key'],
-        ...findAllParent(this.menuItems, menuItem),
-      ]
+      const openMenuItems = [menuItem['key'], ...findAllParent(this.menuItems, menuItem)]
       this.menuItems.forEach((menu: MenuItemType) => {
         if (!openMenuItems.includes(menu.key!)) {
           menu.collapsed = true
@@ -298,16 +183,15 @@ export class SidebarComponent implements OnInit, OnDestroy {
     }
   }
 
-  changeSidebarSize() {
+  changeSidebarSize(): void {
     let size = document.documentElement.getAttribute('data-sidenav-size')
-    if (size == 'sm-hover') {
-      size = 'sm-hover-active'
-    } else {
-      size = 'sm-hover'
-    }
+    size = size === 'sm-hover' ? 'sm-hover-active' : 'sm-hover'
     this.store.dispatch(changesidebarsize({ size }))
-    this.store.select(getSidebarsize).subscribe((size) => {
-      document.documentElement.setAttribute('data-sidenav-size', size)
-    })
+    this.store
+      .select(getSidebarsize)
+      .pipe(take(1))
+      .subscribe((currentSize: string) => {
+        document.documentElement.setAttribute('data-sidenav-size', currentSize)
+      })
   }
 }

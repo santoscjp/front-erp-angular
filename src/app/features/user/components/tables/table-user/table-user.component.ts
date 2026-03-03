@@ -31,7 +31,7 @@ import {
   tap,
 } from 'rxjs'
 import { UserFilterFormComponent } from '../../filter/user-filter-form/user-filter-form.component'
-import { FilterCommunicationService } from '@core/services/ui/filter-comumunication.service'
+import { FilterCommunicationService } from '@core/services/ui/filter-communication.service'
 import { CreateUserComponent } from '../../forms/create-user/create-user.component'
 import { CreateDetailsUserComponent } from '../../forms/create-details-user/create-details-user.component'
 import { CreateEditUserComponent } from '../../forms/create-edit-user/create-edit-user.component'
@@ -66,19 +66,18 @@ export class TableUserComponent implements OnInit, OnDestroy {
   private _bsModalService = inject(BootstrapModalService)
 
   ngOnInit(): void {
-    this.suscribeToFilter()
+    this.subscribeToFilter()
     this.config$ = this.setConfigDatatable()
     this.reloadDatatable()
   }
 
-  private suscribeToFilter(): void {
+  private subscribeToFilter(): void {
     this._filterCommunicationService.currentFilter
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: (filter) => {
           this.reloadDatatable(filter || {})
         },
-        error: () => {},
       })
   }
 
@@ -193,38 +192,38 @@ export class TableUserComponent implements OnInit, OnDestroy {
   }
 
   public openModal(buttonAction: ButtonAction, user?: User): void {
+    const modalConfig = this.buildModalConfig(buttonAction, user)
+    if (modalConfig) {
+      this._bsModalService.openModal(modalConfig)
+    }
+  }
+
+  private buildModalConfig(
+    buttonAction: ButtonAction,
+    user?: User,
+  ): BootstrapModalConfig<ModalWithAction<User>> | null {
     if (buttonAction === BUTTON_ACTIONS.ADD) {
-      const modalConfig: BootstrapModalConfig<ModalWithAction<User>> = {
+      return {
         component: CreateUserComponent,
         options: { size: 'xl' },
-        data: {
-          buttonAction: BUTTON_ACTIONS.ADD,
-        },
+        data: { buttonAction: BUTTON_ACTIONS.ADD },
       }
-      this._bsModalService.openModal(modalConfig)
     }
     if (buttonAction === BUTTON_ACTIONS.VIEW && user) {
-      const modalConfig: BootstrapModalConfig<ModalWithAction<User>> = {
+      return {
         component: CreateDetailsUserComponent,
         options: { size: 'lg' },
-        data: {
-          buttonAction: BUTTON_ACTIONS.VIEW,
-          selectedRow: user,
-        },
+        data: { buttonAction: BUTTON_ACTIONS.VIEW, selectedRow: user },
       }
-      this._bsModalService.openModal(modalConfig)
     }
     if (buttonAction === BUTTON_ACTIONS.EDIT && user) {
-      const modalConfig: BootstrapModalConfig<ModalWithAction<User>> = {
+      return {
         component: CreateEditUserComponent,
         options: { size: 'lg' },
-        data: {
-          buttonAction: BUTTON_ACTIONS.EDIT,
-          selectedRow: user,
-        },
+        data: { buttonAction: BUTTON_ACTIONS.EDIT, selectedRow: user },
       }
-      this._bsModalService.openModal(modalConfig)
     }
+    return null
   }
 
   ngOnDestroy(): void {

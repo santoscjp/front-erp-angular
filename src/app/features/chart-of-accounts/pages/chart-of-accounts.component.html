@@ -1,0 +1,225 @@
+<div class="row">
+  <div class="col-12">
+    <div class="page-title-head d-flex align-items-sm-center flex-sm-row flex-column gap-2">
+      <div class="flex-grow-1">
+        <h4 class="fs-18 fw-semibold m-0">{{ 'CHART_OF_ACCOUNTS.TITLE' | translate }}</h4>
+      </div>
+      @if (!isComingSoon) {
+        <div>
+          <button type="button" class="btn btn-primary" (click)="openCreateModal(accountModal)">
+            <i class="ti ti-plus me-1"></i>
+            {{ 'CHART_OF_ACCOUNTS.NEW' | translate }}
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+
+@if (isComingSoon) {
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body text-center p-5">
+          <i class="ti ti-clock fs-1 text-muted mb-3 d-block"></i>
+          <h5 class="fw-semibold mb-2">{{ 'WORDS.COMING_SOON' | translate }}</h5>
+          <p class="text-muted mb-0">{{ 'WORDS.COMING_SOON_DESC' | translate }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+} @else {
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row g-2 mb-3">
+            <div class="col-md-4">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="searchTerm"
+                (input)="applyFilter()"
+                [placeholder]="'CHART_OF_ACCOUNTS.SEARCH_PLACEHOLDER' | translate">
+            </div>
+          </div>
+
+          @if (isLoading) {
+            <div class="text-center py-4">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Cargando...</span>
+              </div>
+            </div>
+          } @else if (filteredAccounts.length === 0) {
+            <div class="text-center py-5 text-muted">
+              <i class="ti ti-list-tree fs-1 d-block mb-2"></i>
+              <p class="mb-0">{{ 'CHART_OF_ACCOUNTS.EMPTY' | translate }}</p>
+            </div>
+          } @else {
+            <div class="table-responsive">
+              <table class="table table-sm table-hover align-middle mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th>{{ 'CHART_OF_ACCOUNTS.TABLE.CODE' | translate }}</th>
+                    <th>{{ 'CHART_OF_ACCOUNTS.TABLE.NAME' | translate }}</th>
+                    <th>{{ 'CHART_OF_ACCOUNTS.TABLE.TYPE' | translate }}</th>
+                    <th class="text-center">{{ 'CHART_OF_ACCOUNTS.TABLE.LEVEL' | translate }}</th>
+                    <th class="text-center">{{ 'CHART_OF_ACCOUNTS.TABLE.STATUS' | translate }}</th>
+                    <th class="text-center">{{ 'CHART_OF_ACCOUNTS.TABLE.ACTIONS' | translate }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (account of filteredAccounts; track account.id) {
+                    <tr [class.text-muted]="!account.isActive">
+                      <td>
+                        <span class="badge bg-light text-dark font-monospace">{{ account.code }}</span>
+                      </td>
+                      <td>
+                        <span [style.padding-left]="getIndentPadding(account.level)">
+                          @if (!isLeafAccount(account)) {
+                            <i class="ti ti-folder text-warning me-1"></i>
+                          } @else {
+                            <i class="ti ti-file-text text-muted me-1"></i>
+                          }
+                          {{ account.name }}
+                        </span>
+                      </td>
+                      <td>
+                        <span class="badge bg-secondary-subtle text-secondary">{{ account.type }}</span>
+                      </td>
+                      <td class="text-center">
+                        <span class="badge bg-light text-dark">{{ account.level }}</span>
+                      </td>
+                      <td class="text-center">
+                        @if (account.isActive) {
+                          <span class="badge bg-success-subtle text-success">
+                            {{ 'WORDS.ACTIVE' | translate }}
+                          </span>
+                        } @else {
+                          <span class="badge bg-danger-subtle text-danger">
+                            {{ 'WORDS.INACTIVE' | translate }}
+                          </span>
+                        }
+                      </td>
+                      <td class="text-center">
+                        <div class="d-flex justify-content-center gap-1">
+                          <button
+                            type="button"
+                            class="btn btn-sm btn-outline-primary"
+                            title="{{ 'WORDS.EDIT' | translate }}"
+                            (click)="openEditModal(accountModal, account)">
+                            <i class="ti ti-pencil"></i>
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-sm"
+                            [class.btn-outline-danger]="account.isActive"
+                            [class.btn-outline-success]="!account.isActive"
+                            [title]="(account.isActive ? 'WORDS.DEACTIVATE' : 'WORDS.ACTIVATE') | translate"
+                            (click)="toggleActive(account)">
+                            @if (account.isActive) {
+                              <i class="ti ti-toggle-right"></i>
+                            } @else {
+                              <i class="ti ti-toggle-left"></i>
+                            }
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+<ng-template #accountModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">
+      @if (editingAccount) {
+        {{ 'CHART_OF_ACCOUNTS.FORM.EDIT_TITLE' | translate }}
+      } @else {
+        {{ 'CHART_OF_ACCOUNTS.FORM.CREATE_TITLE' | translate }}
+      }
+    </h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="accountForm">
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label fw-medium">{{ 'CHART_OF_ACCOUNTS.FORM.CODE' | translate }}</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="code"
+            [placeholder]="'CHART_OF_ACCOUNTS.FORM.CODE_PLACEHOLDER' | translate"
+            [class.is-invalid]="accountForm.get('code')?.invalid && accountForm.get('code')?.touched">
+          @if (accountForm.get('code')?.invalid && accountForm.get('code')?.touched) {
+            <div class="invalid-feedback">{{ 'CHART_OF_ACCOUNTS.FORM.CODE_REQUIRED' | translate }}</div>
+          }
+        </div>
+        <div class="col-md-8">
+          <label class="form-label fw-medium">{{ 'CHART_OF_ACCOUNTS.FORM.NAME' | translate }}</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="name"
+            [placeholder]="'CHART_OF_ACCOUNTS.FORM.NAME_PLACEHOLDER' | translate"
+            [class.is-invalid]="accountForm.get('name')?.invalid && accountForm.get('name')?.touched">
+          @if (accountForm.get('name')?.invalid && accountForm.get('name')?.touched) {
+            <div class="invalid-feedback">{{ 'CHART_OF_ACCOUNTS.FORM.NAME_REQUIRED' | translate }}</div>
+          }
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-medium">{{ 'CHART_OF_ACCOUNTS.FORM.TYPE' | translate }}</label>
+          <ng-select
+            formControlName="type"
+            [items]="accountTypes"
+            bindValue="value"
+            bindLabel="label"
+            [searchable]="false"
+            [clearable]="false"
+            [placeholder]="'CHART_OF_ACCOUNTS.FORM.TYPE_PLACEHOLDER' | translate"
+            [class.is-invalid]="accountForm.get('type')?.invalid && accountForm.get('type')?.touched">
+          </ng-select>
+          @if (accountForm.get('type')?.invalid && accountForm.get('type')?.touched) {
+            <div class="invalid-feedback d-block">{{ 'CHART_OF_ACCOUNTS.FORM.TYPE_REQUIRED' | translate }}</div>
+          }
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-medium">{{ 'CHART_OF_ACCOUNTS.FORM.PARENT' | translate }}</label>
+          <ng-select
+            formControlName="parentId"
+            [items]="getParentAccounts()"
+            bindValue="id"
+            [searchable]="true"
+            [clearable]="true"
+            [placeholder]="'CHART_OF_ACCOUNTS.FORM.PARENT_PLACEHOLDER' | translate">
+            <ng-template ng-label-tmp let-item="item">{{ item.code }} - {{ item.name }}</ng-template>
+            <ng-template ng-option-tmp let-item="item">{{ item.code }} - {{ item.name }}</ng-template>
+          </ng-select>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">
+      {{ 'WORDS.CANCEL' | translate }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      [disabled]="isSubmitting"
+      (click)="onSubmit(modal)">
+      @if (isSubmitting) {
+        <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+      }
+      {{ 'WORDS.SAVE' | translate }}
+    </button>
+  </div>
+</ng-template>

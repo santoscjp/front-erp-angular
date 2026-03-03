@@ -1,4 +1,5 @@
-import { inject, Injectable } from '@angular/core'
+import { DestroyRef, inject, Injectable } from '@angular/core'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { Store } from '@ngrx/store'
 import { catchError, filter, of, ReplaySubject, tap } from 'rxjs'
 import { User } from '../../interfaces/api/user.interface'
@@ -10,7 +11,9 @@ import { AppState } from '@core/states'
 })
 export class GlobalService {
   public profile = new ReplaySubject<User>(1)
-  private _store = inject(Store<AppState>)
+  private readonly _store = inject(Store<AppState>)
+  private readonly _destroyRef = inject(DestroyRef)
+
   constructor() {
     this.getProfileByStore()
   }
@@ -26,7 +29,8 @@ export class GlobalService {
         catchError(() => {
           console.log('Error getting user')
           return of(null)
-        })
+        }),
+        takeUntilDestroyed(this._destroyRef),
       )
       .subscribe()
   }

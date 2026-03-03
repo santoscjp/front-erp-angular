@@ -308,25 +308,198 @@
     }
   },
   "CHART_OF_ACCOUNTS": {
-    "TITLE": "Plan de Cuentas"
+    "TITLE": "Plan de Cuentas",
+    "NEW": "Nueva Cuenta",
+    "EMPTY": "No hay cuentas registradas.",
+    "CREATE_SUCCESS": "Cuenta creada correctamente.",
+    "UPDATE_SUCCESS": "Cuenta actualizada correctamente.",
+    "SEARCH_PLACEHOLDER": "Buscar por código o nombre...",
+    "TABLE": {
+      "CODE": "Código",
+      "NAME": "Nombre",
+      "TYPE": "Tipo",
+      "LEVEL": "Nivel",
+      "STATUS": "Estado",
+      "ACTIONS": "Acciones"
+    },
+    "FORM": {
+      "CREATE_TITLE": "Nueva Cuenta Contable",
+      "EDIT_TITLE": "Editar Cuenta Contable",
+      "CODE": "Código",
+      "CODE_PLACEHOLDER": "Ej: 1.01.01",
+      "CODE_REQUIRED": "El código es obligatorio.",
+      "NAME": "Nombre",
+      "NAME_PLACEHOLDER": "Ej: Efectivo y equivalentes",
+      "NAME_REQUIRED": "El nombre es obligatorio.",
+      "TYPE": "Tipo",
+      "TYPE_PLACEHOLDER": "Seleccione el tipo",
+      "TYPE_REQUIRED": "El tipo es obligatorio.",
+      "PARENT": "Cuenta padre",
+      "PARENT_PLACEHOLDER": "Sin cuenta padre (cuenta raíz)"
+    }
   },
   "JOURNAL_ENTRIES": {
-    "TITLE": "Libro Diario"
+    "TITLE": "Libro Diario",
+    "NEW": "Nuevo Asiento",
+    "EMPTY": "No hay asientos registrados.",
+    "CREATE_SUCCESS": "Asiento creado correctamente.",
+    "APPROVE_SUCCESS": "Asiento aprobado correctamente.",
+    "VOID_SUCCESS": "Asiento anulado correctamente.",
+    "APPROVE": "Aprobar asiento",
+    "VOID": "Anular asiento",
+    "STATUS": {
+      "DRAFT": "Borrador",
+      "APPROVED": "Aprobado",
+      "VOIDED": "Anulado"
+    },
+    "TABLE": {
+      "NUMBER": "Número",
+      "DATE": "Fecha",
+      "DESCRIPTION": "Descripción",
+      "ORIGIN": "Origen",
+      "STATUS": "Estado",
+      "ACTIONS": "Acciones"
+    },
+    "FORM": {
+      "TITLE": "Nuevo Asiento Contable",
+      "DATE": "Fecha",
+      "DATE_REQUIRED": "La fecha es obligatoria.",
+      "DESCRIPTION": "Descripción",
+      "DESCRIPTION_PLACEHOLDER": "Descripción del asiento",
+      "DESCRIPTION_REQUIRED": "La descripción es obligatoria.",
+      "DETAIL_LINES": "Líneas de detalle",
+      "ACCOUNT": "Cuenta",
+      "ACCOUNT_PLACEHOLDER": "Buscar cuenta...",
+      "DETAIL_DESCRIPTION": "Concepto",
+      "DEBIT": "Debe",
+      "CREDIT": "Haber",
+      "ADD_LINE": "Agregar línea",
+      "UNBALANCED": "Diferencia:",
+      "BALANCED": "Asiento cuadrado"
+    },
+    "DETAIL": {
+      "TITLE": "Asiento"
+    }
   },
   "FISCAL_PERIODS": {
-    "TITLE": "Periodos Fiscales"
+    "TITLE": "Periodos Fiscales",
+    "EMPTY": "No hay periodos fiscales registrados.",
+    "CLOSE_SUCCESS": "Periodo cerrado correctamente.",
+    "TABLE": {
+      "YEAR": "Año",
+      "MONTH": "Mes",
+      "STATUS": "Estado",
+      "CLOSED_DATE": "Fecha de cierre",
+      "ACTIONS": "Acciones"
+    },
+    "STATUS": {
+      "OPEN": "Abierto",
+      "CLOSED": "Cerrado"
+    },
+    "ACTIONS": {
+      "CLOSE": "Cerrar periodo"
+    },
+    "CONFIRM_CLOSE": {
+      "TITLE": "Cerrar periodo fiscal",
+      "MESSAGE": "¿Está seguro que desea cerrar este periodo? Esta acción no se puede deshacer.",
+      "CONFIRM": "Sí, cerrar periodo",
+      "CANCEL": "Cancelar"
+    }
   },
   "GENERAL_LEDGER": {
-    "TITLE": "Libro Mayor"
+    "TITLE": "Libro Mayor",
+    "EMPTY": "No se encontraron movimientos para los filtros seleccionados.",
+    "FILTER": {
+      "ACCOUNT": "Cuenta contable",
+      "ACCOUNT_PLACEHOLDER": "Seleccione una cuenta",
+      "PERIOD": "Periodo fiscal",
+      "PERIOD_PLACEHOLDER": "Seleccione un periodo"
+    },
+    "TABLE": {
+      "DATE": "Fecha",
+      "ENTRY_NUMBER": "Asiento",
+      "ACCOUNT": "Cuenta",
+      "DESCRIPTION": "Descripción",
+      "DEBIT": "Debe",
+      "CREDIT": "Haber",
+      "BALANCE": "Saldo"
+    }
   },
   "FINANCIAL_STATEMENTS": {
-    "TITLE": "Estados Financieros"
+    "TITLE": "Estados Financieros",
+    "EMPTY": "No hay datos para el periodo seleccionado.",
+    "FILTER": {
+      "PERIOD": "Periodo fiscal",
+      "PERIOD_PLACEHOLDER": "Seleccione un periodo"
+    },
+    "TABS": {
+      "TRIAL_BALANCE": "Balance de Comprobación",
+      "BALANCE_SHEET": "Balance General",
+      "INCOME_STATEMENT": "Estado de Resultados"
+    },
+    "TABLE": {
+      "ACCOUNT_CODE": "Código",
+      "ACCOUNT_NAME": "Cuenta",
+      "DEBIT": "Debe",
+      "CREDIT": "Haber",
+      "CATEGORY": "Categoría",
+      "AMOUNT": "Monto",
+      "DESCRIPTION": "Descripción"
+    }
   },
   "BANK_RECONCILIATION": {
-    "TITLE": "Conciliación Bancaria"
+    "TITLE": "Conciliación Bancaria",
+    "NEW": "Nueva Conciliación",
+    "EMPTY": "No hay conciliaciones registradas.",
+    "CREATE_SUCCESS": "Conciliación creada correctamente.",
+    "TABLE": {
+      "PERIOD": "Periodo",
+      "DATE": "Fecha",
+      "BOOK_BALANCE": "Saldo Libro",
+      "BANK_BALANCE": "Saldo Banco",
+      "DIFFERENCE": "Diferencia",
+      "STATUS": "Estado"
+    },
+    "STATUS": {
+      "BALANCED": "Cuadrado",
+      "UNBALANCED": "Diferencia"
+    },
+    "FORM": {
+      "TITLE": "Nueva Conciliación Bancaria",
+      "PERIOD": "Periodo fiscal",
+      "PERIOD_PLACEHOLDER": "Seleccione el periodo",
+      "DATE": "Fecha de conciliación",
+      "BOOK_BALANCE": "Saldo según libro",
+      "BANK_BALANCE": "Saldo según banco",
+      "BANK_ACCOUNT_ID": "ID Cuenta bancaria",
+      "REQUIRED": "Este campo es obligatorio.",
+      "INVALID_AMOUNT": "El monto debe ser mayor o igual a cero."
+    }
   },
   "SRI_REPORTS": {
-    "TITLE": "Reportes SRI (ATS)"
+    "TITLE": "Reportes SRI (ATS)",
+    "FILTER": {
+      "PERIOD": "Periodo fiscal",
+      "PERIOD_PLACEHOLDER": "Seleccione un periodo"
+    },
+    "ACTIONS": {
+      "LOAD": "Cargar Reporte",
+      "GENERATE": "Generar ATS",
+      "DOWNLOAD_XML": "Descargar XML"
+    },
+    "GENERATING": "Generando...",
+    "REPORT": {
+      "TITLE": "Reporte ATS",
+      "TYPE": "Tipo",
+      "STATUS": "Estado",
+      "GENERATED_AT": "Generado el",
+      "XML_PREVIEW": "Vista previa XML"
+    },
+    "STATUS": {
+      "PENDING": "Pendiente",
+      "GENERATED": "Generado",
+      "ERROR": "Error"
+    }
   },
   "SETTINGS": {
     "TITLE": "Configuración"
@@ -420,7 +593,22 @@
     "LAST_NAME": "Apellido",
     "IS_ACTIVE": "Activo",
     "SHOW": "Mostrar",
-    "HIDE": "Ocultar"
+    "HIDE": "Ocultar",
+    "SEARCH": "Buscar",
+    "LOAD": "Cargar",
+    "SAVE": "Guardar",
+    "CANCEL": "Cancelar",
+    "CLOSE": "Cerrar",
+    "EDIT": "Editar",
+    "VIEW": "Ver",
+    "DELETE": "Eliminar",
+    "ACTIVE": "Activo",
+    "INACTIVE": "Inactivo",
+    "ACTIVATE": "Activar",
+    "DEACTIVATE": "Desactivar",
+    "TOTALS": "Totales",
+    "COMING_SOON": "Próximamente",
+    "COMING_SOON_DESC": "Este módulo estará disponible en los próximos días. Estamos trabajando para habilitarlo."
   },
   "SWEET_ALERT": {
     "ARE_YOU_SURE": "¿Estas seguro?",

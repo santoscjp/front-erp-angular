@@ -3,7 +3,8 @@ import { Component, inject, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
 import { BLOCKED_OPTIONS } from '@core/helpers/global/global.constants'
 import { NgSelect } from '@core/interfaces/ui/ui.interface'
-import { FilterCommunicationService } from '@core/services/ui/filter-comumunication.service'
+import { TableFilter } from '@core/interfaces/ui/table-filter.interface'
+import { FilterCommunicationService } from '@core/services/ui/filter-communication.service'
 import { Observable, of } from 'rxjs'
 import { format } from 'date-fns'
 
@@ -87,10 +88,10 @@ export class UserFilterFormComponent implements OnInit {
       filterValues.toDate = this.defaultToDate
     }
 
-    const cleanedFilter = Object.fromEntries(
-      Object.entries(filterValues).filter(
-        ([_, value]) => value !== null && value !== ''
-      )
+    const cleanedFilter: TableFilter = Object.fromEntries(
+      Object.entries(filterValues as TableFilter).filter(
+        ([, value]) => value !== null && value !== '',
+      ),
     )
 
     this._filterCommunicationService.changeFilter(cleanedFilter)

@@ -1,0 +1,62 @@
+:host {
+  display: block;
+  text-align: left;
+
+  h3 {
+    @media (max-width: 575.98px) {
+      font-size: 1.2rem;
+    }
+  }
+
+  .form-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .form-control {
+    min-height: 44px;
+    padding-right: 2.75rem;
+
+    @media (max-width: 575.98px) {
+      font-size: 1rem; // previene zoom automático en iOS (mínimo 16px)
+    }
+  }
+
+  .password-toggle {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bs-secondary-color);
+    text-decoration: none;
+    padding: 0;
+
+    &:hover,
+    &:focus {
+      color: var(--bs-primary);
+      box-shadow: none;
+    }
+  }
+
+  .form-check {
+    .form-check-input {
+      min-width: 18px;
+      min-height: 18px;
+      margin-top: 0.2rem;
+      cursor: pointer;
+    }
+
+    .form-check-label {
+      font-size: 0.875rem;
+      cursor: pointer;
+      user-select: none;
+    }
+  }
+
+  .btn-primary {
+    min-height: 44px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+}

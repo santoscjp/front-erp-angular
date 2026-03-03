@@ -3,7 +3,6 @@ import { Router } from '@angular/router'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { TranslateService } from '@ngx-translate/core'
 import { AdminEmisorService } from '@core/services/api/admin-emisor.service'
-
 import { RoleService } from '@core/services/api/role.service'
 import { ToastrNotificationService } from '@core/services/ui/notification.service'
 import { ModuleKey } from '@/app/shared/enums/module-key.enum'
@@ -11,6 +10,7 @@ import { MODULE_LABELS } from '@/app/shared/constants/modules.constants'
 import { EmisorCreateRequest } from '@core/interfaces/api/company.interface'
 import { Role } from '@core/interfaces/api/rol.interface'
 import { rucValidator } from '@/app/shared/validators/ruc.validator'
+import { generateSecurePassword } from '@/app/shared/utils/password.utils'
 
 @Component({
   selector: 'app-emisor-form',
@@ -158,27 +158,7 @@ export class EmisorFormComponent implements OnInit {
   }
 
   generatePassword(): void {
-    const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    const lowercase = 'abcdefghijklmnopqrstuvwxyz'
-    const digits = '0123456789'
-    const symbols = '!@#$%^&*'
-    const allChars = uppercase + lowercase + digits + symbols
-
-    const mandatoryChars = [
-      uppercase[Math.floor(Math.random() * uppercase.length)],
-      lowercase[Math.floor(Math.random() * lowercase.length)],
-      digits[Math.floor(Math.random() * digits.length)],
-      symbols[Math.floor(Math.random() * symbols.length)],
-    ]
-
-    const remainingChars = Array.from({ length: 8 }, () =>
-      allChars[Math.floor(Math.random() * allChars.length)]
-    )
-
-    const passwordChars = [...mandatoryChars, ...remainingChars].sort(() => Math.random() - 0.5)
-    const generatedPassword = passwordChars.join('')
-
-    this.emisorForm.patchValue({ adminPassword: generatedPassword })
+    this.emisorForm.patchValue({ adminPassword: generateSecurePassword() })
     this.showAdminPassword = true
   }
 
@@ -194,30 +174,7 @@ export class EmisorFormComponent implements OnInit {
     }
 
     this.isSubmitting = true
-    const formValue = this.emisorForm.value
-
-    const request: EmisorCreateRequest = {
-      ruc: formValue.ruc,
-      businessName: formValue.businessName,
-      tradeName: formValue.tradeName || undefined,
-      mainAddress: formValue.mainAddress,
-      accountingObligation: formValue.accountingObligation,
-      specialTaxpayerCode: formValue.specialTaxpayerCode || undefined,
-      retentionAgent: formValue.retentionAgent,
-      microenterpriseRegime: formValue.microenterpriseRegime,
-      rimpeRegime: formValue.rimpeRegime,
-      modules: formValue.modules,
-      adminUser: {
-        username: formValue.adminUsername,
-        email: formValue.adminEmail,
-        firstName: formValue.adminFirstName,
-        lastName: formValue.adminLastName,
-        password: formValue.adminPassword,
-        roleId: formValue.adminRoleId,
-      },
-    }
-
-    this.adminService.createEmisor(request).subscribe({
+    this.adminService.createEmisor(this.buildEmisorRequest()).subscribe({
       next: (response) => {
         this.isSubmitting = false
         if (response.message?.includes('Advertencia:')) {
@@ -233,5 +190,29 @@ export class EmisorFormComponent implements OnInit {
         this.isSubmitting = false
       },
     })
+  }
+
+  private buildEmisorRequest(): EmisorCreateRequest {
+    const v = this.emisorForm.value
+    return {
+      ruc: v.ruc,
+      businessName: v.businessName,
+      tradeName: v.tradeName || undefined,
+      mainAddress: v.mainAddress,
+      accountingObligation: v.accountingObligation,
+      specialTaxpayerCode: v.specialTaxpayerCode || undefined,
+      retentionAgent: v.retentionAgent,
+      microenterpriseRegime: v.microenterpriseRegime,
+      rimpeRegime: v.rimpeRegime,
+      modules: v.modules,
+      adminUser: {
+        username: v.adminUsername,
+        email: v.adminEmail,
+        firstName: v.adminFirstName,
+        lastName: v.adminLastName,
+        password: v.adminPassword,
+        roleId: v.adminRoleId,
+      },
+    }
   }
 }

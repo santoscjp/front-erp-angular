@@ -1,0 +1,108 @@
+<div class="row">
+  <div class="col-12">
+    <div class="page-title-head d-flex align-items-sm-center flex-sm-row flex-column gap-2">
+      <div class="flex-grow-1">
+        <h4 class="fs-18 fw-semibold m-0">{{ 'FISCAL_PERIODS.TITLE' | translate }}</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+@if (isComingSoon) {
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body text-center p-5">
+          <i class="ti ti-clock fs-1 text-muted mb-3 d-block"></i>
+          <h5 class="fw-semibold mb-2">{{ 'WORDS.COMING_SOON' | translate }}</h5>
+          <p class="text-muted mb-0">{{ 'WORDS.COMING_SOON_DESC' | translate }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+} @else {
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          @if (isLoading) {
+            <div class="text-center py-4">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Cargando...</span>
+              </div>
+            </div>
+          } @else if (periods.length === 0) {
+            <div class="text-center py-5 text-muted">
+              <i class="ti ti-calendar fs-1 d-block mb-2"></i>
+              <p class="mb-0">{{ 'FISCAL_PERIODS.EMPTY' | translate }}</p>
+            </div>
+          } @else {
+            <div class="table-responsive">
+              <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th>{{ 'FISCAL_PERIODS.TABLE.YEAR' | translate }}</th>
+                    <th>{{ 'FISCAL_PERIODS.TABLE.MONTH' | translate }}</th>
+                    <th>{{ 'FISCAL_PERIODS.TABLE.STATUS' | translate }}</th>
+                    <th>{{ 'FISCAL_PERIODS.TABLE.CLOSED_DATE' | translate }}</th>
+                    <th class="text-end">{{ 'FISCAL_PERIODS.TABLE.ACTIONS' | translate }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (period of periods; track period.id) {
+                    <tr>
+                      <td><strong>{{ period.year }}</strong></td>
+                      <td>{{ getMonthName(period.month) }}</td>
+                      <td>
+                        @if (isOpen(period)) {
+                          <span class="badge bg-success-subtle text-success">
+                            {{ 'FISCAL_PERIODS.STATUS.OPEN' | translate }}
+                          </span>
+                        } @else {
+                          <span class="badge bg-danger-subtle text-danger">
+                            {{ 'FISCAL_PERIODS.STATUS.CLOSED' | translate }}
+                          </span>
+                        }
+                      </td>
+                      <td>{{ period.closedDate ? (period.closedDate | date: 'dd/MM/yyyy') : '—' }}</td>
+                      <td class="text-end">
+                        @if (isOpen(period)) {
+                          <button
+                            class="btn btn-sm btn-outline-danger"
+                            [title]="'FISCAL_PERIODS.ACTIONS.CLOSE' | translate"
+                            (click)="openCloseConfirm(period, confirmModal)">
+                            <i class="ti ti-lock me-1"></i>
+                            {{ 'FISCAL_PERIODS.ACTIONS.CLOSE' | translate }}
+                          </button>
+                        }
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+<ng-template #confirmModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">{{ 'FISCAL_PERIODS.CONFIRM_CLOSE.TITLE' | translate }}</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <p class="mb-0">{{ 'FISCAL_PERIODS.CONFIRM_CLOSE.MESSAGE' | translate }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary btn-sm" (click)="modal.dismiss()">
+      {{ 'WORDS.CANCEL' | translate }}
+    </button>
+    <button type="button" class="btn btn-danger btn-sm" (click)="modal.close()">
+      <i class="ti ti-lock me-1"></i>
+      {{ 'FISCAL_PERIODS.CONFIRM_CLOSE.CONFIRM' | translate }}
+    </button>
+  </div>
+</ng-template>

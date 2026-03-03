@@ -5,8 +5,7 @@ import { AuthenticationService } from '@core/services/api/auth.service'
 import { UserActions } from '@core/states/auth/auth.actions'
 import { Store } from '@ngrx/store'
 import { catchError, finalize, of } from 'rxjs'
-
-type TwoFactorStep = 'idle' | 'qr' | 'disabling'
+import { TwoFactorStep } from '@/app/shared/types/two-factor-step.type'
 
 @Component({
   selector: 'qr-configuration',

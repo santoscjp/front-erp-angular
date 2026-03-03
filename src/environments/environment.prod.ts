@@ -3,4 +3,13 @@ export const environment = {
   apiBaseUrl: 'https://tu-servidor-en-produccion.com/api/v1',
   apiTranslateUrl: 'https://tu-servidor-en-produccion.com/translate',
   secretKey: 'PROD_SECRET_KEY',
+  comingSoon: {
+    chartOfAccounts: true,
+    journalEntries: true,
+    fiscalPeriods: true,
+    generalLedger: true,
+    financialStatements: true,
+    bankReconciliation: true,
+    sriReports: true,
+  },
 }

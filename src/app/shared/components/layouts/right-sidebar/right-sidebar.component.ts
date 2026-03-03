@@ -2,6 +2,7 @@ import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   inject,
+  OnDestroy,
   type OnInit,
 } from '@angular/core'
 import {
@@ -13,16 +14,11 @@ import {
   changesidebarsize,
   resetState,
 } from '@core/states/layout/layout-action'
-import {
-  getLayoutColor,
-  getLayoutMode,
-  getTopbarcolor,
-  getMenucolor,
-  getSidebarsize,
-} from '@core/states/layout/layout-selector'
+import { LayoutState } from '@core/states/layout/layout-reducers'
 import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap'
 import { Store } from '@ngrx/store'
 import { SimplebarAngularModule } from 'simplebar-angular'
+import { Subject, takeUntil } from 'rxjs'
 
 @Component({
   selector: 'app-right-sidebar',
@@ -32,75 +28,69 @@ import { SimplebarAngularModule } from 'simplebar-angular'
   styleUrls: ['./right-sidebar.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class RightSidebarComponent implements OnInit {
+export class RightSidebarComponent implements OnInit, OnDestroy {
   offcanvas = inject(NgbActiveOffcanvas)
   store = inject(Store)
 
+  private readonly destroy$ = new Subject<void>()
+
   layout: string = ''
-  color!: string
-  topbar!: string
-  menuColor!: string
-  menuSize!: string
-  mode!: string
+  color: string = ''
+  topbar: string = ''
+  menuColor: string = ''
+  menuSize: string = ''
+  mode: string = ''
 
   ngOnInit(): void {
-    this.store.select('layout').subscribe((data: any) => {
-      this.layout = data.LAYOUT
-      this.color = data.LAYOUT_THEME
-      this.topbar = data.TOPBAR_COLOR
-      this.menuColor = data.MENU_COLOR
-      this.menuSize = data.MENU_SIZE
-      this.mode = data.LAYOUT_MODE
-    })
+    this.store
+      .select('layout')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data: LayoutState) => {
+        this.layout = data.LAYOUT
+        this.color = data.LAYOUT_THEME
+        this.topbar = data.TOPBAR_COLOR
+        this.menuColor = data.MENU_COLOR
+        this.menuSize = data.MENU_SIZE
+        this.mode = data.LAYOUT_MODE
+      })
   }
 
-  // Change Layout
-  changeLayout(layout: string) {
+  ngOnDestroy(): void {
+    this.destroy$.next()
+    this.destroy$.complete()
+  }
+
+  changeLayout(layout: string): void {
     this.layout = layout
     this.store.dispatch(changelayout({ layout }))
   }
 
-  // Change Layout Color
-  changeLayoutColor(color: any) {
+  changeLayoutColor(color: string): void {
     this.store.dispatch(changetheme({ color }))
-    this.store.select(getLayoutColor).subscribe((color) => {
-      document.documentElement.setAttribute('data-bs-theme', color)
-    })
+    document.documentElement.setAttribute('data-bs-theme', color)
   }
 
-  changeLayoutMode(mode: any) {
+  changeLayoutMode(mode: string): void {
     this.store.dispatch(changemode({ mode }))
-    this.store.select(getLayoutMode).subscribe((mode) => {
-      document.documentElement.setAttribute('data-layout-mode', mode)
-    })
+    document.documentElement.setAttribute('data-layout-mode', mode)
   }
 
-  // Change Topbar Color
-  changeTopbar(topbar: any) {
+  changeTopbar(topbar: string): void {
     this.store.dispatch(changetopbarcolor({ topbar }))
-    this.store.select(getTopbarcolor).subscribe((topbar) => {
-      document.documentElement.setAttribute('data-topbar-color', topbar)
-    })
+    document.documentElement.setAttribute('data-topbar-color', topbar)
   }
 
-  // Change Menu Color
-  changeMenu(menu: any) {
+  changeMenu(menu: string): void {
     this.store.dispatch(changemenucolor({ menu }))
-    this.store.select(getMenucolor).subscribe((menucolor) => {
-      document.documentElement.setAttribute('data-menu-color', menucolor)
-    })
+    document.documentElement.setAttribute('data-menu-color', menu)
   }
 
-  // Change Sidebar Size
-  changeSize(size: any) {
+  changeSize(size: string): void {
     this.store.dispatch(changesidebarsize({ size }))
-    this.store.select(getSidebarsize).subscribe((size) => {
-      document.documentElement.setAttribute('data-sidenav-size', size)
-    })
+    document.documentElement.setAttribute('data-sidenav-size', size)
   }
 
-  // Reset Option
-  reset() {
+  reset(): void {
     this.store.dispatch(resetState())
   }
 }

@@ -1,0 +1,141 @@
+<div class="row">
+  <div class="col-12">
+    <div class="page-title-head d-flex align-items-sm-center flex-sm-row flex-column gap-2">
+      <div class="flex-grow-1">
+        <h4 class="fs-18 fw-semibold m-0">{{ 'GENERAL_LEDGER.TITLE' | translate }}</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+@if (isComingSoon) {
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body text-center p-5">
+          <i class="ti ti-clock fs-1 text-muted mb-3 d-block"></i>
+          <h5 class="fw-semibold mb-2">{{ 'WORDS.COMING_SOON' | translate }}</h5>
+          <p class="text-muted mb-0">{{ 'WORDS.COMING_SOON_DESC' | translate }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+} @else {
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup]="filterForm" (ngSubmit)="search()">
+            <div class="row g-3 align-items-end">
+              <div class="col-md-4">
+                <label class="form-label fw-medium">{{ 'GENERAL_LEDGER.FILTER.ACCOUNT' | translate }}</label>
+                <ng-select
+                  formControlName="accountId"
+                  [items]="accounts"
+                  bindValue="id"
+                  [searchable]="true"
+                  [clearable]="true"
+                  [placeholder]="'GENERAL_LEDGER.FILTER.ACCOUNT_PLACEHOLDER' | translate">
+                  <ng-template ng-label-tmp let-item="item">
+                    {{ getAccountLabel(item) }}
+                  </ng-template>
+                  <ng-template ng-option-tmp let-item="item">
+                    {{ getAccountLabel(item) }}
+                  </ng-template>
+                </ng-select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label fw-medium">{{ 'GENERAL_LEDGER.FILTER.PERIOD' | translate }}</label>
+                <ng-select
+                  formControlName="periodId"
+                  [items]="periods"
+                  bindValue="id"
+                  [searchable]="false"
+                  [clearable]="true"
+                  [placeholder]="'GENERAL_LEDGER.FILTER.PERIOD_PLACEHOLDER' | translate">
+                  <ng-template ng-label-tmp let-item="item">
+                    {{ getPeriodLabel(item) }}
+                  </ng-template>
+                  <ng-template ng-option-tmp let-item="item">
+                    {{ getPeriodLabel(item) }}
+                  </ng-template>
+                </ng-select>
+              </div>
+              <div class="col-md-4">
+                <button type="submit" class="btn btn-primary w-100" [disabled]="isLoading">
+                  <i class="ti ti-search me-1"></i>
+                  {{ 'WORDS.SEARCH' | translate }}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @if (isLoading) {
+    <div class="row mt-3">
+      <div class="col-12 text-center py-4">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+    </div>
+  } @else if (hasSearched) {
+    <div class="row mt-3">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            @if (entries.length === 0) {
+              <div class="text-center py-5 text-muted">
+                <i class="ti ti-book fs-1 d-block mb-2"></i>
+                <p class="mb-0">{{ 'GENERAL_LEDGER.EMPTY' | translate }}</p>
+              </div>
+            } @else {
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                  <thead class="table-light">
+                    <tr>
+                      <th>{{ 'GENERAL_LEDGER.TABLE.DATE' | translate }}</th>
+                      <th>{{ 'GENERAL_LEDGER.TABLE.ENTRY_NUMBER' | translate }}</th>
+                      <th>{{ 'GENERAL_LEDGER.TABLE.ACCOUNT' | translate }}</th>
+                      <th>{{ 'GENERAL_LEDGER.TABLE.DESCRIPTION' | translate }}</th>
+                      <th class="text-end">{{ 'GENERAL_LEDGER.TABLE.DEBIT' | translate }}</th>
+                      <th class="text-end">{{ 'GENERAL_LEDGER.TABLE.CREDIT' | translate }}</th>
+                      <th class="text-end">{{ 'GENERAL_LEDGER.TABLE.BALANCE' | translate }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (entry of entries; track entry.entryNumber) {
+                      <tr>
+                        <td>{{ entry.date | date: 'dd/MM/yyyy' }}</td>
+                        <td><span class="badge bg-light text-dark">{{ entry.entryNumber }}</span></td>
+                        <td>
+                          <small class="text-muted d-block">{{ entry.accountCode }}</small>
+                          {{ entry.accountName }}
+                        </td>
+                        <td>{{ entry.description }}</td>
+                        <td class="text-end">{{ entry.debit | number: '1.2-2' }}</td>
+                        <td class="text-end">{{ entry.credit | number: '1.2-2' }}</td>
+                        <td class="text-end fw-medium">{{ entry.balance | number: '1.2-2' }}</td>
+                      </tr>
+                    }
+                  </tbody>
+                  <tfoot class="table-light fw-semibold">
+                    <tr>
+                      <td colspan="4">{{ 'WORDS.TOTALS' | translate }}</td>
+                      <td class="text-end">{{ getTotalDebit() | number: '1.2-2' }}</td>
+                      <td class="text-end">{{ getTotalCredit() | number: '1.2-2' }}</td>
+                      <td></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+}
